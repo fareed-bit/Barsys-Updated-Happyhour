@@ -1,0 +1,294 @@
+/* ==========================================================================
+   Component — Navigation Bar
+   ========================================================================== */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-sticky);
+  height: var(--nav-height);
+  background-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.35s ease,
+              backdrop-filter 0.35s ease,
+              -webkit-backdrop-filter 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+}
+
+.nav--scrolled {
+  background-color: rgba(10, 10, 10, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom-color: var(--color-border);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.40);
+}
+
+/* --------------------------------------------------------------------------
+   Nav Inner
+   -------------------------------------------------------------------------- */
+.nav__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* --------------------------------------------------------------------------
+   Nav Logo
+   -------------------------------------------------------------------------- */
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav__logo-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.nav__logo-text {
+  font-size: 18px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.nav__logo-sub {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-gold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Nav Links
+   -------------------------------------------------------------------------- */
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3xl);
+  list-style: none;
+}
+
+.nav__link {
+  position: relative;
+  font-size: 12.8px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  transition: color var(--transition-fast);
+  padding-block: var(--space-xs);
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-gold);
+  transition: width var(--transition-standard);
+}
+
+.nav__link:hover {
+  color: var(--color-gold);
+}
+
+.nav__link:hover::after,
+.nav__link--active::after {
+  width: 100%;
+}
+
+.nav__link--active {
+  color: var(--color-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Nav Actions
+   -------------------------------------------------------------------------- */
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+/* --------------------------------------------------------------------------
+   Hamburger (Mobile)
+   -------------------------------------------------------------------------- */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.nav__hamburger:hover {
+  background-color: var(--color-glass);
+}
+
+.nav__hamburger-line {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background-color: var(--color-text-primary);
+  border-radius: var(--radius-pill);
+  transition: transform var(--transition-standard),
+              opacity var(--transition-standard),
+              background-color var(--transition-fast);
+  transform-origin: center;
+}
+
+/* Hamburger → X animation */
+.nav--open .nav__hamburger-line:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.nav--open .nav__hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav--open .nav__hamburger-line:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Menu
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .nav__links {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3xl);
+    background-color: rgba(10, 10, 10, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transform: translateX(100%);
+    transition: transform var(--transition-slow);
+    pointer-events: none;
+  }
+
+  .nav--open .nav__links {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .nav__link {
+    font-size: 20px;
+    letter-spacing: var(--letter-spacing-wider);
+  }
+
+  .nav__hamburger {
+    display: flex;
+  }
+
+  .nav__actions .btn-primary {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Large screens — scale up nav elements
+   -------------------------------------------------------------------------- */
+@media (min-width: 1600px) {
+  .nav__logo-mark {
+    width: 44px;
+    height: 44px;
+  }
+
+  .nav__logo-text {
+    font-size: 22px;
+  }
+
+  .nav__logo-sub {
+    font-size: 16px;
+  }
+
+  .nav__links {
+    gap: 40px;
+  }
+
+  .nav__link {
+    font-size: 14.5px;
+    font-weight: 400;
+    letter-spacing: 0.10em;
+  }
+
+  .nav__actions {
+    gap: 20px;
+  }
+
+  .nav__actions .btn--sm {
+    padding: 14px 28px;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 2200px) {
+  .nav__logo-mark {
+    width: 50px;
+    height: 50px;
+  }
+
+  .nav__logo-text {
+    font-size: 26px;
+  }
+
+  .nav__logo-sub {
+    font-size: 18px;
+  }
+
+  .nav__links {
+    gap: 48px;
+  }
+
+  .nav__link {
+    font-size: 16px;
+  }
+
+  .nav__actions .btn--sm {
+    padding: 16px 32px;
+    font-size: 17px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Nav body offset — compensate for fixed nav
+   -------------------------------------------------------------------------- */
+.nav-offset {
+  padding-top: var(--nav-height);
+}

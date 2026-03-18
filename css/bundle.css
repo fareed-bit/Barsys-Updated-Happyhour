@@ -1,0 +1,2490 @@
+/* ==========================================================================
+   Barsys Happy Hour — Design Tokens
+   Single source of truth for all design decisions.
+   Sourced from BarsysDesignSystem.swift
+   ========================================================================== */
+
+:root {
+
+  /* --------------------------------------------------------------------------
+     Colors — Backgrounds
+     -------------------------------------------------------------------------- */
+  --color-bg:        #0A0A0A;
+  --color-surface-1: #141414;
+  --color-surface-2: #1C1C1C;
+  --color-surface-3: #252525;
+
+  /* --------------------------------------------------------------------------
+     Colors — Brand Gold
+     -------------------------------------------------------------------------- */
+  --color-gold:        #C8A97E;
+  --color-gold-light:  #D4BA96;
+  --color-gold-dark:   #A8895E;
+  --color-gold-tint:   rgba(200, 169, 126, 0.08);
+  --color-gold-glow:   rgba(200, 169, 126, 0.20);
+  --color-gold-border: rgba(200, 169, 126, 0.30);
+
+  /* --------------------------------------------------------------------------
+     Colors — Text Hierarchy
+     -------------------------------------------------------------------------- */
+  --color-text-primary:   #FFFFFF;
+  --color-text-secondary: rgba(255, 255, 255, 0.60);
+  --color-text-tertiary:  rgba(255, 255, 255, 0.40);
+  --color-text-ghost:     rgba(255, 255, 255, 0.20);
+  --color-text-inverse:   #0A0A0A;
+
+  /* --------------------------------------------------------------------------
+     Colors — Borders & Glass
+     -------------------------------------------------------------------------- */
+  --color-border:       rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+  --color-glass:        rgba(255, 255, 255, 0.04);
+  --color-glass-strong: rgba(255, 255, 255, 0.08);
+
+  /* --------------------------------------------------------------------------
+     Colors — Semantic
+     -------------------------------------------------------------------------- */
+  --color-success: #4CAF7D;
+  --color-warning: #E8B84B;
+  --color-error:   #E85454;
+
+  /* --------------------------------------------------------------------------
+     Colors — Pure
+     -------------------------------------------------------------------------- */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  /* --------------------------------------------------------------------------
+     Typography — Font Family
+     -------------------------------------------------------------------------- */
+  --font-family-base:    'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
+  --font-family-display: 'Inter', 'SF Pro Display', system-ui, sans-serif;
+
+  /* --------------------------------------------------------------------------
+     Typography — Scale
+     -------------------------------------------------------------------------- */
+  --font-size-display: clamp(52px, 8vw, 96px);
+  --font-size-h1:      clamp(40px, 6vw, 64px);
+  --font-size-h2:      clamp(28px, 4vw, 48px);
+  --font-size-h3:      24px;
+  --font-size-body:    16px;
+  --font-size-body-sm: 14px;
+  --font-size-label:   10px;
+  --font-size-btn:     15px;
+  --font-size-btn-sm:  11px;
+
+  /* --------------------------------------------------------------------------
+     Typography — Weights
+     -------------------------------------------------------------------------- */
+  --font-weight-thin:       100;
+  --font-weight-ultralight: 200;
+  --font-weight-light:      300;
+  --font-weight-regular:    400;
+  --font-weight-medium:     500;
+  --font-weight-semibold:   600;
+  --font-weight-bold:       700;
+
+  /* --------------------------------------------------------------------------
+     Typography — Line Heights
+     -------------------------------------------------------------------------- */
+  --line-height-tight:  1.1;
+  --line-height-snug:   1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* --------------------------------------------------------------------------
+     Typography — Letter Spacing
+     -------------------------------------------------------------------------- */
+  --letter-spacing-tighter: -0.03em;
+  --letter-spacing-tight:   -0.02em;
+  --letter-spacing-normal:   0em;
+  --letter-spacing-wide:     0.04em;
+  --letter-spacing-wider:    0.08em;
+  --letter-spacing-widest:   0.12em;
+
+  /* --------------------------------------------------------------------------
+     Spacing Scale
+     -------------------------------------------------------------------------- */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  12px;
+  --space-lg:  16px;
+  --space-xl:  20px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+  --space-4xl: 48px;
+  --space-5xl: 64px;
+  --space-6xl: 96px;
+
+  /* --------------------------------------------------------------------------
+     Border Radius
+     -------------------------------------------------------------------------- */
+  --radius-xs:   4px;
+  --radius-sm:   7px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-2xl:  28px;
+  --radius-pill: 100px;
+
+  /* --------------------------------------------------------------------------
+     Shadows
+     -------------------------------------------------------------------------- */
+  --shadow-sm:    0 2px 8px  rgba(0, 0, 0, 0.30);
+  --shadow-md:    0 4px 16px rgba(0, 0, 0, 0.40);
+  --shadow-lg:    0 8px 32px rgba(0, 0, 0, 0.50);
+  --shadow-xl:    0 16px 48px rgba(0, 0, 0, 0.60);
+  --shadow-gold:  0 0 24px   rgba(200, 169, 126, 0.15);
+  --shadow-gold-strong: 0 0 40px rgba(200, 169, 126, 0.25);
+
+  /* --------------------------------------------------------------------------
+     Transitions
+     -------------------------------------------------------------------------- */
+  --transition-fast:     150ms ease-out;
+  --transition-standard: 250ms ease-in-out;
+  --transition-slow:     400ms ease-in-out;
+
+  /* Spring-like timing for interactive elements */
+  --transition-spring:   350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* --------------------------------------------------------------------------
+     Z-Index Scale
+     -------------------------------------------------------------------------- */
+  --z-below:   -1;
+  --z-base:     0;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+
+  /* --------------------------------------------------------------------------
+     Layout
+     -------------------------------------------------------------------------- */
+  --container-max:     1192px;
+  --container-padding: clamp(20px, 5vw, 128px);
+  --nav-height:        72px;
+  --section-padding:   clamp(80px, 12vw, 178px);
+}
+
+/* --------------------------------------------------------------------------
+   Large / QHD+ screens (1440p and above)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1600px) {
+  :root {
+    --container-max:     1440px;
+    --font-size-body:    18px;
+    --font-size-body-sm: 16px;
+    --font-size-label:   12px;
+    --font-size-h3:      28px;
+    --font-size-btn:     17px;
+    --font-size-btn-sm:  13px;
+    --nav-height:        96px;
+  }
+}
+
+@media (min-width: 2200px) {
+  :root {
+    --container-max:     1600px;
+    --font-size-body:    20px;
+    --font-size-body-sm: 17px;
+    --font-size-label:   13px;
+    --font-size-h3:      32px;
+    --font-size-btn:     18px;
+    --font-size-btn-sm:  14px;
+    --nav-height:        108px;
+  }
+}
+/* ==========================================================================
+   Barsys Happy Hour — Modern CSS Reset
+   ========================================================================== */
+
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margins & paddings */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* HTML & Body */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Form elements inherit font */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Avoid text overflow */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* Remove list styles when using list role */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Remove default list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove default button styles */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* Anchor tags */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Table */
+table {
+  border-collapse: collapse;
+}
+
+/* Focus-visible only */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Horizontal rule */
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ==========================================================================
+   Barsys Happy Hour — Base Styles & Typography Scale
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Base HTML / Body
+   -------------------------------------------------------------------------- */
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+}
+
+/* --------------------------------------------------------------------------
+   Typography — Semantic Elements (reset to classes)
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+}
+
+p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* --------------------------------------------------------------------------
+   Typography — Display Class (hero headlines)
+   -------------------------------------------------------------------------- */
+.type-display {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-thin);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Typography — Heading Classes
+   -------------------------------------------------------------------------- */
+.type-h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-ultralight);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-primary);
+}
+
+.type-h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-primary);
+}
+
+.type-h3 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--color-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Typography — Body Classes
+   -------------------------------------------------------------------------- */
+.type-body {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.type-body-sm {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   Typography — Label / Eyebrow
+   -------------------------------------------------------------------------- */
+.type-label {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.type-label-sm {
+  font-size: 9px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   Typography — Modifiers
+   -------------------------------------------------------------------------- */
+.type-gold {
+  color: var(--color-gold);
+}
+
+.type-secondary {
+  color: var(--color-text-secondary);
+}
+
+.type-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   Links
+   -------------------------------------------------------------------------- */
+a {
+  color: var(--color-gold);
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-gold-light);
+}
+
+/* --------------------------------------------------------------------------
+   Selection
+   -------------------------------------------------------------------------- */
+::selection {
+  background-color: var(--color-gold-glow);
+  color: var(--color-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Scrollbar
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-3);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-border);
+}
+/* ==========================================================================
+   Barsys Happy Hour — Utility Classes
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Layout — Container
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* --------------------------------------------------------------------------
+   Layout — Sections
+   -------------------------------------------------------------------------- */
+.section {
+  padding-block: var(--section-padding);
+}
+
+.section--dark {
+  background-color: var(--color-bg);
+}
+
+.section--surface {
+  background-color: var(--color-surface-1);
+}
+
+.section--raised {
+  background-color: var(--color-surface-2);
+}
+
+/* Section with gold top border accent */
+.section--accent-top {
+  border-top: 1px solid var(--color-gold-border);
+}
+
+/* --------------------------------------------------------------------------
+   Layout — Grid
+   -------------------------------------------------------------------------- */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2xl);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2xl);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+}
+
+@media (max-width: 1024px) {
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Layout — Flex Helpers
+   -------------------------------------------------------------------------- */
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.gap-sm  { gap: var(--space-sm); }
+.gap-md  { gap: var(--space-md); }
+.gap-lg  { gap: var(--space-lg); }
+.gap-xl  { gap: var(--space-xl); }
+.gap-2xl { gap: var(--space-2xl); }
+.gap-3xl { gap: var(--space-3xl); }
+
+/* --------------------------------------------------------------------------
+   Text Alignment
+   -------------------------------------------------------------------------- */
+.text-left   { text-align: left; }
+.text-center { text-align: center; }
+.text-right  { text-align: right; }
+
+/* --------------------------------------------------------------------------
+   Color Utilities
+   -------------------------------------------------------------------------- */
+.gold-text {
+  color: var(--color-gold);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   Background Utilities
+   -------------------------------------------------------------------------- */
+.bg-gold-tint {
+  background-color: var(--color-gold-tint);
+}
+
+.bg-glass {
+  background-color: var(--color-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.bg-glass-strong {
+  background-color: var(--color-glass-strong);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* --------------------------------------------------------------------------
+   Border Utilities
+   -------------------------------------------------------------------------- */
+.gold-border {
+  border: 1px solid var(--color-gold-border);
+}
+
+.border-subtle {
+  border: 1px solid var(--color-border);
+}
+
+/* --------------------------------------------------------------------------
+   Glass Card
+   -------------------------------------------------------------------------- */
+.glass-card {
+  background-color: var(--color-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+/* --------------------------------------------------------------------------
+   Gold Divider
+   -------------------------------------------------------------------------- */
+.divider-gold {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+  margin-block: var(--space-2xl);
+}
+
+.divider-gold--center {
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Spacing Utilities
+   -------------------------------------------------------------------------- */
+.mt-sm  { margin-top: var(--space-sm); }
+.mt-md  { margin-top: var(--space-md); }
+.mt-lg  { margin-top: var(--space-lg); }
+.mt-xl  { margin-top: var(--space-xl); }
+.mt-2xl { margin-top: var(--space-2xl); }
+.mt-3xl { margin-top: var(--space-3xl); }
+.mt-4xl { margin-top: var(--space-4xl); }
+
+.mb-sm  { margin-bottom: var(--space-sm); }
+.mb-md  { margin-bottom: var(--space-md); }
+.mb-lg  { margin-bottom: var(--space-lg); }
+.mb-xl  { margin-bottom: var(--space-xl); }
+.mb-2xl { margin-bottom: var(--space-2xl); }
+.mb-3xl { margin-bottom: var(--space-3xl); }
+.mb-4xl { margin-bottom: var(--space-4xl); }
+
+/* --------------------------------------------------------------------------
+   Accessibility — Screen Reader Only
+   -------------------------------------------------------------------------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Visibility
+   -------------------------------------------------------------------------- */
+.hidden {
+  display: none !important;
+}
+
+.invisible {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Overflow
+   -------------------------------------------------------------------------- */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Full Width / Height
+   -------------------------------------------------------------------------- */
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+/* --------------------------------------------------------------------------
+   Max Width Helpers
+   -------------------------------------------------------------------------- */
+.max-w-sm  { max-width: 480px; }
+.max-w-md  { max-width: 640px; }
+.max-w-lg  { max-width: 800px; }
+.max-w-xl  { max-width: 960px; }
+.max-w-2xl { max-width: 1200px; }
+
+/* Apply centering along with max-width */
+.mx-auto { margin-inline: auto; }
+
+/* --------------------------------------------------------------------------
+   Gold Shimmer Animation
+   Used for skeleton loading states
+   -------------------------------------------------------------------------- */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 25%,
+    var(--color-surface-3) 50%,
+    var(--color-surface-2) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Fade-in Animation (used for scroll reveal)
+   -------------------------------------------------------------------------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp var(--transition-slow) ease-out both;
+}
+
+/* Stagger delays for child elements */
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 80ms; }
+.stagger > *:nth-child(3) { animation-delay: 160ms; }
+.stagger > *:nth-child(4) { animation-delay: 240ms; }
+.stagger > *:nth-child(5) { animation-delay: 320ms; }
+.stagger > *:nth-child(6) { animation-delay: 400ms; }
+/* ==========================================================================
+   Component — Navigation Bar
+   ========================================================================== */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-sticky);
+  height: var(--nav-height);
+  background-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.35s ease,
+              backdrop-filter 0.35s ease,
+              -webkit-backdrop-filter 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+}
+
+.nav--scrolled {
+  background-color: rgba(10, 10, 10, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom-color: var(--color-border);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.40);
+}
+
+/* --------------------------------------------------------------------------
+   Nav Inner
+   -------------------------------------------------------------------------- */
+.nav__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* --------------------------------------------------------------------------
+   Nav Logo
+   -------------------------------------------------------------------------- */
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav__logo-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.nav__logo-text {
+  font-size: 18px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.nav__logo-sub {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-gold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Nav Links
+   -------------------------------------------------------------------------- */
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3xl);
+  list-style: none;
+}
+
+.nav__link {
+  position: relative;
+  font-size: 12.8px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  transition: color var(--transition-fast);
+  padding-block: var(--space-xs);
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-gold);
+  transition: width var(--transition-standard);
+}
+
+.nav__link:hover {
+  color: var(--color-gold);
+}
+
+.nav__link:hover::after,
+.nav__link--active::after {
+  width: 100%;
+}
+
+.nav__link--active {
+  color: var(--color-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Nav Actions
+   -------------------------------------------------------------------------- */
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+/* --------------------------------------------------------------------------
+   Hamburger (Mobile)
+   -------------------------------------------------------------------------- */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.nav__hamburger:hover {
+  background-color: var(--color-glass);
+}
+
+.nav__hamburger-line {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background-color: var(--color-text-primary);
+  border-radius: var(--radius-pill);
+  transition: transform var(--transition-standard),
+              opacity var(--transition-standard),
+              background-color var(--transition-fast);
+  transform-origin: center;
+}
+
+/* Hamburger → X animation */
+.nav--open .nav__hamburger-line:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.nav--open .nav__hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav--open .nav__hamburger-line:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Menu
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .nav__links {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3xl);
+    background-color: rgba(10, 10, 10, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transform: translateX(100%);
+    transition: transform var(--transition-slow);
+    pointer-events: none;
+  }
+
+  .nav--open .nav__links {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .nav__link {
+    font-size: 20px;
+    letter-spacing: var(--letter-spacing-wider);
+  }
+
+  .nav__hamburger {
+    display: flex;
+  }
+
+  .nav__actions .btn-primary {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Large screens — scale up nav elements
+   -------------------------------------------------------------------------- */
+@media (min-width: 1600px) {
+  .nav__logo-mark {
+    width: 44px;
+    height: 44px;
+  }
+
+  .nav__logo-text {
+    font-size: 22px;
+  }
+
+  .nav__logo-sub {
+    font-size: 16px;
+  }
+
+  .nav__links {
+    gap: 40px;
+  }
+
+  .nav__link {
+    font-size: 14.5px;
+    font-weight: 400;
+    letter-spacing: 0.10em;
+  }
+
+  .nav__actions {
+    gap: 20px;
+  }
+
+  .nav__actions .btn--sm {
+    padding: 14px 28px;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 2200px) {
+  .nav__logo-mark {
+    width: 50px;
+    height: 50px;
+  }
+
+  .nav__logo-text {
+    font-size: 26px;
+  }
+
+  .nav__logo-sub {
+    font-size: 18px;
+  }
+
+  .nav__links {
+    gap: 48px;
+  }
+
+  .nav__link {
+    font-size: 16px;
+  }
+
+  .nav__actions .btn--sm {
+    padding: 16px 32px;
+    font-size: 17px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Nav body offset — compensate for fixed nav
+   -------------------------------------------------------------------------- */
+.nav-offset {
+  padding-top: var(--nav-height);
+}
+/* ==========================================================================
+   Component — Buttons
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Base Button
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-family: var(--font-family-base);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--transition-standard),
+              border-color var(--transition-standard),
+              color var(--transition-standard),
+              box-shadow var(--transition-standard),
+              transform var(--transition-fast);
+  -webkit-user-select: none;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  /* Default (medium) size — matches template 20.8px 32px */
+  padding: 20px 32px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* --------------------------------------------------------------------------
+   Button — Primary (Gold fill, black text)
+   Main CTA — "Book an Event", "Get a Quote"
+   -------------------------------------------------------------------------- */
+.btn-primary {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-text-inverse);
+  box-shadow: 0 2px 12px var(--color-gold-glow);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-gold-light);
+  border-color: var(--color-gold-light);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-gold-strong);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  background-color: var(--color-gold-dark);
+  border-color: var(--color-gold-dark);
+  transform: translateY(0) scale(0.97);
+}
+
+/* Shimmer effect on primary button */
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.20),
+    transparent
+  );
+  transform: skewX(-20deg) translateZ(0);
+  transition: left 0.6s ease;
+  will-change: left;
+}
+
+.btn-primary:hover::before {
+  left: 150%;
+}
+
+/* --------------------------------------------------------------------------
+   Button — Outline (transparent bg, gold border & text)
+   Secondary CTA — "See Packages", "Learn More"
+   -------------------------------------------------------------------------- */
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--color-gold-border);
+  color: var(--color-gold);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-gold-tint);
+  border-color: var(--color-gold);
+  color: var(--color-gold-light);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-1px);
+}
+
+.btn-outline:active {
+  background-color: rgba(200, 169, 126, 0.12);
+  transform: translateY(0) scale(0.97);
+}
+
+/* --------------------------------------------------------------------------
+   Button — Ghost (no border, text only)
+   Tertiary — nav links, "read more"
+   -------------------------------------------------------------------------- */
+.btn-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-text-secondary);
+  padding-inline: var(--space-lg);
+}
+
+.btn-ghost:hover {
+  color: var(--color-gold);
+  background-color: var(--color-gold-tint);
+}
+
+/* --------------------------------------------------------------------------
+   Button — White (on dark/gold backgrounds)
+   -------------------------------------------------------------------------- */
+.btn-white {
+  background-color: var(--color-white);
+  border-color: var(--color-white);
+  color: var(--color-text-inverse);
+}
+
+.btn-white:hover {
+  background-color: rgba(255, 255, 255, 0.88);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   Button — Sizes
+   -------------------------------------------------------------------------- */
+.btn--sm {
+  font-size: 13px;
+  padding: 14px 24px;
+}
+
+.btn--md {
+  /* Default — already defined above */
+}
+
+.btn--lg {
+  font-size: 17px;
+  padding: 24px 40px;
+}
+
+/* --------------------------------------------------------------------------
+   Button — Icon
+   -------------------------------------------------------------------------- */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: var(--radius-md);
+  background-color: var(--color-glass);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast);
+}
+
+.btn-icon:hover {
+  background-color: var(--color-gold-tint);
+  border-color: var(--color-gold-border);
+  color: var(--color-gold);
+}
+
+.btn-icon--circle {
+  border-radius: var(--radius-pill);
+}
+
+/* --------------------------------------------------------------------------
+   Button — Disabled State
+   -------------------------------------------------------------------------- */
+.btn:disabled,
+.btn--disabled {
+  opacity: 0.40;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Button — Loading State
+   -------------------------------------------------------------------------- */
+.btn--loading {
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.btn--loading::after {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.6s linear infinite;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   Button Group
+   -------------------------------------------------------------------------- */
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.btn-group--center {
+  justify-content: center;
+}
+/* ==========================================================================
+   Component — Badge / Eyebrow Label
+   Used as section identifiers (e.g. "WHY BARSYS", "PRICING", "FEATURES")
+   ========================================================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  border: 1px solid var(--color-gold-border);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-gold-tint);
+
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+/* Small dot indicator before label text */
+.badge::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Variant — Gold Fill (highlight badges)
+   -------------------------------------------------------------------------- */
+.badge--fill {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-text-inverse);
+}
+
+.badge--fill::before {
+  background-color: var(--color-text-inverse);
+}
+
+/* --------------------------------------------------------------------------
+   Variant — Subtle (less prominent)
+   -------------------------------------------------------------------------- */
+.badge--subtle {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-tertiary);
+}
+
+.badge--subtle::before {
+  background-color: var(--color-text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   Variant — No dot (icon badge)
+   -------------------------------------------------------------------------- */
+.badge--no-dot::before {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Size — Large (for hero/prominent callouts)
+   -------------------------------------------------------------------------- */
+.badge--lg {
+  padding: var(--space-sm) var(--space-lg);
+  font-size: 11px;
+  gap: var(--space-md);
+}
+
+/* --------------------------------------------------------------------------
+   Most Popular Tag (Pricing card)
+   -------------------------------------------------------------------------- */
+.badge--popular {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-text-inverse);
+  box-shadow: 0 2px 12px var(--color-gold-glow);
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Star Badge (reviews / social proof)
+   -------------------------------------------------------------------------- */
+.badge--stars {
+  background-color: rgba(200, 169, 126, 0.12);
+  border-color: var(--color-gold-border);
+  color: var(--color-gold);
+  font-size: 12px;
+  padding: var(--space-sm) var(--space-lg);
+  gap: var(--space-xs);
+}
+
+.badge--stars::before {
+  display: none;
+}
+
+.badge__star {
+  font-size: 12px;
+  line-height: 1;
+}
+/* ==========================================================================
+   Component — Section Header
+   Reusable heading block: badge + title + optional subtitle + optional CTA
+   ========================================================================== */
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+
+/* Centered variant */
+.section-header--center {
+  align-items: center;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   Elements
+   -------------------------------------------------------------------------- */
+.section-header__badge {
+  /* Uses .badge component */
+}
+
+.section-header__title {
+  /* Uses type-h1 or type-h2 classes */
+  max-width: 720px;
+}
+
+.section-header--center .section-header__title {
+  margin-inline: auto;
+}
+
+.section-header__subtitle {
+  /* Uses type-body class */
+  max-width: 560px;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.section-header--center .section-header__subtitle {
+  margin-inline: auto;
+}
+
+.section-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  margin-top: var(--space-sm);
+}
+
+.section-header--center .section-header__actions {
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   Gold accent line below badge
+   -------------------------------------------------------------------------- */
+.section-header__divider {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+}
+
+.section-header--center .section-header__divider {
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Two-column layout variant (left text + right actions)
+   -------------------------------------------------------------------------- */
+.section-header--split {
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3xl);
+}
+
+.section-header--split .section-header__content {
+  flex: 1;
+}
+
+.section-header--split .section-header__actions {
+  flex-shrink: 0;
+  margin-top: 0;
+  align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  .section-header--split {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Large Display variant (hero-style section headers)
+   -------------------------------------------------------------------------- */
+.section-header--display .section-header__title {
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-thin);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
+  max-width: 900px;
+}
+
+/* --------------------------------------------------------------------------
+   Gold highlighted word in title
+   -------------------------------------------------------------------------- */
+.section-header__title .highlight {
+  color: var(--color-gold);
+  font-style: italic;
+}
+/* ==========================================================================
+   Component — Cards
+   Three types: Feature Card, Pricing Card, Stat Card
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Feature Card
+   Used in: "Why Barsys" grid, Features Grid (6 cards), Use Cases
+   -------------------------------------------------------------------------- */
+.card-feature {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-3xl);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-standard),
+              box-shadow var(--transition-standard),
+              transform var(--transition-standard);
+}
+
+.card-feature:hover {
+  border-color: var(--color-gold-border);
+  box-shadow: var(--shadow-gold), var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+/* Gold icon container */
+.card-feature__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: var(--color-gold-tint);
+  border: 1px solid var(--color-gold-border);
+  border-radius: var(--radius-md);
+  color: var(--color-gold);
+  font-size: 20px;
+  flex-shrink: 0;
+  transition: background-color var(--transition-standard),
+              box-shadow var(--transition-standard);
+}
+
+.card-feature:hover .card-feature__icon {
+  background-color: rgba(200, 169, 126, 0.14);
+  box-shadow: 0 0 16px var(--color-gold-glow);
+}
+
+.card-feature__title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+}
+
+.card-feature__body {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  flex: 1;
+}
+
+.card-feature__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gold);
+  text-decoration: none;
+  transition: gap var(--transition-fast),
+              color var(--transition-fast);
+  margin-top: auto;
+}
+
+.card-feature__link:hover {
+  color: var(--color-gold-light);
+  gap: var(--space-md);
+}
+
+.card-feature__link-arrow {
+  font-size: 14px;
+  transition: transform var(--transition-fast);
+}
+
+.card-feature__link:hover .card-feature__link-arrow {
+  transform: translateX(3px);
+}
+
+/* Background image variant */
+.card-feature--image {
+  min-height: 280px;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-feature--image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 10, 0.90) 0%,
+    rgba(10, 10, 10, 0.40) 60%,
+    transparent 100%
+  );
+  border-radius: inherit;
+}
+
+.card-feature--image > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card-feature--image .card-feature__title,
+.card-feature--image .card-feature__body {
+  margin-top: auto;
+}
+
+/* Gold accent card variant */
+.card-feature--gold {
+  background: linear-gradient(
+    135deg,
+    rgba(200, 169, 126, 0.12) 0%,
+    rgba(200, 169, 126, 0.04) 100%
+  );
+  border-color: var(--color-gold-border);
+}
+
+/* --------------------------------------------------------------------------
+   Pricing Card
+   Used in: Pricing section (Classic, Signature, Reserve)
+   -------------------------------------------------------------------------- */
+.card-pricing {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+  padding: 40px;
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  transition: border-color var(--transition-standard),
+              box-shadow var(--transition-standard),
+              transform var(--transition-standard);
+}
+
+.card-pricing:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Featured / Most Popular variant */
+.card-pricing--featured {
+  background-color: var(--color-surface-2);
+  background-image: linear-gradient(
+    135deg,
+    rgba(200, 169, 126, 0.08) 0%,
+    rgba(200, 169, 126, 0.02) 100%
+  );
+  border-color: var(--color-gold-border);
+  box-shadow: var(--shadow-gold);
+}
+
+.card-pricing--featured:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-gold-strong), var(--shadow-lg);
+}
+
+/* Tier label */
+.card-pricing__tier {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* Price */
+.card-pricing__price-block {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+}
+
+.card-pricing__price {
+  font-size: clamp(40px, 5vw, 52px);
+  font-weight: var(--font-weight-thin);
+  color: var(--color-text-primary);
+  line-height: 1;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.card-pricing__period {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Description */
+.card-pricing__description {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Divider */
+.card-pricing__divider {
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+/* Features list */
+.card-pricing__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  flex: 1;
+}
+
+.card-pricing__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-snug);
+}
+
+.card-pricing__check {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-gold-tint);
+  border: 1px solid var(--color-gold-border);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+.card-pricing__feature--excluded {
+  opacity: 0.40;
+}
+
+.card-pricing__feature--excluded .card-pricing__check {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-tertiary);
+}
+
+/* CTA */
+.card-pricing__cta {
+  margin-top: auto;
+}
+
+.card-pricing__cta .btn {
+  width: 100%;
+}
+
+/* Membership badge */
+.card-pricing__savings {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 11px;
+  color: var(--color-gold);
+  background-color: var(--color-gold-tint);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+/* --------------------------------------------------------------------------
+   Stat Card
+   Used in: Stats section (quick numbers / social proof)
+   -------------------------------------------------------------------------- */
+.card-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-3xl) var(--space-2xl);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: border-color var(--transition-standard),
+              transform var(--transition-standard);
+}
+
+.card-stat:hover {
+  border-color: var(--color-gold-border);
+  transform: translateY(-2px);
+}
+
+.card-stat__number {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: var(--font-weight-thin);
+  color: var(--color-gold);
+  line-height: 1;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.card-stat__suffix {
+  font-size: 0.5em;
+  vertical-align: super;
+  color: var(--color-gold);
+}
+
+.card-stat__label {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* Gold variant */
+.card-stat--gold {
+  background: linear-gradient(135deg, rgba(200,169,126,0.14), rgba(200,169,126,0.04));
+  border-color: var(--color-gold-border);
+}
+
+/* --------------------------------------------------------------------------
+   Testimonial Card
+   Used in: Carousel slides
+   -------------------------------------------------------------------------- */
+.card-testimonial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  padding: var(--space-3xl);
+  background-color: var(--color-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.card-testimonial__quote-mark {
+  font-size: 48px;
+  line-height: 1;
+  color: var(--color-gold);
+  font-family: Georgia, serif;
+  margin-bottom: calc(-1 * var(--space-xl));
+}
+
+.card-testimonial__quote {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  font-style: italic;
+  flex: 1;
+}
+
+.card-testimonial__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.card-testimonial__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-surface-3);
+  border: 2px solid var(--color-gold-border);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.card-testimonial__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-testimonial__name {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.card-testimonial__role {
+  font-size: var(--font-size-label);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+/* Stars rating */
+.card-testimonial__stars {
+  display: flex;
+  gap: 3px;
+  color: var(--color-gold);
+  font-size: 13px;
+}
+/* ==========================================================================
+   Component — Accordion
+   Used in: FAQ section
+   ========================================================================== */
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--color-border);
+}
+
+/* --------------------------------------------------------------------------
+   Accordion Item
+   -------------------------------------------------------------------------- */
+.accordion__item {
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-fast);
+}
+
+/* --------------------------------------------------------------------------
+   Accordion Trigger (clickable header)
+   -------------------------------------------------------------------------- */
+.accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  width: 100%;
+  padding: var(--space-2xl) 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--transition-fast);
+}
+
+.accordion__trigger:hover .accordion__question {
+  color: var(--color-gold);
+}
+
+.accordion__question {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+  transition: color var(--transition-fast);
+}
+
+/* Chevron icon */
+.accordion__chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  background-color: var(--color-glass);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-size: 12px;
+  transition: transform var(--transition-standard),
+              background-color var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+.accordion__item--open .accordion__chevron {
+  transform: rotate(180deg);
+  background-color: var(--color-gold-tint);
+  border-color: var(--color-gold-border);
+}
+
+/* --------------------------------------------------------------------------
+   Accordion Content (collapsible)
+   -------------------------------------------------------------------------- */
+.accordion__content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-standard);
+  overflow: hidden;
+}
+
+.accordion__item--open .accordion__content {
+  grid-template-rows: 1fr;
+}
+
+.accordion__content-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.accordion__answer {
+  padding-bottom: var(--space-2xl);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* --------------------------------------------------------------------------
+   Open state styling
+   -------------------------------------------------------------------------- */
+.accordion__item--open .accordion__question {
+  color: var(--color-gold);
+}
+
+/* Number prefix variant (for ordered FAQ lists) */
+.accordion--numbered .accordion__question::before {
+  content: counter(faq-item, decimal-leading-zero) '. ';
+  counter-increment: faq-item;
+  color: var(--color-text-tertiary);
+  margin-right: var(--space-sm);
+}
+
+.accordion--numbered {
+  counter-reset: faq-item;
+}
+/* ==========================================================================
+   Component — Timeline / Process Steps
+   Used in: "How It Works" / "Steps from Booking to Epic Event" section
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Horizontal layout (desktop default)
+   -------------------------------------------------------------------------- */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+  position: relative;
+}
+
+/* Connecting line between steps */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: calc(100% / 8);
+  right: calc(100% / 8);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold-border) 20%,
+    var(--color-gold-border) 80%,
+    transparent
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Timeline Item
+   -------------------------------------------------------------------------- */
+.timeline__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xl);
+  padding: 0 var(--space-xl);
+  position: relative;
+  z-index: 1;
+}
+
+.timeline__item:first-child {
+  padding-left: 0;
+}
+
+.timeline__item:last-child {
+  padding-right: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Step Number Circle
+   -------------------------------------------------------------------------- */
+.timeline__number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-gold-border);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  flex-shrink: 0;
+  position: relative;
+  transition: background-color var(--transition-standard),
+              box-shadow var(--transition-standard);
+}
+
+.timeline__item:hover .timeline__number {
+  background-color: var(--color-gold-tint);
+  box-shadow: 0 0 20px var(--color-gold-glow);
+}
+
+/* Active step */
+.timeline__item--active .timeline__number {
+  background-color: var(--color-gold);
+  color: var(--color-text-inverse);
+  border-color: var(--color-gold);
+  box-shadow: 0 0 24px var(--color-gold-glow);
+}
+
+/* --------------------------------------------------------------------------
+   Content
+   -------------------------------------------------------------------------- */
+.timeline__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.timeline__label {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.timeline__title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+}
+
+.timeline__description {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* --------------------------------------------------------------------------
+   Vertical layout (mobile)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .timeline::before {
+    display: none;
+  }
+
+  .timeline__item {
+    flex-direction: row;
+    padding: 0 0 var(--space-3xl) 0;
+    gap: var(--space-xl);
+    align-items: flex-start;
+  }
+
+  .timeline__item:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Vertical connector line */
+  .timeline__item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 56px;
+    left: 27px;
+    width: 1px;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      var(--color-gold-border),
+      transparent
+    );
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Numbered list variant (for services/use cases)
+   -------------------------------------------------------------------------- */
+.timeline--list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline--list::before {
+  display: none;
+}
+
+.timeline--list .timeline__item {
+  flex-direction: row;
+  align-items: flex-start;
+  padding: var(--space-2xl) 0;
+  border-bottom: 1px solid var(--color-border);
+  gap: var(--space-2xl);
+}
+
+.timeline--list .timeline__item:last-child {
+  border-bottom: none;
+}
+
+.timeline--list .timeline__number {
+  font-size: 28px;
+  font-weight: var(--font-weight-thin);
+  color: var(--color-gold);
+  background: none;
+  border: none;
+  width: auto;
+  height: auto;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.timeline--list .timeline__item:hover .timeline__number {
+  background: none;
+  box-shadow: none;
+}
+/* ==========================================================================
+   Component — Footer
+   ========================================================================== */
+
+.footer {
+  background-color: var(--color-surface-1);
+  border-top: 1px solid var(--color-gold-border);
+}
+
+/* --------------------------------------------------------------------------
+   Footer Main (multi-column grid)
+   -------------------------------------------------------------------------- */
+.footer__main {
+  padding-block: var(--space-6xl);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--space-5xl);
+}
+
+@media (max-width: 1024px) {
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4xl);
+  }
+}
+
+@media (max-width: 640px) {
+  .footer__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3xl);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Footer Brand Column
+   -------------------------------------------------------------------------- */
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.footer__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  text-decoration: none;
+}
+
+.footer__logo-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.footer__logo-text {
+  font-size: 18px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.footer__logo-sub {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-gold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.footer__tagline {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-tertiary);
+  line-height: var(--line-height-relaxed);
+  max-width: 280px;
+}
+
+/* Social links */
+.footer__social {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-glass);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-tertiary);
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast);
+  font-size: 14px;
+}
+
+.footer__social-link:hover {
+  background-color: var(--color-gold-tint);
+  border-color: var(--color-gold-border);
+  color: var(--color-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Footer Nav Columns
+   -------------------------------------------------------------------------- */
+.footer__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.footer__column-title {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.footer__link {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.footer__link:hover {
+  color: var(--color-gold);
+}
+
+/* Contact info */
+.footer__contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-tertiary);
+}
+
+.footer__contact-icon {
+  color: var(--color-gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: 13px;
+}
+
+/* --------------------------------------------------------------------------
+   Footer Bottom Bar
+   -------------------------------------------------------------------------- */
+.footer__bottom {
+  padding-block: var(--space-2xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer__bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2xl);
+  flex-wrap: wrap;
+}
+
+.footer__copyright {
+  font-size: var(--font-size-label);
+  color: var(--color-text-ghost);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.footer__legal-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xl);
+}
+
+.footer__legal-link {
+  font-size: var(--font-size-label);
+  color: var(--color-text-ghost);
+  text-decoration: none;
+  letter-spacing: var(--letter-spacing-wide);
+  transition: color var(--transition-fast);
+}
+
+.footer__legal-link:hover {
+  color: var(--color-gold);
+}
+
+@media (max-width: 640px) {
+  .footer__bottom-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-lg);
+  }
+}

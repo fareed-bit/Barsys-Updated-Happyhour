@@ -1,0 +1,115 @@
+/* ==========================================================================
+   Component — Section Header
+   Reusable heading block: badge + title + optional subtitle + optional CTA
+   ========================================================================== */
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+
+/* Centered variant */
+.section-header--center {
+  align-items: center;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   Elements
+   -------------------------------------------------------------------------- */
+.section-header__badge {
+  /* Uses .badge component */
+}
+
+.section-header__title {
+  /* Uses type-h1 or type-h2 classes */
+  max-width: 720px;
+}
+
+.section-header--center .section-header__title {
+  margin-inline: auto;
+}
+
+.section-header__subtitle {
+  /* Uses type-body class */
+  max-width: 560px;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.section-header--center .section-header__subtitle {
+  margin-inline: auto;
+}
+
+.section-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  margin-top: var(--space-sm);
+}
+
+.section-header--center .section-header__actions {
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   Gold accent line below badge
+   -------------------------------------------------------------------------- */
+.section-header__divider {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+}
+
+.section-header--center .section-header__divider {
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Two-column layout variant (left text + right actions)
+   -------------------------------------------------------------------------- */
+.section-header--split {
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3xl);
+}
+
+.section-header--split .section-header__content {
+  flex: 1;
+}
+
+.section-header--split .section-header__actions {
+  flex-shrink: 0;
+  margin-top: 0;
+  align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  .section-header--split {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Large Display variant (hero-style section headers)
+   -------------------------------------------------------------------------- */
+.section-header--display .section-header__title {
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-thin);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
+  max-width: 900px;
+}
+
+/* --------------------------------------------------------------------------
+   Gold highlighted word in title
+   -------------------------------------------------------------------------- */
+.section-header__title .highlight {
+  color: var(--color-gold);
+  font-style: italic;
+}

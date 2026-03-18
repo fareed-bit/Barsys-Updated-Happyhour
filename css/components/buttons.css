@@ -1,0 +1,239 @@
+/* ==========================================================================
+   Component — Buttons
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Base Button
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-family: var(--font-family-base);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--transition-standard),
+              border-color var(--transition-standard),
+              color var(--transition-standard),
+              box-shadow var(--transition-standard),
+              transform var(--transition-fast);
+  -webkit-user-select: none;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  /* Default (medium) size — matches template 20.8px 32px */
+  padding: 20px 32px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* --------------------------------------------------------------------------
+   Button — Primary (Gold fill, black text)
+   Main CTA — "Book an Event", "Get a Quote"
+   -------------------------------------------------------------------------- */
+.btn-primary {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-text-inverse);
+  box-shadow: 0 2px 12px var(--color-gold-glow);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-gold-light);
+  border-color: var(--color-gold-light);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-gold-strong);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  background-color: var(--color-gold-dark);
+  border-color: var(--color-gold-dark);
+  transform: translateY(0) scale(0.97);
+}
+
+/* Shimmer effect on primary button */
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.20),
+    transparent
+  );
+  transform: skewX(-20deg) translateZ(0);
+  transition: left 0.6s ease;
+  will-change: left;
+}
+
+.btn-primary:hover::before {
+  left: 150%;
+}
+
+/* --------------------------------------------------------------------------
+   Button — Outline (transparent bg, gold border & text)
+   Secondary CTA — "See Packages", "Learn More"
+   -------------------------------------------------------------------------- */
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--color-gold-border);
+  color: var(--color-gold);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-gold-tint);
+  border-color: var(--color-gold);
+  color: var(--color-gold-light);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-1px);
+}
+
+.btn-outline:active {
+  background-color: rgba(200, 169, 126, 0.12);
+  transform: translateY(0) scale(0.97);
+}
+
+/* --------------------------------------------------------------------------
+   Button — Ghost (no border, text only)
+   Tertiary — nav links, "read more"
+   -------------------------------------------------------------------------- */
+.btn-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-text-secondary);
+  padding-inline: var(--space-lg);
+}
+
+.btn-ghost:hover {
+  color: var(--color-gold);
+  background-color: var(--color-gold-tint);
+}
+
+/* --------------------------------------------------------------------------
+   Button — White (on dark/gold backgrounds)
+   -------------------------------------------------------------------------- */
+.btn-white {
+  background-color: var(--color-white);
+  border-color: var(--color-white);
+  color: var(--color-text-inverse);
+}
+
+.btn-white:hover {
+  background-color: rgba(255, 255, 255, 0.88);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   Button — Sizes
+   -------------------------------------------------------------------------- */
+.btn--sm {
+  font-size: 13px;
+  padding: 14px 24px;
+}
+
+.btn--md {
+  /* Default — already defined above */
+}
+
+.btn--lg {
+  font-size: 17px;
+  padding: 24px 40px;
+}
+
+/* --------------------------------------------------------------------------
+   Button — Icon
+   -------------------------------------------------------------------------- */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: var(--radius-md);
+  background-color: var(--color-glass);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast);
+}
+
+.btn-icon:hover {
+  background-color: var(--color-gold-tint);
+  border-color: var(--color-gold-border);
+  color: var(--color-gold);
+}
+
+.btn-icon--circle {
+  border-radius: var(--radius-pill);
+}
+
+/* --------------------------------------------------------------------------
+   Button — Disabled State
+   -------------------------------------------------------------------------- */
+.btn:disabled,
+.btn--disabled {
+  opacity: 0.40;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Button — Loading State
+   -------------------------------------------------------------------------- */
+.btn--loading {
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.btn--loading::after {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.6s linear infinite;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   Button Group
+   -------------------------------------------------------------------------- */
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.btn-group--center {
+  justify-content: center;
+}

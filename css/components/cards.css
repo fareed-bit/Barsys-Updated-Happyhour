@@ -1,0 +1,406 @@
+/* ==========================================================================
+   Component — Cards
+   Three types: Feature Card, Pricing Card, Stat Card
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Feature Card
+   Used in: "Why Barsys" grid, Features Grid (6 cards), Use Cases
+   -------------------------------------------------------------------------- */
+.card-feature {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-3xl);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-standard),
+              box-shadow var(--transition-standard),
+              transform var(--transition-standard);
+}
+
+.card-feature:hover {
+  border-color: var(--color-gold-border);
+  box-shadow: var(--shadow-gold), var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+/* Gold icon container */
+.card-feature__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: var(--color-gold-tint);
+  border: 1px solid var(--color-gold-border);
+  border-radius: var(--radius-md);
+  color: var(--color-gold);
+  font-size: 20px;
+  flex-shrink: 0;
+  transition: background-color var(--transition-standard),
+              box-shadow var(--transition-standard);
+}
+
+.card-feature:hover .card-feature__icon {
+  background-color: rgba(200, 169, 126, 0.14);
+  box-shadow: 0 0 16px var(--color-gold-glow);
+}
+
+.card-feature__title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+}
+
+.card-feature__body {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  flex: 1;
+}
+
+.card-feature__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gold);
+  text-decoration: none;
+  transition: gap var(--transition-fast),
+              color var(--transition-fast);
+  margin-top: auto;
+}
+
+.card-feature__link:hover {
+  color: var(--color-gold-light);
+  gap: var(--space-md);
+}
+
+.card-feature__link-arrow {
+  font-size: 14px;
+  transition: transform var(--transition-fast);
+}
+
+.card-feature__link:hover .card-feature__link-arrow {
+  transform: translateX(3px);
+}
+
+/* Background image variant */
+.card-feature--image {
+  min-height: 280px;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-feature--image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 10, 0.90) 0%,
+    rgba(10, 10, 10, 0.40) 60%,
+    transparent 100%
+  );
+  border-radius: inherit;
+}
+
+.card-feature--image > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card-feature--image .card-feature__title,
+.card-feature--image .card-feature__body {
+  margin-top: auto;
+}
+
+/* Gold accent card variant */
+.card-feature--gold {
+  background: linear-gradient(
+    135deg,
+    rgba(200, 169, 126, 0.12) 0%,
+    rgba(200, 169, 126, 0.04) 100%
+  );
+  border-color: var(--color-gold-border);
+}
+
+/* --------------------------------------------------------------------------
+   Pricing Card
+   Used in: Pricing section (Classic, Signature, Reserve)
+   -------------------------------------------------------------------------- */
+.card-pricing {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+  padding: 40px;
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  transition: border-color var(--transition-standard),
+              box-shadow var(--transition-standard),
+              transform var(--transition-standard);
+}
+
+.card-pricing:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Featured / Most Popular variant */
+.card-pricing--featured {
+  background-color: var(--color-surface-2);
+  background-image: linear-gradient(
+    135deg,
+    rgba(200, 169, 126, 0.08) 0%,
+    rgba(200, 169, 126, 0.02) 100%
+  );
+  border-color: var(--color-gold-border);
+  box-shadow: var(--shadow-gold);
+}
+
+.card-pricing--featured:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-gold-strong), var(--shadow-lg);
+}
+
+/* Tier label */
+.card-pricing__tier {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* Price */
+.card-pricing__price-block {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+}
+
+.card-pricing__price {
+  font-size: clamp(40px, 5vw, 52px);
+  font-weight: var(--font-weight-thin);
+  color: var(--color-text-primary);
+  line-height: 1;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.card-pricing__period {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Description */
+.card-pricing__description {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Divider */
+.card-pricing__divider {
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+/* Features list */
+.card-pricing__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  flex: 1;
+}
+
+.card-pricing__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-snug);
+}
+
+.card-pricing__check {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-gold-tint);
+  border: 1px solid var(--color-gold-border);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+.card-pricing__feature--excluded {
+  opacity: 0.40;
+}
+
+.card-pricing__feature--excluded .card-pricing__check {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-tertiary);
+}
+
+/* CTA */
+.card-pricing__cta {
+  margin-top: auto;
+}
+
+.card-pricing__cta .btn {
+  width: 100%;
+}
+
+/* Membership badge */
+.card-pricing__savings {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 11px;
+  color: var(--color-gold);
+  background-color: var(--color-gold-tint);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+/* --------------------------------------------------------------------------
+   Stat Card
+   Used in: Stats section (quick numbers / social proof)
+   -------------------------------------------------------------------------- */
+.card-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-3xl) var(--space-2xl);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: border-color var(--transition-standard),
+              transform var(--transition-standard);
+}
+
+.card-stat:hover {
+  border-color: var(--color-gold-border);
+  transform: translateY(-2px);
+}
+
+.card-stat__number {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: var(--font-weight-thin);
+  color: var(--color-gold);
+  line-height: 1;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.card-stat__suffix {
+  font-size: 0.5em;
+  vertical-align: super;
+  color: var(--color-gold);
+}
+
+.card-stat__label {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* Gold variant */
+.card-stat--gold {
+  background: linear-gradient(135deg, rgba(200,169,126,0.14), rgba(200,169,126,0.04));
+  border-color: var(--color-gold-border);
+}
+
+/* --------------------------------------------------------------------------
+   Testimonial Card
+   Used in: Carousel slides
+   -------------------------------------------------------------------------- */
+.card-testimonial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  padding: var(--space-3xl);
+  background-color: var(--color-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.card-testimonial__quote-mark {
+  font-size: 48px;
+  line-height: 1;
+  color: var(--color-gold);
+  font-family: Georgia, serif;
+  margin-bottom: calc(-1 * var(--space-xl));
+}
+
+.card-testimonial__quote {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  font-style: italic;
+  flex: 1;
+}
+
+.card-testimonial__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.card-testimonial__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-surface-3);
+  border: 2px solid var(--color-gold-border);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.card-testimonial__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-testimonial__name {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.card-testimonial__role {
+  font-size: var(--font-size-label);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+/* Stars rating */
+.card-testimonial__stars {
+  display: flex;
+  gap: 3px;
+  color: var(--color-gold);
+  font-size: 13px;
+}

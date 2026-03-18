@@ -1,0 +1,112 @@
+/* ==========================================================================
+   Component — Badge / Eyebrow Label
+   Used as section identifiers (e.g. "WHY BARSYS", "PRICING", "FEATURES")
+   ========================================================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  border: 1px solid var(--color-gold-border);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-gold-tint);
+
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+/* Small dot indicator before label text */
+.badge::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Variant — Gold Fill (highlight badges)
+   -------------------------------------------------------------------------- */
+.badge--fill {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-text-inverse);
+}
+
+.badge--fill::before {
+  background-color: var(--color-text-inverse);
+}
+
+/* --------------------------------------------------------------------------
+   Variant — Subtle (less prominent)
+   -------------------------------------------------------------------------- */
+.badge--subtle {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-tertiary);
+}
+
+.badge--subtle::before {
+  background-color: var(--color-text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   Variant — No dot (icon badge)
+   -------------------------------------------------------------------------- */
+.badge--no-dot::before {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Size — Large (for hero/prominent callouts)
+   -------------------------------------------------------------------------- */
+.badge--lg {
+  padding: var(--space-sm) var(--space-lg);
+  font-size: 11px;
+  gap: var(--space-md);
+}
+
+/* --------------------------------------------------------------------------
+   Most Popular Tag (Pricing card)
+   -------------------------------------------------------------------------- */
+.badge--popular {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-text-inverse);
+  box-shadow: 0 2px 12px var(--color-gold-glow);
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Star Badge (reviews / social proof)
+   -------------------------------------------------------------------------- */
+.badge--stars {
+  background-color: rgba(200, 169, 126, 0.12);
+  border-color: var(--color-gold-border);
+  color: var(--color-gold);
+  font-size: 12px;
+  padding: var(--space-sm) var(--space-lg);
+  gap: var(--space-xs);
+}
+
+.badge--stars::before {
+  display: none;
+}
+
+.badge__star {
+  font-size: 12px;
+  line-height: 1;
+}

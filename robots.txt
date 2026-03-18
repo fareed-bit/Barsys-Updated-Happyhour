@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /.claude/
+Disallow: /components.html
+
+# AI Search Crawlers — explicitly allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://happyhour.barsys.com/sitemap.xml

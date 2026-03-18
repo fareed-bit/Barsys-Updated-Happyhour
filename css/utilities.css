@@ -1,0 +1,314 @@
+/* ==========================================================================
+   Barsys Happy Hour — Utility Classes
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Layout — Container
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* --------------------------------------------------------------------------
+   Layout — Sections
+   -------------------------------------------------------------------------- */
+.section {
+  padding-block: var(--section-padding);
+}
+
+.section--dark {
+  background-color: var(--color-bg);
+}
+
+.section--surface {
+  background-color: var(--color-surface-1);
+}
+
+.section--raised {
+  background-color: var(--color-surface-2);
+}
+
+/* Section with gold top border accent */
+.section--accent-top {
+  border-top: 1px solid var(--color-gold-border);
+}
+
+/* --------------------------------------------------------------------------
+   Layout — Grid
+   -------------------------------------------------------------------------- */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2xl);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2xl);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+}
+
+@media (max-width: 1024px) {
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Layout — Flex Helpers
+   -------------------------------------------------------------------------- */
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.gap-sm  { gap: var(--space-sm); }
+.gap-md  { gap: var(--space-md); }
+.gap-lg  { gap: var(--space-lg); }
+.gap-xl  { gap: var(--space-xl); }
+.gap-2xl { gap: var(--space-2xl); }
+.gap-3xl { gap: var(--space-3xl); }
+
+/* --------------------------------------------------------------------------
+   Text Alignment
+   -------------------------------------------------------------------------- */
+.text-left   { text-align: left; }
+.text-center { text-align: center; }
+.text-right  { text-align: right; }
+
+/* --------------------------------------------------------------------------
+   Color Utilities
+   -------------------------------------------------------------------------- */
+.gold-text {
+  color: var(--color-gold);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   Background Utilities
+   -------------------------------------------------------------------------- */
+.bg-gold-tint {
+  background-color: var(--color-gold-tint);
+}
+
+.bg-glass {
+  background-color: var(--color-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.bg-glass-strong {
+  background-color: var(--color-glass-strong);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* --------------------------------------------------------------------------
+   Border Utilities
+   -------------------------------------------------------------------------- */
+.gold-border {
+  border: 1px solid var(--color-gold-border);
+}
+
+.border-subtle {
+  border: 1px solid var(--color-border);
+}
+
+/* --------------------------------------------------------------------------
+   Glass Card
+   -------------------------------------------------------------------------- */
+.glass-card {
+  background-color: var(--color-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+/* --------------------------------------------------------------------------
+   Gold Divider
+   -------------------------------------------------------------------------- */
+.divider-gold {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+  margin-block: var(--space-2xl);
+}
+
+.divider-gold--center {
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Spacing Utilities
+   -------------------------------------------------------------------------- */
+.mt-sm  { margin-top: var(--space-sm); }
+.mt-md  { margin-top: var(--space-md); }
+.mt-lg  { margin-top: var(--space-lg); }
+.mt-xl  { margin-top: var(--space-xl); }
+.mt-2xl { margin-top: var(--space-2xl); }
+.mt-3xl { margin-top: var(--space-3xl); }
+.mt-4xl { margin-top: var(--space-4xl); }
+
+.mb-sm  { margin-bottom: var(--space-sm); }
+.mb-md  { margin-bottom: var(--space-md); }
+.mb-lg  { margin-bottom: var(--space-lg); }
+.mb-xl  { margin-bottom: var(--space-xl); }
+.mb-2xl { margin-bottom: var(--space-2xl); }
+.mb-3xl { margin-bottom: var(--space-3xl); }
+.mb-4xl { margin-bottom: var(--space-4xl); }
+
+/* --------------------------------------------------------------------------
+   Accessibility — Screen Reader Only
+   -------------------------------------------------------------------------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Visibility
+   -------------------------------------------------------------------------- */
+.hidden {
+  display: none !important;
+}
+
+.invisible {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Overflow
+   -------------------------------------------------------------------------- */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Full Width / Height
+   -------------------------------------------------------------------------- */
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+/* --------------------------------------------------------------------------
+   Max Width Helpers
+   -------------------------------------------------------------------------- */
+.max-w-sm  { max-width: 480px; }
+.max-w-md  { max-width: 640px; }
+.max-w-lg  { max-width: 800px; }
+.max-w-xl  { max-width: 960px; }
+.max-w-2xl { max-width: 1200px; }
+
+/* Apply centering along with max-width */
+.mx-auto { margin-inline: auto; }
+
+/* --------------------------------------------------------------------------
+   Gold Shimmer Animation
+   Used for skeleton loading states
+   -------------------------------------------------------------------------- */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 25%,
+    var(--color-surface-3) 50%,
+    var(--color-surface-2) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Fade-in Animation (used for scroll reveal)
+   -------------------------------------------------------------------------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp var(--transition-slow) ease-out both;
+}
+
+/* Stagger delays for child elements */
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 80ms; }
+.stagger > *:nth-child(3) { animation-delay: 160ms; }
+.stagger > *:nth-child(4) { animation-delay: 240ms; }
+.stagger > *:nth-child(5) { animation-delay: 320ms; }
+.stagger > *:nth-child(6) { animation-delay: 400ms; }

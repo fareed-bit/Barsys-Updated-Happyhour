@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Component — Accordion
+   Used in: FAQ section
+   ========================================================================== */
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--color-border);
+}
+
+/* --------------------------------------------------------------------------
+   Accordion Item
+   -------------------------------------------------------------------------- */
+.accordion__item {
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-fast);
+}
+
+/* --------------------------------------------------------------------------
+   Accordion Trigger (clickable header)
+   -------------------------------------------------------------------------- */
+.accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  width: 100%;
+  padding: var(--space-2xl) 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--transition-fast);
+}
+
+.accordion__trigger:hover .accordion__question {
+  color: var(--color-gold);
+}
+
+.accordion__question {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+  transition: color var(--transition-fast);
+}
+
+/* Chevron icon */
+.accordion__chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  background-color: var(--color-glass);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-size: 12px;
+  transition: transform var(--transition-standard),
+              background-color var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+.accordion__item--open .accordion__chevron {
+  transform: rotate(180deg);
+  background-color: var(--color-gold-tint);
+  border-color: var(--color-gold-border);
+}
+
+/* --------------------------------------------------------------------------
+   Accordion Content (collapsible)
+   -------------------------------------------------------------------------- */
+.accordion__content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-standard);
+  overflow: hidden;
+}
+
+.accordion__item--open .accordion__content {
+  grid-template-rows: 1fr;
+}
+
+.accordion__content-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.accordion__answer {
+  padding-bottom: var(--space-2xl);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* --------------------------------------------------------------------------
+   Open state styling
+   -------------------------------------------------------------------------- */
+.accordion__item--open .accordion__question {
+  color: var(--color-gold);
+}
+
+/* Number prefix variant (for ordered FAQ lists) */
+.accordion--numbered .accordion__question::before {
+  content: counter(faq-item, decimal-leading-zero) '. ';
+  counter-increment: faq-item;
+  color: var(--color-text-tertiary);
+  margin-right: var(--space-sm);
+}
+
+.accordion--numbered {
+  counter-reset: faq-item;
+}

@@ -1,0 +1,200 @@
+/* ==========================================================================
+   Component — Timeline / Process Steps
+   Used in: "How It Works" / "Steps from Booking to Epic Event" section
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Horizontal layout (desktop default)
+   -------------------------------------------------------------------------- */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+  position: relative;
+}
+
+/* Connecting line between steps */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: calc(100% / 8);
+  right: calc(100% / 8);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold-border) 20%,
+    var(--color-gold-border) 80%,
+    transparent
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Timeline Item
+   -------------------------------------------------------------------------- */
+.timeline__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xl);
+  padding: 0 var(--space-xl);
+  position: relative;
+  z-index: 1;
+}
+
+.timeline__item:first-child {
+  padding-left: 0;
+}
+
+.timeline__item:last-child {
+  padding-right: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Step Number Circle
+   -------------------------------------------------------------------------- */
+.timeline__number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-gold-border);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  flex-shrink: 0;
+  position: relative;
+  transition: background-color var(--transition-standard),
+              box-shadow var(--transition-standard);
+}
+
+.timeline__item:hover .timeline__number {
+  background-color: var(--color-gold-tint);
+  box-shadow: 0 0 20px var(--color-gold-glow);
+}
+
+/* Active step */
+.timeline__item--active .timeline__number {
+  background-color: var(--color-gold);
+  color: var(--color-text-inverse);
+  border-color: var(--color-gold);
+  box-shadow: 0 0 24px var(--color-gold-glow);
+}
+
+/* --------------------------------------------------------------------------
+   Content
+   -------------------------------------------------------------------------- */
+.timeline__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.timeline__label {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.timeline__title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+}
+
+.timeline__description {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* --------------------------------------------------------------------------
+   Vertical layout (mobile)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .timeline::before {
+    display: none;
+  }
+
+  .timeline__item {
+    flex-direction: row;
+    padding: 0 0 var(--space-3xl) 0;
+    gap: var(--space-xl);
+    align-items: flex-start;
+  }
+
+  .timeline__item:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Vertical connector line */
+  .timeline__item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 56px;
+    left: 27px;
+    width: 1px;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      var(--color-gold-border),
+      transparent
+    );
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Numbered list variant (for services/use cases)
+   -------------------------------------------------------------------------- */
+.timeline--list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline--list::before {
+  display: none;
+}
+
+.timeline--list .timeline__item {
+  flex-direction: row;
+  align-items: flex-start;
+  padding: var(--space-2xl) 0;
+  border-bottom: 1px solid var(--color-border);
+  gap: var(--space-2xl);
+}
+
+.timeline--list .timeline__item:last-child {
+  border-bottom: none;
+}
+
+.timeline--list .timeline__number {
+  font-size: 28px;
+  font-weight: var(--font-weight-thin);
+  color: var(--color-gold);
+  background: none;
+  border: none;
+  width: auto;
+  height: auto;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.timeline--list .timeline__item:hover .timeline__number {
+  background: none;
+  box-shadow: none;
+}

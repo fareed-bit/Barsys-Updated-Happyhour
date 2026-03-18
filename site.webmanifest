@@ -1,0 +1,21 @@
+{
+  "name": "Barsys Happy Hour",
+  "short_name": "Barsys",
+  "description": "NYC's top-rated corporate happy hour and AI cocktail event service.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0A0A0A",
+  "theme_color": "#0A0A0A",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
