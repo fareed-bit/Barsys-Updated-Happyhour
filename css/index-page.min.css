@@ -78,7 +78,7 @@
 .mixlist-modal.is-open .mixlist-modal__panel{transform:translateY(0)}
 .mixlist-modal__close{position:sticky;top:0;float:right;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:rgba(0,0,0,0.5);color:var(--color-text-primary);font-size:1.5rem;cursor:pointer;z-index:2;transition:border-color 0.2s,color 0.2s;display:flex;align-items:center;justify-content:center;line-height:1}
 .mixlist-modal__close:hover{border-color:var(--color-gold-border);color:var(--color-gold)}
-.mixlist-modal__header{text-align:center;margin-bottom:40px}
+.mixlist-modal__header{text-align:center;margin-bottom:40px;width:100%}
 .mixlist-modal__title{font-family:var(--font-display);font-weight:200;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--color-text-primary);margin:0 0 12px}
 .mixlist-modal__desc{font-size:0.95rem;color:var(--color-text-secondary);max-width:480px;text-align:center;margin:auto;line-height:1.5}
 .mixlist-modal__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
