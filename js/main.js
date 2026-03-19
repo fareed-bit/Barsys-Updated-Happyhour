@@ -1339,7 +1339,7 @@
         modalTitle.textContent = name;
         modalDesc.textContent = data.desc;
         modalGrid.innerHTML = data.recipes.map(function (r) {
-          return '<div class="recipe-card">' +
+          return '<div class="recipe-card">'+
             '<img class="recipe-card__img" src="' + r.image + '" alt="' + r.name + '" width="400" height="400" loading="lazy" />' +
             '<div class="recipe-card__body">' +
               '<div class="recipe-card__name">' + r.name + '</div>' +
