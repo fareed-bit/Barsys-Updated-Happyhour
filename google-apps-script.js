@@ -64,10 +64,16 @@ function doPost(e) {
   try {
     var data;
 
-    // Parse incoming JSON data
-    if (e.postData && e.postData.type === 'application/json') {
-      data = JSON.parse(e.postData.contents);
-    } else if (e.parameter) {
+    // Parse incoming data — handles both application/json and text/plain
+    // (browsers downgrade Content-Type to text/plain when using mode:'no-cors')
+    if (e.postData && e.postData.contents) {
+      try {
+        data = JSON.parse(e.postData.contents);
+      } catch (parseErr) {
+        Logger.log('JSON parse failed: ' + parseErr.toString());
+        return buildResponse('error', 'Invalid JSON: ' + parseErr.toString());
+      }
+    } else if (e.parameter && Object.keys(e.parameter).length > 0) {
       data = e.parameter;
     } else {
       return buildResponse('error', 'No data received');
