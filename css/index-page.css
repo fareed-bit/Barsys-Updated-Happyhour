@@ -2314,6 +2314,50 @@
       .wizard__addon-price { width: 100%; text-align: left; }
     }
 
+    /* ---- Wizard Validation Errors ---- */
+    .wizard__step-error {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      margin: 16px 0;
+      border-radius: 10px;
+      background: rgba(220, 60, 60, 0.08);
+      border: 1px solid rgba(220, 60, 60, 0.25);
+      color: #e85555;
+      font-size: 14px;
+      font-weight: 500;
+      animation: wizard-error-in 0.35s ease;
+    }
+    .wizard__step-error svg { flex-shrink: 0; stroke: #e85555; }
+
+    @keyframes wizard-error-in {
+      0% { opacity: 0; transform: translateY(-8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .wizard__input--error {
+      border-color: #e85555 !important;
+      box-shadow: 0 0 0 2px rgba(220, 60, 60, 0.15) !important;
+    }
+
+    .wizard__field--error label {
+      color: #e85555 !important;
+    }
+
+    @keyframes wizard-shake {
+      0%, 100% { transform: translateX(0); }
+      15% { transform: translateX(-6px); }
+      30% { transform: translateX(5px); }
+      45% { transform: translateX(-4px); }
+      60% { transform: translateX(3px); }
+      75% { transform: translateX(-2px); }
+    }
+
+    .wizard__shake {
+      animation: wizard-shake 0.5s ease;
+    }
+
     /* =========================================================================
        EVENT FLOW TIMELINE
        ========================================================================= */
