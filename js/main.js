@@ -40,6 +40,9 @@
         toggle.classList.toggle('active', isMember);
         toggle.setAttribute('aria-checked', isMember);
 
+        /* Expose membership state globally so the wizard pricing engine can read it */
+        window.__barsysMemberPricing = isMember;
+
         labels.forEach(function (l) {
           var which = l.dataset.toggleLabel;
           l.classList.toggle('pricing-toggle__label--active', isMember ? which === 'member' : which === 'standard');
@@ -58,6 +61,9 @@
           var val = isMember ? el.dataset.noteMember : el.dataset.noteStandard;
           el.textContent = val;
         });
+
+        /* Notify the wizard pricing engine to recalculate */
+        document.dispatchEvent(new CustomEvent('pricing-toggle-changed', { detail: { isMember: isMember } }));
       }
 
       /* Toggle switch button */
@@ -176,6 +182,7 @@
       /* ---- Pricing data ---- */
       var TAX_RATE = 0.08875;
       var tierBasePrice = { Classic: 50, Signature: 70, Reserve: 200 };
+      var tierMemberPrice = { Classic: 45, Signature: 65, Reserve: 190 };
       var tierMixlistLimits = { Classic: 2, Signature: 3, Reserve: 5 };
 
       var addOnsData = [
@@ -950,7 +957,8 @@
       function calculatePricing() {
         var guests = parseInt(formData.guestCount) || 0;
         var tier = formData.experienceTier || '';
-        var basePerPerson = tierBasePrice[tier] || 0;
+        var isMember = window.__barsysMemberPricing || false;
+        var basePerPerson = isMember ? (tierMemberPrice[tier] || 0) : (tierBasePrice[tier] || 0);
 
         /* Apply recurring cadence discount */
         var discountPerPerson = 0;
@@ -980,7 +988,8 @@
         var grandTotal = subtotal + tax;
 
         return {
-          guests: guests, tier: tier, basePerPerson: basePerPerson, effectivePerPerson: effectivePerPerson,
+          guests: guests, tier: tier, isMember: isMember,
+          basePerPerson: basePerPerson, effectivePerPerson: effectivePerPerson,
           discountPerPerson: discountPerPerson, baseTotal: baseTotal,
           addOnDetails: addOnDetails, addOnTotal: addOnTotal,
           spiritUpchargePerPerson: spiritUpchargePerPerson, spiritTotal: spiritTotal,
@@ -1047,10 +1056,11 @@
           return;
         }
 
+        var memberTag = pricing.isMember ? ' Member' : '';
         if (pricing.discountPerPerson > 0) {
-          setLineAmount('sum-line-base', pricing.tier + ' ($' + pricing.basePerPerson + ' − $' + pricing.discountPerPerson + '/pp \u00d7 ' + pricing.guests + ')', '$' + pricing.baseTotal.toLocaleString());
+          setLineAmount('sum-line-base', pricing.tier + memberTag + ' ($' + pricing.basePerPerson + ' − $' + pricing.discountPerPerson + '/pp \u00d7 ' + pricing.guests + ')', '$' + pricing.baseTotal.toLocaleString());
         } else {
-          setLineAmount('sum-line-base', pricing.tier + ' ($' + pricing.effectivePerPerson + '/pp \u00d7 ' + pricing.guests + ')', '$' + pricing.baseTotal.toLocaleString());
+          setLineAmount('sum-line-base', pricing.tier + memberTag + ' ($' + pricing.effectivePerPerson + '/pp \u00d7 ' + pricing.guests + ')', '$' + pricing.baseTotal.toLocaleString());
         }
 
         var addonsContainer = document.getElementById('sum-line-addons-container');
@@ -1279,6 +1289,12 @@
           }, 3000);
         });
       }
+
+      /* ---- Recalculate pricing when Standard/Membership toggle changes ---- */
+      document.addEventListener('pricing-toggle-changed', function() {
+        updatePricing();
+        updateSummary();
+      });
 
       /* ---- Package card pre-selection from pricing section ---- */
       document.querySelectorAll('[data-select-package]').forEach(function(link) {
