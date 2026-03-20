@@ -272,6 +272,12 @@
           wizard_step_name: stepNames[n] || String(n)
         });
 
+        /* Initialize guest count when entering step 2 */
+        if (n === 2 && guestInput && !formData.guestCount) {
+          var initVal = parseInt(guestInput.value) || 50;
+          formData.guestCount = clampGuests(initVal);
+          guestInput.value = formData.guestCount;
+        }
         if (n === 5) renderSpiritSubstitutions();
         if (n === 6) revealAddOns();
         if (n === 9) buildRecommendation();
@@ -1197,19 +1203,19 @@
           });
 
           var sheetsPayload = {
-            eventType: formData.eventType,
-            guestCount: formData.guestCount,
-            experienceTier: formData.experienceTier,
-            mixlists: formData.mixlists.join(', '),
+            eventType: formData.eventType || '',
+            guestCount: String(formData.guestCount || 0),
+            experienceTier: formData.experienceTier || '',
+            mixlists: (formData.mixlists && formData.mixlists.length > 0) ? formData.mixlists.join(', ') : '',
             spiritUpgrades: Object.keys(formData.spiritUpgrades).map(function(cat) {
               return cat + ': ' + formData.spiritUpgrades[cat].brand + ' (+$' + formData.spiritUpgrades[cat].upcharge + '/pp)';
             }).join('; ') || 'None',
             addOns: formData.addOns.join(', ') || 'None',
-            frequency: formData.frequency,
-            recurringCadence: formData.recurringCadence,
-            company: formData.company, address: formData.address,
-            city: formData.city, state: formData.state,
-            name: formData.name, email: formData.email, phone: formData.phone,
+            frequency: formData.frequency || '',
+            recurringCadence: formData.recurringCadence || '',
+            company: formData.company || '', address: formData.address || '',
+            city: formData.city || '', state: formData.state || '',
+            name: formData.name || '', email: formData.email || '', phone: formData.phone || '',
             estimatedTotal: '$' + pricing.grandTotal.toFixed(2),
             /* UTM / Attribution fields */
             utm_source: utmFields.utm_source || '',
@@ -1225,7 +1231,7 @@
             referrer: document.referrer || ''
           };
 
-          var endpoint = 'https://script.google.com/macros/s/AKfycbw8Vef7B9ya13iB_OwpW1lxTSz3tCnWnsPnsl7Sec46rIwCymvxFqN11_w4s9dAHRdkyw/exec';
+          var endpoint = 'https://script.google.com/macros/s/AKfycbx6sDtD4jJWw_uB4jOklbZuQHqqNGeT_713qSn_7phF_BUGRPZiyJWhmRlXVffxGQBbvw/exec';
           fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': "text/plain;charset=utf-8" },
