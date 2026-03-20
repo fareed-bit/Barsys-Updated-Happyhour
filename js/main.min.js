@@ -1225,7 +1225,7 @@
             referrer: document.referrer || ''
           };
 
-          var endpoint = 'https://script.google.com/macros/s/AKfycbwEMLWVZtMBM9KnqOx-16umA2LHwu9yOn7oEgjKtTKy9bmRuwZ0nB445E-kQlpDLIJp/exec';
+          var endpoint = 'https://script.google.com/macros/s/AKfycbw8Vef7B9ya13iB_OwpW1lxTSz3tCnWnsPnsl7Sec46rIwCymvxFqN11_w4s9dAHRdkyw/exec';
           fetch(endpoint, {
             method: 'POST', mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
