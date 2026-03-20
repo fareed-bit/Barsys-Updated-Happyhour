@@ -30,10 +30,18 @@
       var notes = document.querySelectorAll('.package-card__price-note[data-note-standard]');
       var isMember = false;
 
-      toggle.addEventListener('click', function () {
-        isMember = !isMember;
+      function applyToggle(forceMember) {
+        if (typeof forceMember === 'boolean') {
+          if (isMember === forceMember) return; // already in that state
+          isMember = forceMember;
+        } else {
+          isMember = !isMember;
+        }
         toggle.classList.toggle('active', isMember);
         toggle.setAttribute('aria-checked', isMember);
+
+        /* Expose membership state globally so the wizard pricing engine can read it */
+        window.__barsysMemberPricing = isMember;
 
         labels.forEach(function (l) {
           var which = l.dataset.toggleLabel;
@@ -52,6 +60,21 @@
         notes.forEach(function (el) {
           var val = isMember ? el.dataset.noteMember : el.dataset.noteStandard;
           el.textContent = val;
+        });
+
+        /* Notify the wizard pricing engine to recalculate */
+        document.dispatchEvent(new CustomEvent('pricing-toggle-changed', { detail: { isMember: isMember } }));
+      }
+
+      /* Toggle switch button */
+      toggle.addEventListener('click', function () { applyToggle(); });
+
+      /* Clicking labels also toggles — "Standard" forces standard, "Membership" forces member */
+      labels.forEach(function (l) {
+        l.style.cursor = 'pointer';
+        l.addEventListener('click', function () {
+          var which = l.dataset.toggleLabel;
+          applyToggle(which === 'member');
         });
       });
     })();
@@ -159,6 +182,7 @@
       /* ---- Pricing data ---- */
       var TAX_RATE = 0.08875;
       var tierBasePrice = { Classic: 50, Signature: 70, Reserve: 200 };
+      var tierMemberPrice = { Classic: 45, Signature: 65, Reserve: 190 };
       var tierMixlistLimits = { Classic: 2, Signature: 3, Reserve: 5 };
 
       var addOnsData = [
@@ -264,6 +288,141 @@
       /* ---- Step sequencing ---- */
       var stepOrder = ['start', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'success'];
 
+      /* ---- Step Validation ---- */
+      function validateStep(step) {
+        clearErrors();
+        switch (step) {
+          case 1:
+            if (!formData.eventType) {
+              showStepError(step, 'Please select an event type to continue.');
+              shakeOptions(step);
+              return false;
+            }
+            return true;
+          case 2:
+            if (!formData.guestCount || formData.guestCount < 20) {
+              showStepError(step, 'Please enter at least 20 guests.');
+              var gi = document.getElementById('wiz-guest-count');
+              if (gi) gi.classList.add('wizard__input--error');
+              return false;
+            }
+            return true;
+          case 3:
+            if (!formData.experienceTier) {
+              showStepError(step, 'Please select an experience package.');
+              shakeOptions(step);
+              return false;
+            }
+            return true;
+          case 4:
+            if (formData.mixlists.length === 0) {
+              showStepError(step, 'Please select at least one mixlist or choose "Let the team recommend."');
+              shakeOptions(step);
+              return false;
+            }
+            return true;
+          case 5: return true; // Spirit upgrades are optional
+          case 6: return true; // Add-ons are optional
+          case 7:
+            if (!formData.frequency) {
+              showStepError(step, 'Please choose single event or recurring program.');
+              shakeOptions(step);
+              return false;
+            }
+            if (formData.frequency === 'Recurring Program' && !formData.recurringCadence) {
+              showStepError(step, 'Please select a recurring cadence.');
+              return false;
+            }
+            return true;
+          case 8:
+            var comp = document.getElementById('wiz-company');
+            var city = document.getElementById('wiz-city');
+            var state = document.getElementById('wiz-state');
+            var valid = true;
+            if (!comp || !comp.value.trim()) { markFieldError(comp); valid = false; }
+            if (!city || !city.value.trim()) { markFieldError(city); valid = false; }
+            if (!state || !state.value.trim()) { markFieldError(state); valid = false; }
+            if (!valid) showStepError(step, 'Please fill in Company, City, and State.');
+            return valid;
+          case 9: return true; // Review step — always pass
+          case 10:
+            return validateContactForm();
+          default: return true;
+        }
+      }
+
+      function validateContactForm() {
+        var nameEl = document.getElementById('wiz-name');
+        var emailEl = document.getElementById('wiz-email');
+        var phoneEl = document.getElementById('wiz-phone');
+        var valid = true;
+
+        if (!nameEl || !nameEl.value.trim()) { markFieldError(nameEl); valid = false; }
+        if (!emailEl || !emailEl.value.trim() || !isValidEmail(emailEl.value)) {
+          markFieldError(emailEl);
+          valid = false;
+        }
+        if (!phoneEl || !phoneEl.value.trim()) { markFieldError(phoneEl); valid = false; }
+
+        if (!valid) showStepError(10, 'Please fill in all contact fields with a valid email.');
+        return valid;
+      }
+
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+      }
+
+      function showStepError(step, message) {
+        var stepEl = wizard.querySelector('[data-step="' + step + '"]');
+        if (!stepEl) return;
+        /* Remove any existing error */
+        var existing = stepEl.querySelector('.wizard__step-error');
+        if (existing) existing.remove();
+
+        var errDiv = document.createElement('div');
+        errDiv.className = 'wizard__step-error';
+        errDiv.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> ' + message;
+
+        /* Insert before the nav buttons */
+        var nav = stepEl.querySelector('.wizard__nav');
+        if (nav) {
+          nav.parentNode.insertBefore(errDiv, nav);
+        } else {
+          stepEl.appendChild(errDiv);
+        }
+
+        /* Auto-remove after 4 seconds */
+        setTimeout(function() { if (errDiv.parentNode) errDiv.remove(); }, 4000);
+      }
+
+      function clearErrors() {
+        wizard.querySelectorAll('.wizard__step-error').forEach(function(e) { e.remove(); });
+        wizard.querySelectorAll('.wizard__input--error').forEach(function(e) { e.classList.remove('wizard__input--error'); });
+        wizard.querySelectorAll('.wizard__field--error').forEach(function(e) { e.classList.remove('wizard__field--error'); });
+      }
+
+      function markFieldError(el) {
+        if (!el) return;
+        el.classList.add('wizard__input--error');
+        var field = el.closest('.wizard__field');
+        if (field) field.classList.add('wizard__field--error');
+        el.addEventListener('input', function handler() {
+          el.classList.remove('wizard__input--error');
+          if (field) field.classList.remove('wizard__field--error');
+          el.removeEventListener('input', handler);
+        });
+      }
+
+      function shakeOptions(step) {
+        var stepEl = wizard.querySelector('[data-step="' + step + '"]');
+        if (!stepEl) return;
+        var grid = stepEl.querySelector('.wizard__option-grid, .wizard__packages-grid, .wizard__mixlist-grid');
+        if (grid) {
+          grid.classList.add('wizard__shake');
+          setTimeout(function() { grid.classList.remove('wizard__shake'); }, 600);
+        }
+      }
+
       function nextStep() {
         var idx = stepOrder.indexOf(currentStep);
         if (idx < stepOrder.length - 1) showStep(stepOrder[idx + 1]);
@@ -278,9 +437,18 @@
       var beginBtn = document.getElementById('wizard-begin');
       if (beginBtn) beginBtn.addEventListener('click', function() { showStep(1); });
 
-      /* ---- Next/Prev buttons ---- */
+      /* ---- Next/Prev buttons (with validation) ---- */
       wizard.querySelectorAll('[data-wizard-next]').forEach(function(btn) {
-        btn.addEventListener('click', nextStep);
+        btn.addEventListener('click', function(e) {
+          if (typeof currentStep === 'number') {
+            if (!validateStep(currentStep)) {
+              e.stopImmediatePropagation();
+              e.preventDefault();
+              return false;
+            }
+          }
+          nextStep();
+        });
       });
       wizard.querySelectorAll('[data-wizard-prev]').forEach(function(btn) {
         btn.addEventListener('click', prevStep);
@@ -789,7 +957,8 @@
       function calculatePricing() {
         var guests = parseInt(formData.guestCount) || 0;
         var tier = formData.experienceTier || '';
-        var basePerPerson = tierBasePrice[tier] || 0;
+        var isMember = window.__barsysMemberPricing || false;
+        var basePerPerson = isMember ? (tierMemberPrice[tier] || 0) : (tierBasePrice[tier] || 0);
 
         /* Apply recurring cadence discount */
         var discountPerPerson = 0;
@@ -819,7 +988,8 @@
         var grandTotal = subtotal + tax;
 
         return {
-          guests: guests, tier: tier, basePerPerson: basePerPerson, effectivePerPerson: effectivePerPerson,
+          guests: guests, tier: tier, isMember: isMember,
+          basePerPerson: basePerPerson, effectivePerPerson: effectivePerPerson,
           discountPerPerson: discountPerPerson, baseTotal: baseTotal,
           addOnDetails: addOnDetails, addOnTotal: addOnTotal,
           spiritUpchargePerPerson: spiritUpchargePerPerson, spiritTotal: spiritTotal,
@@ -886,10 +1056,11 @@
           return;
         }
 
+        var memberTag = pricing.isMember ? ' Member' : '';
         if (pricing.discountPerPerson > 0) {
-          setLineAmount('sum-line-base', pricing.tier + ' ($' + pricing.basePerPerson + ' − $' + pricing.discountPerPerson + '/pp \u00d7 ' + pricing.guests + ')', '$' + pricing.baseTotal.toLocaleString());
+          setLineAmount('sum-line-base', pricing.tier + memberTag + ' ($' + pricing.basePerPerson + ' − $' + pricing.discountPerPerson + '/pp \u00d7 ' + pricing.guests + ')', '$' + pricing.baseTotal.toLocaleString());
         } else {
-          setLineAmount('sum-line-base', pricing.tier + ' ($' + pricing.effectivePerPerson + '/pp \u00d7 ' + pricing.guests + ')', '$' + pricing.baseTotal.toLocaleString());
+          setLineAmount('sum-line-base', pricing.tier + memberTag + ' ($' + pricing.effectivePerPerson + '/pp \u00d7 ' + pricing.guests + ')', '$' + pricing.baseTotal.toLocaleString());
         }
 
         var addonsContainer = document.getElementById('sum-line-addons-container');
@@ -1003,12 +1174,19 @@
       var submitBtn = document.getElementById('wizard-submit');
       if (submitBtn) {
         submitBtn.addEventListener('click', function() {
+          clearErrors();
+          if (!validateContactForm()) return;
+
           var nameEl = document.getElementById('wiz-name');
           var emailEl = document.getElementById('wiz-email');
           var phoneEl = document.getElementById('wiz-phone');
-          formData.name = nameEl ? nameEl.value : '';
-          formData.email = emailEl ? emailEl.value : '';
-          formData.phone = phoneEl ? phoneEl.value : '';
+          formData.name = nameEl ? nameEl.value.trim() : '';
+          formData.email = emailEl ? emailEl.value.trim() : '';
+          formData.phone = phoneEl ? phoneEl.value.trim() : '';
+
+          /* Disable button to prevent double-submit */
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Submitting…';
 
           var pricing = calculatePricing();
           /* Build UTM fields from sessionStorage */
@@ -1103,8 +1281,20 @@
 
           var body = encodeURIComponent(lines.join('\n'));
           try { window.location.href = 'mailto:fareed@barsys.com?subject=' + subject + '&body=' + body; } catch(e) {}
+
+          /* Re-enable in case user navigates back */
+          setTimeout(function() {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Get My Event Plan';
+          }, 3000);
         });
       }
+
+      /* ---- Recalculate pricing when Standard/Membership toggle changes ---- */
+      document.addEventListener('pricing-toggle-changed', function() {
+        updatePricing();
+        updateSummary();
+      });
 
       /* ---- Package card pre-selection from pricing section ---- */
       document.querySelectorAll('[data-select-package]').forEach(function(link) {
