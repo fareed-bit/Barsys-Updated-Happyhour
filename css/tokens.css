@@ -57,8 +57,10 @@
   /* --------------------------------------------------------------------------
      Typography — Font Family
      -------------------------------------------------------------------------- */
-  --font-family-base:    'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
-  --font-family-display: 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  /* --font-family-base:    'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
+  --font-family-display: 'Inter', 'SF Pro Display', system-ui, sans-serif; */
+  --font-family-base:    'Plus Jakarta Sans', 'SF Pro Display', system-ui, -apple-system, sans-serif;
+--font-family-display: 'Plus Jakarta Sans', 'SF Pro Display', system-ui, sans-serif;
 
   /* --------------------------------------------------------------------------
      Typography — Scale
