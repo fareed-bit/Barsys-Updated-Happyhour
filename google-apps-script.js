@@ -62,20 +62,31 @@ var SHEET_NAME = 'Leads';
  */
 function doPost(e) {
   try {
-    var data;
+    var data = {};
+
+    // Safe guard — e is undefined when run manually from the editor
+    if (!e) {
+      return buildResponse('error', 'No event object — use the website form or setupSheet() for testing');
+    }
 
     // Parse incoming data — handles both application/json and text/plain
     // (browsers downgrade Content-Type to text/plain when using mode:'no-cors')
-    if (e.postData && e.postData.contents) {
+    var raw = e.postData ? e.postData.contents : null;
+    if (raw) {
       try {
-        data = JSON.parse(e.postData.contents);
+        data = JSON.parse(raw);
       } catch (parseErr) {
         Logger.log('JSON parse failed: ' + parseErr.toString());
         return buildResponse('error', 'Invalid JSON: ' + parseErr.toString());
       }
-    } else if (e.parameter && Object.keys(e.parameter).length > 0) {
+    }
+
+    // Fallback to URL parameters
+    if ((!data || Object.keys(data).length === 0) && e.parameter) {
       data = e.parameter;
-    } else {
+    }
+
+    if (!data || Object.keys(data).length === 0) {
       return buildResponse('error', 'No data received');
     }
 
@@ -112,22 +123,22 @@ function doPost(e) {
 
     var row = [
       timestamp,
-      data.name || '',
-      data.email || '',
-      data.phone || '',
-      data.company || '',
-      data.eventType || '',
-      data.guestCount || '',
-      data.experienceTier || '',
-      data.mixlists || '',
-      data.spiritUpgrades || 'None',
-      data.addOns || 'None',
-      data.frequency || '',
-      data.recurringCadence || '',
-      data.address || '',
-      data.city || '',
-      data.state || '',
-      data.estimatedTotal || '',
+      data.name != null ? data.name : '',
+      data.email != null ? data.email : '',
+      data.phone != null ? data.phone : '',
+      data.company != null ? data.company : '',
+      data.eventType != null ? data.eventType : '',
+      data.guestCount != null ? String(data.guestCount) : '',
+      data.experienceTier != null ? data.experienceTier : '',
+      data.mixlists != null ? data.mixlists : '',
+      data.spiritUpgrades != null ? data.spiritUpgrades : 'None',
+      data.addOns != null ? data.addOns : 'None',
+      data.frequency != null ? data.frequency : '',
+      data.recurringCadence != null ? data.recurringCadence : '',
+      data.address != null ? data.address : '',
+      data.city != null ? data.city : '',
+      data.state != null ? data.state : '',
+      data.estimatedTotal != null ? data.estimatedTotal : '',
       data.utm_source || '',
       data.utm_medium || '',
       data.utm_campaign || '',
