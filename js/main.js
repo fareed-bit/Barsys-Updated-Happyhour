@@ -30,8 +30,13 @@
       var notes = document.querySelectorAll('.package-card__price-note[data-note-standard]');
       var isMember = false;
 
-      toggle.addEventListener('click', function () {
-        isMember = !isMember;
+      function applyToggle(forceMember) {
+        if (typeof forceMember === 'boolean') {
+          if (isMember === forceMember) return; // already in that state
+          isMember = forceMember;
+        } else {
+          isMember = !isMember;
+        }
         toggle.classList.toggle('active', isMember);
         toggle.setAttribute('aria-checked', isMember);
 
@@ -52,6 +57,18 @@
         notes.forEach(function (el) {
           var val = isMember ? el.dataset.noteMember : el.dataset.noteStandard;
           el.textContent = val;
+        });
+      }
+
+      /* Toggle switch button */
+      toggle.addEventListener('click', function () { applyToggle(); });
+
+      /* Clicking labels also toggles — "Standard" forces standard, "Membership" forces member */
+      labels.forEach(function (l) {
+        l.style.cursor = 'pointer';
+        l.addEventListener('click', function () {
+          var which = l.dataset.toggleLabel;
+          applyToggle(which === 'member');
         });
       });
     })();
