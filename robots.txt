@@ -1,7 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /.claude/
-Disallow: /components.html
 
 # AI Search Crawlers — explicitly allowed
 User-agent: GPTBot
@@ -19,4 +17,5 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://happyhours.barsys.com/sitemap.xml
+Sitemap: https://barsys.com/sitemap.xml
+# Also see: https://barsys-happy-hours.pages.dev/sitemap.xml

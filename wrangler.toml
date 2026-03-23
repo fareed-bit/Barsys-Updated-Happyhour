@@ -1,0 +1,10 @@
+name = "barsys-happy-hours-worker"
+main = "cloudflare-worker.js"
+compatibility_date = "2024-01-01"
+
+routes = [
+  { pattern = "barsys.com/corporate-happy-hours*", zone_name = "barsys.com" }
+]
+
+[vars]
+PAGES_ORIGIN = "https://barsys-happy-hours.pages.dev"

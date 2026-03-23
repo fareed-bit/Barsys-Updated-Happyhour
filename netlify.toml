@@ -1,37 +1,53 @@
 [build]
   publish = "."
 
+# Security + cache headers for ALL origins
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
-    X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    Cache-Control = "public, max-age=31536000, immutable"
+    # Prevent the Netlify/Pages origin from being indexed — only barsys.com/corporate-happy-hours gets indexed
+    X-Robots-Tag = "noindex, nofollow"
 
 [[headers]]
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+    X-Robots-Tag = "noindex, nofollow"
 
 [[headers]]
-  for = "/sitemap.xml"
+  for = "/css/*"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
-    Content-Type = "application/xml"
+    Cache-Control = "public, max-age=31536000, immutable"
 
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/photos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirect subdomain to canonical path on barsys.com
 [[redirects]]
-  from = "https://www.happyhours.barsys.com/*"
-  to = "https://happyhours.barsys.com/:splat"
+  from = "https://happyhours.barsys.com/*"
+  to = "https://barsys.com/corporate-happy-hours"
   status = 301
   force = true
 
 [[redirects]]
-  from = "https://happyhour.barsys.com/*"
-  to = "https://happyhours.barsys.com/:splat"
+  from = "https://www.happyhours.barsys.com/*"
+  to = "https://barsys.com/corporate-happy-hours"
   status = 301
   force = true
 
