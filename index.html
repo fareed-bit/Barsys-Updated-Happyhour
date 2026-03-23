@@ -420,6 +420,14 @@
   <link rel="stylesheet" href="css/bundle.min.css" />
   <link rel="stylesheet" href="css/index-page.min.css" />
 
+  <!-- Nav layout overrides (must come after bundle to win cascade) -->
+  <style>
+    .nav__inner{display:grid!important;grid-template-columns:1fr auto 1fr!important;align-items:center!important;position:static!important}
+    .nav__logo{justify-self:start}
+    .nav__links{justify-self:center;position:static!important;transform:none!important;left:auto!important}
+    .nav__actions{justify-self:end;margin-left:0!important}
+  </style>
+
   <!-- Google Fonts (async — non-render-blocking) -->
   <!-- <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
