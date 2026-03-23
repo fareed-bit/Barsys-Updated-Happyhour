@@ -406,7 +406,9 @@
     .nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:0 clamp(20px,3vw,48px);height:var(--nav-height);display:flex;align-items:center;transition:background .3s,box-shadow .3s}
     .nav--scrolled{background:rgba(10,10,10,.96);box-shadow:0 1px 24px rgba(0,0,0,.5)}
     .nav__inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1440px;margin:0 auto;position:relative}
-    .nav__logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--color-text-primary)}
+    .nav__logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--color-text-primary);flex-shrink:0}
+    .nav__links{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:var(--space-3xl);list-style:none;margin:0;padding:0}
+    .nav__actions{display:flex;align-items:center;gap:var(--space-md);flex-shrink:0;margin-left:auto}
     .hero{position:relative;min-height:85dvh;display:flex;align-items:center;justify-content:center;text-align:center;padding-top:var(--nav-height);overflow:hidden}
     .hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
     .hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.7) 100%);z-index:1}
