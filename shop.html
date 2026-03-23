@@ -210,6 +210,15 @@
       text-align: center;
       padding: calc(var(--nav-height) + 48px) 24px 64px
     }
+    /* ── Nav layout: logo left | links centered | actions right ── */
+    .nav__inner{display:flex!important;align-items:center!important;justify-content:space-between!important;position:relative!important;max-width:none!important;width:100%!important;margin:0!important}
+    .nav__logo{flex:0 0 auto!important;display:flex!important;align-items:center!important}
+    .nav__links{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;display:flex!important;align-items:center!important;gap:32px!important;white-space:nowrap!important;pointer-events:auto!important}
+    .nav__actions{flex:0 0 auto!important;display:flex!important;align-items:center!important;gap:16px!important;margin-left:0!important}
+    @media(max-width:768px){
+      .nav__links{position:fixed!important;top:var(--nav-height)!important;left:0!important;right:0!important;width:100%!important;bottom:auto!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;gap:4px!important;padding:20px 0 28px!important;background:rgba(10,10,10,0.98)!important;transform:translateY(-100%)!important;opacity:0!important;visibility:hidden!important;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s ease,visibility 0s linear .35s!important;z-index:998!important;pointer-events:none!important}
+      .nav--open .nav__links{transform:translateY(0)!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+    }
   </style>
 
   <!-- Bundled Styles -->
@@ -241,8 +250,7 @@
     <div class="nav__inner">
 
       <a href="index.html" class="nav__logo" aria-label="Barsys Happy Hour home">
-        <img src="assets/HappyHour.Logo.White.png" alt="Barsys logo" class="nav__logo-mark" />
-
+        <img src="assets/HappyHour.Logo.White.png" alt="HappyHour by Barsys" class="nav__logo-mark" style="width:460px;height:auto;object-fit:contain;max-width:40vw;" />
       </a>
 
       <ul class="nav__links" role="list">
