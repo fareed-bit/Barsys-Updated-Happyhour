@@ -477,6 +477,11 @@
       /* Hero shifts down to make room — class added by JS below */
       .hero{transition:padding-top .35s cubic-bezier(.4,0,.2,1)!important}
       .hero.nav-menu-open{padding-top:calc(var(--nav-height) + var(--mob-menu-h, 210px))!important}
+
+      /* Swap wizard cards: Start Planning above YOUR BARSYS EVENT */
+      .wizard-layout{display:flex!important;flex-direction:column!important}
+      .wizard{order:1!important}
+      .wizard__summary-panel{order:2!important}
     }
   </style>
 
