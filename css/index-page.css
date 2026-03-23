@@ -366,18 +366,18 @@
       float: right;
       width: 44px;
       height: 44px;
+      padding: 0;
       border-radius: 50%;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(0,0,0,0.5);
       color: var(--color-text-primary);
-      font-size: 1.5rem;
       cursor: pointer;
       z-index: 2;
       transition: border-color 0.2s, color 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
-      line-height: 1;
+      flex-shrink: 0;
     }
     .mixlist-modal__close:hover {
       border-color: var(--color-gold-border);
