@@ -571,6 +571,35 @@
       .wizard{order:1!important}
       .wizard__summary-panel{order:2!important}
     }
+
+    /* ── Guest count: make number field visually editable ── */
+    .wizard__guest-number {
+      border: 1.5px solid rgba(255,255,255,0.12) !important;
+      border-radius: 10px !important;
+      padding: 10px 16px !important;
+      cursor: text !important;
+      transition: border-color .2s, background .2s !important;
+    }
+    .wizard__guest-number:hover {
+      border-color: rgba(200,169,126,0.35) !important;
+      background: rgba(255,255,255,0.03) !important;
+    }
+    .wizard__guest-number:focus {
+      border-color: var(--color-gold, #c8a97e) !important;
+      background: rgba(200,169,126,0.05) !important;
+      outline: none !important;
+    }
+    .wizard__guest-hint {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 6px !important;
+    }
+    .wizard__guest-hint::before {
+      content: '✎' !important;
+      font-size: 12px !important;
+      opacity: .5 !important;
+    }
   </style>
 
   <!-- Google Fonts (async — non-render-blocking) -->
@@ -901,7 +930,7 @@
               <input type="number" id="wiz-guest-count" class="wizard__guest-number" min="20" max="500" value="50" step="5" inputmode="numeric" aria-label="Number of guests" />
               <button class="wizard__guest-btn wizard__guest-btn--plus" id="guest-plus" type="button" aria-label="Increase guest count">+</button>
             </div>
-            <p class="wizard__guest-hint">Minimum 20 guests &middot; Use arrows or type a number</p>
+            <p class="wizard__guest-hint">Tap the number to type directly &middot; minimum 20 guests</p>
             <div class="wizard__nav">
               <button class="wizard__nav-back" data-wizard-prev>← Back</button>
               <button class="btn btn-primary btn--sm" data-wizard-next>Continue</button>

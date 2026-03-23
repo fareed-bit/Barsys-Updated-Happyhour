@@ -567,10 +567,29 @@
         updateGuestCount();
       });
       if (guestInput) {
-        guestInput.addEventListener('change', updateGuestCount);
+        /* Live update while typing — debounced so pricing recalc isn't spammy */
         guestInput.addEventListener('input', function() {
           clearTimeout(guestInput._debounce);
-          guestInput._debounce = setTimeout(updateGuestCount, 400);
+          var raw = parseInt(guestInput.value);
+          /* Update formData immediately with raw value so summary shows live */
+          if (!isNaN(raw) && raw >= 1) {
+            formData.guestCount = raw;
+            updatePricing();
+            updateSummary();
+          }
+          /* Clamp + commit after user pauses typing (300ms) */
+          guestInput._debounce = setTimeout(updateGuestCount, 300);
+        });
+        /* Clamp on blur so field always shows a valid number when user leaves */
+        guestInput.addEventListener('blur', function() {
+          clearTimeout(guestInput._debounce);
+          updateGuestCount();
+        });
+        /* Also handle change (e.g. browser autofill) */
+        guestInput.addEventListener('change', updateGuestCount);
+        /* Select all text on focus so typing immediately replaces the number */
+        guestInput.addEventListener('focus', function() {
+          setTimeout(function() { guestInput.select(); }, 0);
         });
         /* guestCount stays 0 until user interacts — event card shows "—" */
       }
