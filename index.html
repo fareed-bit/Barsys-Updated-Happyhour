@@ -429,13 +429,54 @@
       .nav__links{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;display:flex!important;align-items:center!important;gap:32px!important;white-space:nowrap!important;pointer-events:auto!important}
       .nav__actions{flex:0 0 auto!important;display:flex!important;align-items:center!important;gap:16px!important;margin-left:0!important}
     }
-    /* ── Mobile: let bundle.css slide-in menu work untouched ── */
+    /* ── Mobile: dropdown slides DOWN from under navbar, hero shifts to make room ── */
     @media (max-width: 768px) {
       .nav__inner{display:flex!important;align-items:center!important;justify-content:space-between!important;max-width:none!important;width:100%!important;margin:0!important}
       .nav__logo{flex:0 0 auto!important;display:flex!important;align-items:center!important}
-      /* links: reset to bundle.css fixed full-screen slide-in */
-      .nav__links{position:fixed!important;top:var(--nav-height)!important;left:0!important;right:0!important;bottom:0!important;transform:translateX(100%)!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:var(--space-3xl)!important;background:rgba(10,10,10,.97)!important;backdrop-filter:blur(20px)!important;white-space:normal!important;pointer-events:none!important}
-      .nav--open .nav__links{transform:translateX(0)!important;pointer-events:auto!important}
+      /* Dropdown: hidden above navbar by default, slides down on open */
+      .nav__links{
+        position:fixed!important;
+        top:var(--nav-height)!important;
+        left:0!important;
+        right:0!important;
+        width:100%!important;
+        bottom:auto!important;
+        flex-direction:column!important;
+        align-items:center!important;
+        justify-content:flex-start!important;
+        gap:0!important;
+        padding:16px 0 24px!important;
+        background:rgba(10,10,10,.98)!important;
+        backdrop-filter:blur(20px)!important;
+        -webkit-backdrop-filter:blur(20px)!important;
+        transform:translateY(-105%)!important;
+        opacity:0!important;
+        visibility:hidden!important;
+        transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s ease,visibility 0s linear .35s!important;
+        z-index:998!important;
+        pointer-events:none!important;
+        white-space:normal!important;
+      }
+      .nav--open .nav__links{
+        transform:translateY(0)!important;
+        opacity:1!important;
+        visibility:visible!important;
+        transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s ease!important;
+        pointer-events:auto!important;
+      }
+      /* Each link row */
+      .nav__links .nav__link{
+        display:block!important;
+        width:100%!important;
+        text-align:center!important;
+        padding:18px 32px!important;
+        font-size:17px!important;
+        letter-spacing:.1em!important;
+        border-bottom:1px solid rgba(255,255,255,.06)!important;
+      }
+      /* Hero shifts down to make room — class added by JS below */
+      .hero{transition:padding-top .35s cubic-bezier(.4,0,.2,1)!important}
+      .hero.nav-menu-open{padding-top:calc(var(--nav-height) + var(--mob-menu-h, 210px))!important}
     }
   </style>
 
@@ -2023,5 +2064,29 @@
     <a href="#book" class="btn btn-primary">Plan Your Event</a>
   </div>
 
+  <!-- Mobile menu: measure dropdown height → shift hero so nothing overlaps -->
+  <script>
+    (function(){
+      var nav   = document.querySelector('.nav');
+      var hero  = document.querySelector('.hero');
+      var links = document.querySelector('.nav__links');
+      if (!nav || !hero || !links) return;
+      function update(){
+        if (window.innerWidth > 768) { hero.classList.remove('nav-menu-open'); return; }
+        if (nav.classList.contains('nav--open')) {
+          // measure after transition starts so the element is visible
+          requestAnimationFrame(function(){
+            var h = links.offsetHeight;
+            document.documentElement.style.setProperty('--mob-menu-h', h + 'px');
+            hero.classList.add('nav-menu-open');
+          });
+        } else {
+          hero.classList.remove('nav-menu-open');
+        }
+      }
+      new MutationObserver(update).observe(nav, {attributes:true, attributeFilter:['class']});
+      window.addEventListener('resize', update);
+    })();
+  </script>
 </body>
 </html>
