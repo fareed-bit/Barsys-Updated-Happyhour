@@ -17,5 +17,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://barsys.com/sitemap.xml
-# Also see: https://barsys-happy-hours.pages.dev/sitemap.xml
+Sitemap: https://happyhours.barsys.com/sitemap.xml
