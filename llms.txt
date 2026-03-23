@@ -15,10 +15,10 @@ Barsys Happy Hour provides full-service corporate happy hour experiences in New 
 - Contact: fareed@barsys.com | (917) 679-3938
 
 ## Pages
-- Homepage: https://happyhour.barsys.com/
-- Shop (cocktail machines & accessories): https://happyhour.barsys.com/shop.html
-- Privacy Policy: https://happyhour.barsys.com/privacy-policy.html
-- Terms of Service: https://happyhour.barsys.com/terms-of-service.html
+- Homepage: https://happyhours.barsys.com/
+- Shop (cocktail machines & accessories): https://happyhours.barsys.com/shop.html
+- Privacy Policy: https://happyhours.barsys.com/privacy-policy.html
+- Terms of Service: https://happyhours.barsys.com/terms-of-service.html
 
 ## Event Types
 - Recurring office happy hours (2x/month program)

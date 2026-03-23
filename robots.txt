@@ -19,4 +19,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://happyhour.barsys.com/sitemap.xml
+Sitemap: https://happyhours.barsys.com/sitemap.xml
