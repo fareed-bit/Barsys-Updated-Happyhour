@@ -53,29 +53,11 @@
   flex-shrink: 0;
 }
 
-.nav__logo-lockup {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  line-height: 1;
-}
-
-.nav__logo-main {
-  font-size: 22px;
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
-}
-
-.nav__logo-byline {
-  font-size: 10px;
-  font-weight: 400;
-  color: #ffffff;
-  letter-spacing: 0.01em;
-  align-self: flex-end;
-  margin-top: 1px;
+.nav__logo-mark {
+  height: 36px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
 }
 
 /* --------------------------------------------------------------------------
