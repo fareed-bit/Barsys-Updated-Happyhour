@@ -513,10 +513,10 @@
     /* ── Desktop: logo left | links centered | actions right — grid prevents overlap ── */
     @media (min-width: 769px) {
       .nav__inner{display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;align-items:center!important;width:100%!important;max-width:none!important;margin:0!important}
-      .nav__logo{display:flex!important;align-items:center!important;padding-top:20px!important;justify-self:start!important;min-width:0!important;overflow:hidden!important}
-      .nav__logo-mark{max-width:100%!important}
-      .nav__links{position:static!important;display:flex!important;align-items:center!important;gap:clamp(16px,2vw,32px)!important;white-space:nowrap!important;transform:none!important;justify-self:center!important;pointer-events:auto!important}
-      .nav__actions{display:flex!important;align-items:center!important;gap:12px!important;justify-self:end!important}
+      .nav__logo{display:flex!important;align-items:center!important;padding-top:20px!important;justify-self:start!important;min-width:0!important;overflow:visible!important}
+      .nav__logo-mark{width:clamp(160px,20vw,320px)!important;height:auto!important;max-width:none!important;object-fit:contain!important;display:block!important;flex-shrink:0!important}
+      .nav__links{position:static!important;display:flex!important;align-items:center!important;gap:clamp(12px,1.8vw,28px)!important;white-space:nowrap!important;transform:none!important;justify-self:center!important;pointer-events:auto!important}
+      .nav__actions{display:flex!important;align-items:center!important;gap:12px!important;justify-self:end!important;white-space:nowrap!important}
     }
     /* ── Mobile: dropdown slides DOWN from under navbar, hero shifts to make room ── */
     @media (max-width: 768px) {
@@ -623,7 +623,7 @@
     <div class="nav__inner">
 
       <a href="#home" class="nav__logo" aria-label="Barsys Happy Hour home">
-        <img src="assets/HappyHour.Logo.White.png" alt="HappyHour by Barsys" class="nav__logo-mark" style="width:368px;height:auto;object-fit:contain;max-width:min(368px,22vw);" />
+        <img src="assets/HappyHour.Logo.White.png" alt="HappyHour by Barsys" class="nav__logo-mark" />
       </a>
 
       <ul class="nav__links" role="list">
