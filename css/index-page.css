@@ -926,12 +926,21 @@
       overflow: hidden;
       width: 100%;
       height: 100%;
+      align-self: stretch;
+    }
+
+    .why-barsys__visual picture {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
     .why-barsys__visual img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center center;
+      display: block;
     }
 
     .why-barsys__content {
@@ -941,6 +950,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
     }
 
     .why-barsys__headline {
