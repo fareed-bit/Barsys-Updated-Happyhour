@@ -920,6 +920,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       min-height: 600px;
+      padding-left: 48px;
     }
 
     .why-barsys__visual {
