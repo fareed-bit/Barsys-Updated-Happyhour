@@ -510,12 +510,13 @@
 
   <!-- Nav layout overrides (must come after bundle to win cascade) -->
   <style>
-    /* ── Desktop: logo left | links centered | actions right ── */
+    /* ── Desktop: logo left | links centered | actions right — grid prevents overlap ── */
     @media (min-width: 769px) {
-      .nav__inner{display:flex!important;align-items:center!important;justify-content:space-between!important;position:relative!important;max-width:none!important;width:100%!important;margin:0!important}
-      .nav__logo{flex:0 0 auto!important;display:flex!important;align-items:center!important;padding-top:20px!important}
-      .nav__links{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;display:flex!important;align-items:center!important;gap:32px!important;white-space:nowrap!important;pointer-events:auto!important}
-      .nav__actions{flex:0 0 auto!important;display:flex!important;align-items:center!important;gap:16px!important;margin-left:0!important}
+      .nav__inner{display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;align-items:center!important;width:100%!important;max-width:none!important;margin:0!important}
+      .nav__logo{display:flex!important;align-items:center!important;padding-top:20px!important;justify-self:start!important;min-width:0!important;overflow:hidden!important}
+      .nav__logo-mark{max-width:100%!important}
+      .nav__links{position:static!important;display:flex!important;align-items:center!important;gap:clamp(16px,2vw,32px)!important;white-space:nowrap!important;transform:none!important;justify-self:center!important;pointer-events:auto!important}
+      .nav__actions{display:flex!important;align-items:center!important;gap:12px!important;justify-self:end!important}
     }
     /* ── Mobile: dropdown slides DOWN from under navbar, hero shifts to make room ── */
     @media (max-width: 768px) {
@@ -622,7 +623,7 @@
     <div class="nav__inner">
 
       <a href="#home" class="nav__logo" aria-label="Barsys Happy Hour home">
-        <img src="assets/HappyHour.Logo.White.png" alt="HappyHour by Barsys" class="nav__logo-mark" style="width:368px;height:auto;object-fit:contain;max-width:32vw;" />
+        <img src="assets/HappyHour.Logo.White.png" alt="HappyHour by Barsys" class="nav__logo-mark" style="width:368px;height:auto;object-fit:contain;max-width:min(368px,22vw);" />
       </a>
 
       <ul class="nav__links" role="list">
