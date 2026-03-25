@@ -130,11 +130,11 @@
   }
   </script>
 
-  <!-- Structured Data: LocalBusiness / FoodService -->
+  <!-- Structured Data: LocalBusiness / EventPlanningService -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FoodService",
+    "@type": ["LocalBusiness", "ProfessionalService"],
     "name": "Barsys Happy Hour",
     "description": "Premium AI-powered corporate cocktail event service in New York City. Full-service happy hour packages including AI cocktail machines, professional bartenders, spirits, setup, and cleanup.",
     "url": "https://happyhours.barsys.com",
@@ -142,22 +142,45 @@
     "logo": "https://happyhours.barsys.com/assets/barsys-logo.png",
     "telephone": "+19176793938",
     "email": "fareed@barsys.com",
-    "priceRange": "$50-$200 per person",
+    "priceRange": "$$$",
+    "currenciesAccepted": "USD",
+    "paymentAccepted": "Credit Card, Invoice",
+    "foundingDate": "2022",
+    "hasMap": "https://maps.google.com/?q=44+West+37th+Street+New+York+NY+10018",
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": "44 West 37th Street",
       "addressLocality": "New York",
       "addressRegion": "NY",
+      "postalCode": "10018",
       "addressCountry": "US"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 40.7128,
-      "longitude": -74.0060
+      "latitude": 40.7483,
+      "longitude": -73.9872
     },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "09:00",
+        "closes": "23:00"
+      }
+    ],
+    "serviceType": "Corporate Happy Hour & Cocktail Event Service",
     "areaServed": [
-      { "@type": "City", "name": "New York" },
+      { "@type": "City", "name": "New York", "sameAs": "https://en.wikipedia.org/wiki/New_York_City" },
       { "@type": "AdministrativeArea", "name": "Manhattan" },
-      { "@type": "AdministrativeArea", "name": "Brooklyn" }
+      { "@type": "AdministrativeArea", "name": "Brooklyn" },
+      { "@type": "Neighborhood", "name": "Midtown Manhattan" },
+      { "@type": "Neighborhood", "name": "Financial District" },
+      { "@type": "Neighborhood", "name": "Chelsea" },
+      { "@type": "Neighborhood", "name": "SoHo" },
+      { "@type": "Neighborhood", "name": "Flatiron District" },
+      { "@type": "Neighborhood", "name": "Hudson Yards" },
+      { "@type": "Neighborhood", "name": "DUMBO" },
+      { "@type": "Neighborhood", "name": "Williamsburg" }
     ],
     "aggregateRating": {
       "@type": "AggregateRating",
@@ -314,6 +337,69 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Barsys", "item": "https://www.barsys.com" },
       { "@type": "ListItem", "position": 2, "name": "Happy Hour", "item": "https://happyhours.barsys.com" }
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: VideoObject — enables video rich results / carousels -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Barsys Corporate Happy Hour Event Videos",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "VideoObject",
+          "name": "AI Cocktail Machine at NYC Corporate Happy Hour",
+          "description": "Watch the Barsys 360 AI cocktail machine in action at a corporate event in New York City — precision-poured craft cocktails in seconds.",
+          "thumbnailUrl": "https://happyhours.barsys.com/videos/posters/IMG_4573.jpg",
+          "uploadDate": "2026-03-25",
+          "contentUrl": "https://happyhours.barsys.com/videos/IMG_4573.mp4",
+          "publisher": { "@type": "Organization", "name": "Barsys", "url": "https://happyhours.barsys.com" }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "VideoObject",
+          "name": "Barsys Corporate Cocktail Hour NYC",
+          "description": "A packed corporate cocktail hour in NYC with guests mingling and enjoying AI-poured craft cocktails from Barsys.",
+          "thumbnailUrl": "https://happyhours.barsys.com/videos/posters/barsys_cocktail_hour.jpg",
+          "uploadDate": "2026-03-25",
+          "contentUrl": "https://happyhours.barsys.com/videos/barsys_cocktail_hour.mp4",
+          "publisher": { "@type": "Organization", "name": "Barsys", "url": "https://happyhours.barsys.com" }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "VideoObject",
+          "name": "Barsys Live Office Happy Hour Event",
+          "description": "Live footage from a Barsys corporate office happy hour — bartenders, AI machines, and guests enjoying premium cocktails.",
+          "thumbnailUrl": "https://happyhours.barsys.com/videos/posters/barsys_live_event.jpg",
+          "uploadDate": "2026-03-25",
+          "contentUrl": "https://happyhours.barsys.com/videos/barsys_live_event.mp4",
+          "publisher": { "@type": "Organization", "name": "Barsys", "url": "https://happyhours.barsys.com" }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "VideoObject",
+          "name": "Corporate Happy Hour Bartenders NYC — Barsys",
+          "description": "Barsys professional bartenders crafting cocktails at a NYC corporate event alongside AI cocktail machines.",
+          "thumbnailUrl": "https://happyhours.barsys.com/videos/posters/barsys_bartenders.jpg",
+          "uploadDate": "2026-03-25",
+          "contentUrl": "https://happyhours.barsys.com/videos/barsys_bartenders.mp4",
+          "publisher": { "@type": "Organization", "name": "Barsys", "url": "https://happyhours.barsys.com" }
+        }
+      }
     ]
   }
   </script>
@@ -913,6 +999,46 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       HOW IT WORKS — 3-Step Process
+       ======================================================================== -->
+  <section class="section section-light" style="padding-block: 64px 72px;" aria-labelledby="how-it-works-headline">
+    <div class="container" style="max-width:860px; text-align:center;">
+      <div class="eyebrow" style="justify-content:center; margin-bottom:16px;">
+        <span class="eyebrow__star" aria-hidden="true">★</span>
+        Simple Process
+      </div>
+      <h2 id="how-it-works-headline" class="type-h2" style="margin-bottom:16px;">How It Works</h2>
+      <p class="type-body" style="max-width:500px; margin:0 auto 56px;">From first message to final cocktail — we handle everything.</p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:40px; text-align:center;">
+
+        <div class="anim-fade-up">
+          <div style="width:64px; height:64px; border-radius:50%; background:rgba(200,169,126,0.12); border:1px solid rgba(200,169,126,0.25); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:22px; font-weight:700; color:var(--color-gold);">1</div>
+          <h3 style="font-size:18px; font-weight:700; color:var(--color-text); margin-bottom:10px;">Book Your Event</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">Fill out our 2-minute event wizard. Tell us your guest count, date, and venue. We send a personalized plan with pricing within one business day.</p>
+        </div>
+
+        <div class="anim-fade-up anim-stagger-2">
+          <div style="width:64px; height:64px; border-radius:50%; background:rgba(200,169,126,0.12); border:1px solid rgba(200,169,126,0.25); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:22px; font-weight:700; color:var(--color-gold);">2</div>
+          <h3 style="font-size:18px; font-weight:700; color:var(--color-text); margin-bottom:10px;">We Handle Everything</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">Barsys coordinates building access, delivers AI cocktail machines, sets up the full bar, and arrives early. Spirits, mixers, glassware, ice — all included.</p>
+        </div>
+
+        <div class="anim-fade-up anim-stagger-3">
+          <div style="width:64px; height:64px; border-radius:50%; background:rgba(200,169,126,0.12); border:1px solid rgba(200,169,126,0.25); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:22px; font-weight:700; color:var(--color-gold);">3</div>
+          <h3 style="font-size:18px; font-weight:700; color:var(--color-text); margin-bottom:10px;">Your Team Shows Up</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">Walk in to a fully set bar. Your team enjoys craft cocktails and mocktails — we service the event start to finish and leave without a trace.</p>
+        </div>
+
+      </div>
+
+      <div style="margin-top:48px;">
+        <a href="#book" class="btn btn-primary">Plan Your Happy Hour →</a>
+      </div>
     </div>
   </section>
 
@@ -1992,6 +2118,64 @@
   </section>
 
   <!-- ========================================================================
+       WHO WE SERVE — Event Types Grid
+       ======================================================================== -->
+  <section class="section" style="padding-block: 72px;" aria-labelledby="who-we-serve-headline">
+    <div class="container">
+
+      <div class="section-header section-header--center anim-fade-up" style="margin-bottom:56px;">
+        <div class="eyebrow" style="justify-content:center;">
+          <span class="eyebrow__star" aria-hidden="true">★</span>
+          Event Types
+        </div>
+        <h2 id="who-we-serve-headline" class="type-h2">The NYC Companies That Book Barsys</h2>
+        <p class="type-body" style="max-width:520px; margin:0 auto;">From HR teams building culture to sales teams entertaining clients — here's who we serve and why.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:28px;" class="anim-fade-up">
+          <div style="font-size:28px; margin-bottom:14px;" aria-hidden="true">🏢</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text); margin-bottom:8px;">HR &amp; People Teams</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">Running a recurring <strong>office happy hour</strong> is one of the highest-ROI perks for in-office attendance and retention. We make it effortless — two events per month, fully managed.</p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:28px;" class="anim-fade-up anim-stagger-2">
+          <div style="font-size:28px; margin-bottom:14px;" aria-hidden="true">🚀</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text); margin-bottom:8px;">Product Launches &amp; Brand Events</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">The AI machine becomes the centerpiece of your activation. Custom cocktail menus themed to your launch, press-worthy presentation, and an experience guests actually remember.</p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:28px;" class="anim-fade-up anim-stagger-3">
+          <div style="font-size:28px; margin-bottom:14px;" aria-hidden="true">🤝</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text); margin-bottom:8px;">Client Entertainment</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">Impress prospects and top-tier clients with a cocktail experience that signals quality without requiring a restaurant. Reserve tier includes fully custom menus and premium spirits.</p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:28px;" class="anim-fade-up">
+          <div style="font-size:28px; margin-bottom:14px;" aria-hidden="true">🎯</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text); margin-bottom:8px;">Recruiting &amp; Offer Events</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">Show candidates what your culture looks like. A Barsys happy hour at your office tells a story that comp packages alone can't — and closes offers faster.</p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:28px;" class="anim-fade-up anim-stagger-2">
+          <div style="font-size:28px; margin-bottom:14px;" aria-hidden="true">🎉</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text); margin-bottom:8px;">Holiday Parties &amp; Milestones</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">End-of-year parties, company anniversaries, product milestones, and team celebrations. We scale from 50 to 250+ guests with the same quality and zero stress on your side.</p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:28px;" class="anim-fade-up anim-stagger-3">
+          <div style="font-size:28px; margin-bottom:14px;" aria-hidden="true">🧠</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text); margin-bottom:8px;">Team Building Experiences</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">Guests don't just drink — they interact with the AI machine, explore menus, and bond over the experience. It's hands-on <strong>corporate team building</strong> people actually look forward to.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
        FAQ — 2-column layout (template style)
        ======================================================================== -->
   <section class="section section-light" id="faq" style="padding-block: var(--section-padding);" aria-labelledby="faq-headline">
@@ -2205,6 +2389,23 @@
 
 
   <!-- ========================================================================
+       INCLUSIVE BY DESIGN — Mocktail / accessibility callout
+       ======================================================================== -->
+  <section class="section section-light" style="padding-block: 56px;" aria-label="Inclusive events for everyone">
+    <div class="container" style="max-width:820px;">
+      <div style="background:rgba(200,169,126,0.06); border:1px solid rgba(200,169,126,0.2); border-radius:16px; padding:36px 40px; display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap;" class="anim-fade-up">
+        <div style="font-size:36px; flex-shrink:0; line-height:1;" aria-hidden="true">🌿</div>
+        <div>
+          <h3 style="font-size:19px; font-weight:700; color:var(--color-text); margin-bottom:10px;">Inclusive by Design — Everyone Feels Welcome</h3>
+          <p style="font-size:15px; color:var(--color-text-secondary); line-height:1.75; margin:0;">
+            Every Barsys event includes a full <strong>mocktail menu</strong> crafted with the same care and presentation as our cocktails — no one gets handed a Sprite and told to wait it out. Whether your team members don't drink, are pregnant, or simply prefer non-alcoholic options, the AI machine serves everyone equally. No awkward moments, no separate experience, no one left out.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
        LONG-FORM SEO CONTENT — "Why Barsys" informational + keyword depth
        ======================================================================== -->
   <section class="section section-light" style="padding-block: 72px 64px;" aria-labelledby="seo-guide-headline">
@@ -2253,6 +2454,27 @@
         Our most popular offering is the <strong>recurring corporate happy hour program</strong>: two fully managed events per month at member pricing, with a dedicated account manager, priority scheduling, and rotating seasonal menus. NYC offices that run a consistent happy hour program see measurably higher in-office attendance and team engagement. It pays for itself.
       </p>
 
+      <h3 style="font-size:clamp(17px,1.8vw,22px); font-weight:600; color:var(--color-text); margin: 32px 0 14px;">
+        In-Office Happy Hours vs. Going Out to a Bar
+      </h3>
+      <p style="color:var(--color-text-secondary); line-height:1.8; margin-bottom:20px;">
+        When NYC companies debate between <strong>in-office happy hours</strong> and taking the team to a bar, the math becomes clear quickly. A bar tab for 80 people in Midtown runs $2,500–$4,000 — with no guaranteed space, no control over the experience, and 40 minutes of herding cats to get there. A managed in-office event from Barsys costs less per person, takes zero time to organize, and happens in your own space. That means 100% attendance, no commute, and a culture moment that actually builds belonging at your office — not somewhere down the street.
+      </p>
+
+      <h3 style="font-size:clamp(17px,1.8vw,22px); font-weight:600; color:var(--color-text); margin: 32px 0 14px;">
+        Corporate Happy Hours as Team Building
+      </h3>
+      <p style="color:var(--color-text-secondary); line-height:1.8; margin-bottom:20px;">
+        The best <strong>corporate team building activities in NYC</strong> don't feel like team building. When there's an AI cocktail machine to experiment with, a rotating menu to explore, and no PowerPoint slides in sight, people relax — and real connection happens. Barsys events are consistently described by HR teams as the most effective low-effort culture investment they make. It's team building that people actually look forward to.
+      </p>
+
+      <h3 style="font-size:clamp(17px,1.8vw,22px); font-weight:600; color:var(--color-text); margin: 32px 0 14px;">
+        Employee Appreciation Events That Actually Mean Something
+      </h3>
+      <p style="color:var(--color-text-secondary); line-height:1.8; margin-bottom:20px;">
+        <strong>Employee appreciation</strong> is most effective when it's experiential, not transactional. Handing someone a gift card says "we checked a box." Bringing in a premium cocktail experience — with craft drinks, a professional team, and a thoughtful seasonal menu — says you invested in a moment worth having. NYC companies that run Barsys events for employee appreciation consistently report higher post-event engagement and satisfaction than those that default to catered lunches or generic perks.
+      </p>
+
       <div style="background:rgba(200,169,126,0.06); border:1px solid rgba(200,169,126,0.2); border-radius:12px; padding:24px 28px; margin-top:32px;">
         <p style="color:var(--color-text-secondary); line-height:1.7; font-size:15px; margin:0;">
           <strong style="color:var(--color-gold);">Ready to plan your event?</strong> Fill out our 2-minute event wizard above for a personalized plan with pricing — or call us directly at <a href="tel:+19176793938" style="color:var(--color-gold);">(917) 679-3938</a>. No commitment, no credit card. We'll follow up within one business day.
@@ -2262,14 +2484,45 @@
     </div>
   </section>
 
-  <!-- Service Area — Local SEO -->
-  <section class="section" style="padding: 48px 0;" aria-labelledby="service-area-heading">
-    <div class="container" style="text-align:center;">
-      <h2 id="service-area-heading" style="font-size:clamp(16px,1.6vw,19px); font-weight:600; color:var(--color-text); margin-bottom:10px;">
-        Corporate Happy Hour Service Areas in NYC
-      </h2>
-      <p style="font-size:var(--font-size-body-sm); color:var(--color-text-tertiary); max-width:700px; margin:0 auto; line-height:1.7;">
-        Barsys provides <strong style="color:var(--color-gold);">corporate happy hour</strong> and cocktail event services across Manhattan, Brooklyn, and the greater NYC metro area &mdash; including <a href="#book" style="color:var(--color-gold);">Midtown</a>, FiDi, Chelsea, SoHo, Flatiron, Hudson Yards, Tribeca, the West Village, DUMBO, Williamsburg, and all Manhattan and Brooklyn neighborhoods. Available for events in New Jersey and Connecticut by request.
+  <!-- Service Area — Local SEO (expanded neighborhood grid) -->
+  <section class="section" style="padding: 64px 0 72px;" aria-labelledby="service-area-heading">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:40px;">
+        <h2 id="service-area-heading" style="font-size:clamp(20px,2vw,26px); font-weight:700; color:var(--color-text); margin-bottom:12px;">
+          Corporate Happy Hour Service Areas in NYC
+        </h2>
+        <p style="font-size:15px; color:var(--color-text-tertiary); max-width:620px; margin:0 auto; line-height:1.7;">
+          We serve <strong style="color:var(--color-gold);">corporate events</strong> across Manhattan, Brooklyn, and the full NYC metro area. Setup anywhere — your office, rooftop, or lobby.
+        </p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px; max-width:900px; margin:0 auto 32px;">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:16px 20px;">
+          <div style="font-size:13px; font-weight:700; color:var(--color-text); margin-bottom:4px;">Midtown Manhattan</div>
+          <div style="font-size:12px; color:var(--color-text-tertiary); line-height:1.6;">Times Square, Grand Central, Penn Station, Hudson Yards</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:16px 20px;">
+          <div style="font-size:13px; font-weight:700; color:var(--color-text); margin-bottom:4px;">Financial District</div>
+          <div style="font-size:12px; color:var(--color-text-tertiary); line-height:1.6;">FiDi, Wall Street, Battery Park City, Seaport</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:16px 20px;">
+          <div style="font-size:13px; font-weight:700; color:var(--color-text); margin-bottom:4px;">Chelsea &amp; Flatiron</div>
+          <div style="font-size:12px; color:var(--color-text-tertiary); line-height:1.6;">Chelsea, Flatiron, Union Square, Gramercy</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:16px 20px;">
+          <div style="font-size:13px; font-weight:700; color:var(--color-text); margin-bottom:4px;">SoHo &amp; Tribeca</div>
+          <div style="font-size:12px; color:var(--color-text-tertiary); line-height:1.6;">SoHo, Tribeca, NoHo, Nolita, West Village</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:16px 20px;">
+          <div style="font-size:13px; font-weight:700; color:var(--color-text); margin-bottom:4px;">Brooklyn</div>
+          <div style="font-size:12px; color:var(--color-text-tertiary); line-height:1.6;">DUMBO, Williamsburg, Downtown Brooklyn, Bushwick</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:16px 20px;">
+          <div style="font-size:13px; font-weight:700; color:var(--color-text); margin-bottom:4px;">NJ &amp; CT</div>
+          <div style="font-size:12px; color:var(--color-text-tertiary); line-height:1.6;">Jersey City, Hoboken, Stamford — available on request</div>
+        </div>
+      </div>
+      <p style="text-align:center; font-size:13px; color:var(--color-text-tertiary); max-width:600px; margin:0 auto; line-height:1.7;">
+        Don't see your neighborhood? <a href="#book" style="color:var(--color-gold);">Contact us</a> — we serve all Manhattan and Brooklyn neighborhoods and coordinate building logistics for every venue.
       </p>
     </div>
   </section>
@@ -2321,6 +2574,16 @@
               <a href="#book" class="footer__link">Signature — $70/pp</a>
               <a href="#book" class="footer__link">Reserve — $200/pp</a>
               <a href="mailto:fareed@barsys.com?subject=Membership" class="footer__link">Membership Plans</a>
+            </nav>
+          </div>
+
+          <div class="footer__column">
+            <div class="footer__column-title">Blog</div>
+            <nav class="footer__links" aria-label="Blog articles">
+              <a href="blog/how-to-plan-corporate-happy-hour-nyc.html" class="footer__link">How to Plan a Happy Hour</a>
+              <a href="blog/corporate-happy-hour-ideas-nyc.html" class="footer__link">15 Happy Hour Ideas</a>
+              <a href="blog/corporate-happy-hour-budget-guide-nyc.html" class="footer__link">Budget Guide NYC</a>
+              <a href="blog/best-office-bar-service-nyc.html" class="footer__link">Best Bar Services NYC</a>
             </nav>
           </div>
 
