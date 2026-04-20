@@ -1197,9 +1197,11 @@
           var nameEl = document.getElementById('wiz-name');
           var emailEl = document.getElementById('wiz-email');
           var phoneEl = document.getElementById('wiz-phone');
+          var dateEl = document.getElementById('wiz-date');
           formData.name = nameEl ? nameEl.value.trim() : '';
           formData.email = emailEl ? emailEl.value.trim() : '';
           formData.phone = phoneEl ? phoneEl.value.trim() : '';
+          formData.eventDate = dateEl ? dateEl.value : '';
 
           /* Disable button to prevent double-submit */
           submitBtn.disabled = true;
@@ -1226,7 +1228,7 @@
             recurringCadence: formData.recurringCadence || '',
             company: formData.company || '', address: formData.address || '',
             city: formData.city || '', state: formData.state || '',
-            name: formData.name || '', email: formData.email || '', phone: formData.phone || '',
+            name: formData.name || '', email: formData.email || '', phone: formData.phone || '', eventDate: formData.eventDate || '',
             estimatedTotal: '$' + pricing.grandTotal.toFixed(2),
             /* UTM / Attribution fields */
             utm_source: utmFields.utm_source || '',
@@ -1275,6 +1277,7 @@
           if (formData.email) lines.push('Email: ' + formData.email);
           if (formData.company) lines.push('Company: ' + formData.company);
           if (formData.phone) lines.push('Phone: ' + formData.phone);
+          if (formData.eventDate) lines.push('Event Date: ' + formData.eventDate);
           lines.push('');
           lines.push('Event Type: ' + (formData.eventType || 'Not specified'));
           lines.push('Guest Count: ' + (formData.guestCount || 'Not specified'));
