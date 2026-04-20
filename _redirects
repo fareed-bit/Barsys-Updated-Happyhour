@@ -1,6 +1,2 @@
-# Redirect subdomain to canonical barsys.com path
-https://happyhours.barsys.com/* https://barsys.com/corporate-happy-hours 301!
-https://www.happyhours.barsys.com/* https://barsys.com/corporate-happy-hours 301!
-
-# Clean URL
+# Clean URL redirects
 /index.html / 301
