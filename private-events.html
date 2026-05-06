@@ -162,6 +162,29 @@
     /* Success */
     .pe-wiz__success-icon { width:60px; height:60px; border-radius:50%; background:rgba(200,169,126,0.12); border:1px solid rgba(200,169,126,0.3); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:26px; color:var(--color-gold,#C8A97E); }
     .pe-wiz__step[data-pe-step="success"] { text-align:center; padding:24px 0; }
+
+    /* ── Mixlist Cards ── */
+    .pe-mixlist-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:48px; }
+    .pe-mixcard { background:#fff; border:1.5px solid rgba(10,10,10,0.07); border-radius:16px; padding:28px 22px 24px; position:relative; display:flex; flex-direction:column; transition:border-color .2s, box-shadow .2s, transform .2s; }
+    .pe-mixcard:hover { border-color:rgba(200,169,126,0.45); box-shadow:0 8px 32px rgba(0,0,0,0.06); transform:translateY(-3px); }
+    .pe-mixcard--custom { background:#1a1612; border-color:rgba(200,169,126,0.3); }
+    .pe-mixcard--custom:hover { border-color:rgba(200,169,126,0.6); }
+    .pe-mixcard__label { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--color-gold-dark,#A68B5B); margin-bottom:10px; }
+    .pe-mixcard__name { font-size:18px; font-weight:700; color:#1a1612; letter-spacing:-0.02em; line-height:1.2; margin-bottom:8px; }
+    .pe-mixcard--custom .pe-mixcard__name { color:#fff; }
+    .pe-mixcard__desc { font-size:13px; color:#7a6e64; line-height:1.6; margin-bottom:20px; flex:1; }
+    .pe-mixcard--custom .pe-mixcard__desc { color:rgba(255,255,255,0.5); }
+    .pe-mixcard__drinks { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; }
+    .pe-mixcard__drinks li { font-size:13px; color:rgba(10,10,10,0.6); padding-left:16px; position:relative; line-height:1.3; }
+    .pe-mixcard__drinks li::before { content:'·'; position:absolute; left:0; color:var(--color-gold,#C8A97E); font-size:16px; line-height:1; top:-1px; }
+    .pe-mixcard--custom .pe-mixcard__drinks li { color:rgba(255,255,255,0.6); }
+    .pe-mixcard__cta { display:inline-block; margin-top:20px; font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--color-gold-dark,#A68B5B); text-decoration:none; transition:color .15s; }
+    .pe-mixcard__cta:hover { color:#1a1612; }
+    .pe-mixcard--custom .pe-mixcard__cta { color:var(--color-gold,#C8A97E); }
+    .pe-mixcard--custom .pe-mixcard__cta:hover { color:#fff; }
+    @media (max-width:900px) { .pe-mixlist-grid { grid-template-columns:repeat(3,1fr); } }
+    @media (max-width:600px) { .pe-mixlist-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:380px) { .pe-mixlist-grid { grid-template-columns:1fr; } }
   </style>
   <style>
     /* ── Nav layout — mirrors index.html responsive overrides ── */
@@ -237,12 +260,12 @@
     <div class="container hero__content">
       <div class="hero__text-block">
         <h1 class="hero__headline">
-          AI-Powered Bar Service<br><em style="font-style:normal; color:var(--color-gold);">for Private Events in NYC</em>
+          What Are We<br><em style="font-style:normal; color:var(--color-gold);">Celebrating?</em>
         </h1>
-        <p class="hero__subheadline">The fully-managed open bar experience NYC's top companies trust — now for your birthday, engagement party, or private celebration. Everything included, from $50 per person.</p>
+        <p class="hero__subheadline">NYC's AI-powered open bar for birthdays, engagement parties, and private celebrations. Bartenders, machines, spirits, setup &amp; cleanup — all in one flat rate. From $50 per person.</p>
         <div class="hero__ctas">
-          <a href="/#book" class="btn btn-primary btn--lg">Get a Free Quote</a>
-          <a href="/#book" class="btn btn--lg" style="background:transparent; border:1.5px solid var(--color-gold); color:var(--color-gold);">View Packages</a>
+          <a href="#pe-book" class="btn btn-primary btn--lg">See Packages &amp; Pricing</a>
+          <a href="#pe-book" class="btn btn--lg" style="background:transparent; border:1.5px solid var(--color-gold); color:var(--color-gold);">Browse Cocktail Menus</a>
         </div>
         <p style="font-size:12px; color:rgba(255,255,255,0.45); letter-spacing:0.09em; text-transform:uppercase; margin-top:20px;">Open bar &nbsp;&middot;&nbsp; 3 hours &nbsp;&middot;&nbsp; All-inclusive from $50/person</p>
       </div>
@@ -440,6 +463,111 @@
         </div>
 
       </div>
+
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SECTION 3.5 (LIGHT) — Cocktail Menus / Mixlists
+       ==================================================================== -->
+  <section class="section section-light" id="pe-menus" style="padding-block: clamp(64px,8vw,96px);" aria-labelledby="pe-menus-headline">
+    <div class="container">
+
+      <div class="section-header section-header--center anim-fade-up" style="text-align:center; margin-bottom:0;">
+        <div class="eyebrow" style="justify-content:center;">
+          <span class="eyebrow__star" aria-hidden="true">★</span>
+          Cocktail Menus
+        </div>
+        <h2 id="pe-menus-headline" class="type-h2" style="margin-bottom:12px;">Choose Your Mixlist</h2>
+        <p class="type-body" style="max-width:520px; margin:0 auto; color:#6b5f52;">Every package includes a curated cocktail menu. Signature and Prestige clients can fully customize — including naming a cocktail after the guest of honor.</p>
+      </div>
+
+      <div class="pe-mixlist-grid">
+
+        <!-- The Classics -->
+        <div class="pe-mixcard anim-fade-up" role="article">
+          <div class="pe-mixcard__label">Always a hit</div>
+          <div class="pe-mixcard__name">The Classics</div>
+          <div class="pe-mixcard__desc">Timeless cocktails everyone knows and loves. Zero surprises — just perfectly made standards.</div>
+          <ul class="pe-mixcard__drinks">
+            <li>Old Fashioned</li>
+            <li>Negroni</li>
+            <li>Aperol Spritz</li>
+            <li>Moscow Mule</li>
+            <li>Gin &amp; Tonic</li>
+            <li>Vodka Martini</li>
+          </ul>
+          <a href="#pe-book" class="pe-mixcard__cta">Build around this menu →</a>
+        </div>
+
+        <!-- The Celebration -->
+        <div class="pe-mixcard anim-fade-up anim-stagger-1" role="article">
+          <div class="pe-mixcard__label">Engagement &amp; milestones</div>
+          <div class="pe-mixcard__name">The Celebration</div>
+          <div class="pe-mixcard__desc">Champagne-forward and effervescent. Built for moments that feel like they deserve a toast.</div>
+          <ul class="pe-mixcard__drinks">
+            <li>French 75</li>
+            <li>Elderflower Spritz</li>
+            <li>Champagne Cocktail</li>
+            <li>Peach Bellini</li>
+            <li>Lychee Fizz</li>
+            <li>Kir Royale</li>
+          </ul>
+          <a href="#pe-book" class="pe-mixcard__cta">Build around this menu →</a>
+        </div>
+
+        <!-- The Garden Party -->
+        <div class="pe-mixcard anim-fade-up anim-stagger-2" role="article">
+          <div class="pe-mixcard__label">Spring &amp; summer events</div>
+          <div class="pe-mixcard__name">The Garden Party</div>
+          <div class="pe-mixcard__desc">Light, floral, and botanical. Bright enough to feel elegant without being heavy.</div>
+          <ul class="pe-mixcard__drinks">
+            <li>Hugo Spritz</li>
+            <li>Lavender Lemonade</li>
+            <li>Cucumber Gimlet</li>
+            <li>Violet Fizz</li>
+            <li>Rose Sangria</li>
+            <li>Mint Julep</li>
+          </ul>
+          <a href="#pe-book" class="pe-mixcard__cta">Build around this menu →</a>
+        </div>
+
+        <!-- The Tropical -->
+        <div class="pe-mixcard anim-fade-up anim-stagger-3" role="article">
+          <div class="pe-mixcard__label">Bold &amp; festive</div>
+          <div class="pe-mixcard__name">The Tropical</div>
+          <div class="pe-mixcard__desc">High-energy, crowd-pleasing, and impossible to take seriously — in the best way.</div>
+          <ul class="pe-mixcard__drinks">
+            <li>Classic Mojito</li>
+            <li>Mango Daiquiri</li>
+            <li>Paloma</li>
+            <li>Piña Colada</li>
+            <li>Dark &amp; Stormy</li>
+            <li>Rum Punch</li>
+          </ul>
+          <a href="#pe-book" class="pe-mixcard__cta">Build around this menu →</a>
+        </div>
+
+        <!-- Build Your Own -->
+        <div class="pe-mixcard pe-mixcard--custom anim-fade-up" role="article">
+          <div class="pe-mixcard__label">Signature &amp; Prestige only</div>
+          <div class="pe-mixcard__name">Build Your Own</div>
+          <div class="pe-mixcard__desc">Work with our mixologists to create a menu around your event theme, favorite spirits, or dietary needs. Name a cocktail after the guest of honor.</div>
+          <ul class="pe-mixcard__drinks">
+            <li>Custom cocktail names</li>
+            <li>Your preferred spirits</li>
+            <li>Mocktail options included</li>
+            <li>Seasonal ingredients</li>
+            <li>Event-themed garnishes</li>
+            <li>Printed cocktail cards</li>
+          </ul>
+          <a href="#pe-book" class="pe-mixcard__cta">Start with a custom menu →</a>
+        </div>
+
+      </div>
+
+      <p style="font-size:13px; color:#9b8c7e; text-align:center; margin-top:24px;">All menus are available on Essential. Full customization available on Signature ($70/pp) and Prestige ($200/pp).</p>
 
     </div>
   </section>
