@@ -99,9 +99,20 @@
     @media (max-width:640px) { .pe-stats { grid-template-columns:1fr; } }
   </style>
   <style>
-    /* Nav logo — override bundle's object-fit:cover which crops the wide logo */
-    .nav__logo-mark { width: clamp(160px,20vw,320px) !important; height: auto !important; max-width: none !important; object-fit: contain !important; display: block !important; flex-shrink: 0 !important; }
-    .nav__logo { min-width: 0 !important; overflow: visible !important; }
+    /* ── Nav layout — mirrors index.html responsive overrides ── */
+    .nav { padding: 0 clamp(20px,3vw,48px) !important; }
+    @media (min-width: 769px) {
+      .nav__inner { display: grid !important; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) !important; align-items: center !important; width: 100% !important; max-width: none !important; margin: 0 !important; padding-inline: 0 !important; }
+      .nav__logo { display: flex !important; align-items: center !important; justify-self: start !important; min-width: 0 !important; overflow: visible !important; }
+      .nav__logo-mark { width: clamp(160px,20vw,320px) !important; height: auto !important; max-width: none !important; object-fit: contain !important; display: block !important; flex-shrink: 0 !important; }
+      .nav__links { position: static !important; display: flex !important; align-items: center !important; gap: clamp(12px,1.8vw,28px) !important; white-space: nowrap !important; transform: none !important; justify-self: center !important; pointer-events: auto !important; }
+      .nav__actions { display: flex !important; align-items: center !important; gap: 12px !important; justify-self: end !important; white-space: nowrap !important; }
+    }
+    @media (max-width: 768px) {
+      .nav__inner { display: flex !important; align-items: center !important; justify-content: space-between !important; max-width: none !important; width: 100% !important; margin: 0 !important; padding-inline: 0 !important; }
+      .nav__links { position: fixed !important; top: var(--nav-height) !important; left: 0 !important; right: 0 !important; width: 100% !important; bottom: auto !important; flex-direction: column !important; align-items: center !important; justify-content: flex-start !important; gap: 4px !important; padding: 20px 0 28px !important; background: rgba(10,10,10,0.98) !important; transform: translateY(-100%) !important; opacity: 0 !important; visibility: hidden !important; transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .35s ease, visibility 0s linear .35s !important; z-index: 998 !important; pointer-events: none !important; }
+      .nav--open .nav__links { transform: translateY(0) !important; opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+    }
   </style>
 </head>
 
