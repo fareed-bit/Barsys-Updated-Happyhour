@@ -99,6 +99,71 @@
     @media (max-width:640px) { .pe-stats { grid-template-columns:1fr; } }
   </style>
   <style>
+    /* ── Private Events Wizard ── */
+    .pe-wiz { background:#fff; border:1px solid rgba(200,169,126,0.25); border-radius:20px; padding:clamp(32px,4vw,52px); }
+    .pe-wiz__progress { display:flex; align-items:center; gap:12px; margin-bottom:36px; }
+    .pe-wiz__progress-track { flex:1; height:3px; background:rgba(10,10,10,0.08); border-radius:99px; overflow:hidden; }
+    .pe-wiz__progress-fill { height:100%; background:var(--color-gold,#C8A97E); border-radius:99px; transition:width .4s ease; }
+    .pe-wiz__progress-label { font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(10,10,10,0.35); white-space:nowrap; }
+    .pe-wiz__step { display:none; }
+    .pe-wiz__step.active { display:block; }
+    .pe-wiz__step-title { font-size:clamp(20px,2.5vw,26px); font-weight:700; color:#1a1612; letter-spacing:-0.02em; margin-bottom:8px; }
+    .pe-wiz__step-sub { font-size:15px; color:#6b5f52; line-height:1.65; margin-bottom:28px; }
+    /* Package cards */
+    .pe-wiz__pkg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px; }
+    .pe-wiz__pkg { position:relative; background:#faf9f7; border:2px solid rgba(10,10,10,0.08); border-radius:14px; padding:28px 20px 22px; cursor:pointer; transition:border-color .2s,box-shadow .2s,transform .15s; user-select:none; }
+    .pe-wiz__pkg:hover { border-color:rgba(200,169,126,0.5); transform:translateY(-2px); }
+    .pe-wiz__pkg--featured { background:#1a1612; border-color:var(--color-gold,#C8A97E); }
+    .pe-wiz__pkg--selected { border-color:var(--color-gold,#C8A97E) !important; box-shadow:0 0 0 3px rgba(200,169,126,0.2); }
+    .pe-wiz__pkg-tag { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--color-gold,#C8A97E); color:#1a1612; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:4px 12px; border-radius:99px; white-space:nowrap; }
+    .pe-wiz__pkg-name { font-size:12px; font-weight:700; color:#1a1612; margin-bottom:6px; letter-spacing:0.10em; text-transform:uppercase; }
+    .pe-wiz__pkg--featured .pe-wiz__pkg-name { color:rgba(255,255,255,0.6); }
+    .pe-wiz__pkg-price { font-size:40px; font-weight:200; color:#1a1612; letter-spacing:-0.03em; line-height:1; margin-bottom:18px; }
+    .pe-wiz__pkg-price span { font-size:14px; font-weight:400; color:rgba(10,10,10,0.4); }
+    .pe-wiz__pkg--featured .pe-wiz__pkg-price { color:#fff; }
+    .pe-wiz__pkg--featured .pe-wiz__pkg-price span { color:rgba(255,255,255,0.4); }
+    .pe-wiz__pkg-list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; }
+    .pe-wiz__pkg-list li { font-size:13px; color:rgba(10,10,10,0.65); line-height:1.4; padding-left:18px; position:relative; }
+    .pe-wiz__pkg-list li::before { content:'✓'; position:absolute; left:0; color:var(--color-gold,#C8A97E); font-size:11px; top:1px; font-weight:700; }
+    .pe-wiz__pkg--featured .pe-wiz__pkg-list li { color:rgba(255,255,255,0.65); }
+    .pe-wiz__pkg-badge { display:inline-block; margin-top:16px; font-size:11px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--color-gold-dark,#A68B5B); background:rgba(200,169,126,0.1); padding:3px 10px; border-radius:99px; }
+    @media (max-width:680px) { .pe-wiz__pkg-grid { grid-template-columns:1fr; } }
+    /* Event type options */
+    .pe-wiz__options { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:28px; }
+    .pe-wiz__opt { font-size:14px; font-weight:500; color:#1a1612; background:#faf9f7; border:1.5px solid rgba(10,10,10,0.12); border-radius:99px; padding:10px 20px; cursor:pointer; transition:border-color .15s,background .15s,color .15s; user-select:none; }
+    .pe-wiz__opt:hover { border-color:rgba(200,169,126,0.5); }
+    .pe-wiz__opt--selected { background:#1a1612; border-color:#1a1612; color:#fff; }
+    /* Guest stepper */
+    .pe-wiz__stepper { display:flex; align-items:center; margin-bottom:20px; width:fit-content; border:1.5px solid rgba(10,10,10,0.12); border-radius:12px; overflow:hidden; }
+    .pe-wiz__stepper-btn { width:52px; height:52px; background:#faf9f7; border:none; font-size:22px; font-weight:300; color:#1a1612; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; flex-shrink:0; }
+    .pe-wiz__stepper-btn:hover { background:rgba(200,169,126,0.1); }
+    .pe-wiz__stepper-input { width:90px; height:52px; text-align:center; font-size:22px; font-weight:300; color:#1a1612; border:none; border-left:1.5px solid rgba(10,10,10,0.08); border-right:1.5px solid rgba(10,10,10,0.08); outline:none; background:#fff; -moz-appearance:textfield; font-family:inherit; }
+    .pe-wiz__stepper-input::-webkit-inner-spin-button, .pe-wiz__stepper-input::-webkit-outer-spin-button { -webkit-appearance:none; }
+    /* Price estimate */
+    .pe-wiz__estimate { background:rgba(200,169,126,0.08); border:1px solid rgba(200,169,126,0.2); border-radius:10px; padding:16px 20px; margin-bottom:28px; display:flex; flex-direction:column; gap:4px; }
+    .pe-wiz__est-pkg { font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-gold-dark,#A68B5B); }
+    .pe-wiz__est-calc { font-size:16px; color:#1a1612; }
+    .pe-wiz__est-calc strong { font-size:20px; font-weight:700; }
+    .pe-wiz__est-min { font-size:12px; color:rgba(10,10,10,0.4); margin-top:2px; }
+    /* Form fields */
+    .pe-wiz__form-fields { display:flex; flex-direction:column; gap:18px; margin-bottom:24px; }
+    .pe-wiz__field { display:flex; flex-direction:column; gap:6px; }
+    .pe-wiz__field label { font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:rgba(10,10,10,0.5); }
+    .pe-wiz__field input, .pe-wiz__field select { width:100%; height:48px; padding:0 16px; font-size:15px; color:#1a1612; background:#faf9f7; border:1.5px solid rgba(10,10,10,0.12); border-radius:10px; outline:none; transition:border-color .15s; font-family:inherit; }
+    .pe-wiz__field input:focus, .pe-wiz__field select:focus { border-color:var(--color-gold,#C8A97E); }
+    .pe-wiz__field select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; background-size:12px; }
+    /* Nav */
+    .pe-wiz__nav { display:flex; align-items:center; justify-content:space-between; margin-top:8px; }
+    .pe-wiz__nav--right { justify-content:flex-end; }
+    .pe-wiz__back { background:none; border:none; font-size:14px; color:rgba(10,10,10,0.4); cursor:pointer; padding:8px 0; transition:color .15s; font-family:inherit; }
+    .pe-wiz__back:hover { color:#1a1612; }
+    /* Error */
+    .pe-wiz__error { font-size:13px; color:#c0392b; background:rgba(192,57,43,0.07); border:1px solid rgba(192,57,43,0.2); border-radius:8px; padding:10px 14px; margin-bottom:16px; }
+    /* Success */
+    .pe-wiz__success-icon { width:60px; height:60px; border-radius:50%; background:rgba(200,169,126,0.12); border:1px solid rgba(200,169,126,0.3); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:26px; color:var(--color-gold,#C8A97E); }
+    .pe-wiz__step[data-pe-step="success"] { text-align:center; padding:24px 0; }
+  </style>
+  <style>
     /* ── Nav layout — mirrors index.html responsive overrides ── */
     .nav { padding: 0 clamp(20px,3vw,48px) !important; }
     @media (min-width: 769px) {
@@ -420,10 +485,10 @@
 
 
   <!-- ====================================================================
-       SECTION 5 (LIGHT) — Pricing
+       SECTION 5 (LIGHT) — Packages + Private Events Wizard
        ==================================================================== -->
-  <section class="section section-light" style="padding-block: clamp(64px,8vw,96px);" aria-labelledby="pe-pricing-headline">
-    <div class="container" style="max-width:860px;">
+  <section class="section section-light" id="pe-book" style="padding-block: clamp(64px,8vw,96px);" aria-labelledby="pe-pricing-headline">
+    <div class="container" style="max-width:960px;">
 
       <div class="section-header anim-fade-up" style="margin-bottom:48px; text-align:center;">
         <div class="eyebrow" style="justify-content:center;">
@@ -431,55 +496,173 @@
           Transparent Pricing
         </div>
         <h2 id="pe-pricing-headline" class="type-h2" style="margin-bottom:16px;">What Does a Private Event Cost?</h2>
-        <p class="type-body" style="max-width:520px; margin:0 auto; color:#6b5f52;">All packages include bartenders, AI machines, spirits, glassware, ice, setup, and cleanup. 3-hour open bar. $1,500 event minimum applies to all bookings.</p>
+        <p class="type-body" style="max-width:540px; margin:0 auto; color:#6b5f52;">All packages include the AI cocktail machine, professional bartenders, spirits, glassware, ice, setup, and cleanup — 3-hour open bar. $1,500 event minimum.</p>
       </div>
 
-      <table class="pe-pricing-table anim-fade-up">
-        <thead>
-          <tr>
-            <th>Event Type</th>
-            <th>Price Range</th>
-            <th>Minimum Guests</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Milestone Birthday (40th, 50th+)</td>
-            <td><strong>$50–$70/person</strong></td>
-            <td>25 guests · Full AI machine setup</td>
-          </tr>
-          <tr>
-            <td>Engagement Party</td>
-            <td><strong>$65/person</strong></td>
-            <td>30 guests · Premium experience</td>
-          </tr>
-          <tr>
-            <td>BYOB Venue Event</td>
-            <td><strong>$55/person</strong></td>
-            <td>40 guests · Venue provides space</td>
-          </tr>
-          <tr>
-            <td>Corporate Milestone / Retirement</td>
-            <td><strong>$50–$70/person</strong></td>
-            <td>20 guests · Recurring pricing available</td>
-          </tr>
-          <tr>
-            <td>Holiday Party / Graduation</td>
-            <td><strong>$50/person</strong></td>
-            <td>25 guests · Classic package</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- ── Private Events Booking Wizard ── -->
+      <div class="pe-wiz anim-fade-up" id="pe-wizard" role="region" aria-label="Private event booking wizard">
 
-      <p style="font-size:13px; color:rgba(10,10,10,0.4); margin-top:4px; margin-bottom:40px;">All prices are per-person for a 3-hour open bar. Contact us for custom event pricing and larger groups.</p>
-
-      <div style="background:#fff; border:1px solid rgba(200,169,126,0.3); border-radius:14px; padding:32px 36px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;" class="anim-fade-up">
-        <div>
-          <p style="font-size:15px; font-weight:700; color:#1a1612; margin-bottom:4px;">Ready for a personalized quote?</p>
-          <p style="font-size:14px; color:#6b5f52; margin:0;">No commitment. Quote in 24 hours. No credit card required.</p>
+        <!-- Progress -->
+        <div class="pe-wiz__progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" aria-label="Wizard progress">
+          <div class="pe-wiz__progress-track">
+            <div class="pe-wiz__progress-fill" id="pe-wiz-fill" style="width:20%"></div>
+          </div>
+          <div class="pe-wiz__progress-label" id="pe-wiz-label">Step 1 of 5</div>
         </div>
-        <a href="/#book" class="btn btn-primary">Plan Your Event</a>
-      </div>
+
+        <!-- ── STEP 1: Choose package ── -->
+        <div class="pe-wiz__step active" data-pe-step="1">
+          <div class="pe-wiz__step-title">Choose your package</div>
+          <p class="pe-wiz__step-sub">All three tiers include the same AI machine, bartenders, spirits, glassware, ice, and full setup. The tier determines cocktail depth and spirit quality.</p>
+
+          <div class="pe-wiz__pkg-grid">
+
+            <div class="pe-wiz__pkg" data-pkg="Essential" data-price="50" tabindex="0" role="button" aria-pressed="false">
+              <div class="pe-wiz__pkg-name">Essential</div>
+              <div class="pe-wiz__pkg-price">$50<span>/pp</span></div>
+              <ul class="pe-wiz__pkg-list">
+                <li>Barsys AI cocktail machine</li>
+                <li>Unlimited open bar · 3 hrs</li>
+                <li>Professional bartenders</li>
+                <li>Premium spirits &amp; mixers</li>
+                <li>Glassware, ice &amp; garnishes</li>
+                <li>Full setup &amp; cleanup</li>
+              </ul>
+              <div class="pe-wiz__pkg-badge">Best value</div>
+            </div>
+
+            <div class="pe-wiz__pkg pe-wiz__pkg--featured" data-pkg="Signature" data-price="70" tabindex="0" role="button" aria-pressed="false">
+              <div class="pe-wiz__pkg-tag">Most Popular</div>
+              <div class="pe-wiz__pkg-name">Signature</div>
+              <div class="pe-wiz__pkg-price">$70<span>/pp</span></div>
+              <ul class="pe-wiz__pkg-list">
+                <li>Everything in Essential</li>
+                <li>Custom cocktail menu for your event</li>
+                <li>Upgraded spirit selection</li>
+                <li>Event-themed mixlists</li>
+                <li>Priority booking &amp; planning call</li>
+              </ul>
+            </div>
+
+            <div class="pe-wiz__pkg" data-pkg="Prestige" data-price="200" tabindex="0" role="button" aria-pressed="false">
+              <div class="pe-wiz__pkg-name">Prestige</div>
+              <div class="pe-wiz__pkg-price">$200<span>/pp</span></div>
+              <ul class="pe-wiz__pkg-list">
+                <li>Everything in Signature</li>
+                <li>Top-shelf &amp; rare spirits</li>
+                <li>Dedicated event coordinator</li>
+                <li>Custom cocktail branding</li>
+                <li>Extended 4-hour service</li>
+                <li>White-glove concierge</li>
+              </ul>
+              <div class="pe-wiz__pkg-badge">White glove</div>
+            </div>
+
+          </div>
+
+          <div class="pe-wiz__nav pe-wiz__nav--right">
+            <button class="btn btn-primary btn--sm" id="pe-wiz-next-1" disabled>Continue →</button>
+          </div>
+        </div>
+
+        <!-- ── STEP 2: Event type ── -->
+        <div class="pe-wiz__step" data-pe-step="2">
+          <div class="pe-wiz__step-title">What are we celebrating?</div>
+          <p class="pe-wiz__step-sub">This helps us tailor your cocktail menu, staffing plan, and setup to your occasion.</p>
+          <div class="pe-wiz__options" data-pe-field="eventType">
+            <div class="pe-wiz__opt" data-value="Milestone Birthday">Milestone Birthday</div>
+            <div class="pe-wiz__opt" data-value="Engagement Party">Engagement Party</div>
+            <div class="pe-wiz__opt" data-value="BYOB Venue Event">BYOB Venue Event</div>
+            <div class="pe-wiz__opt" data-value="Corporate Milestone">Corporate Milestone</div>
+            <div class="pe-wiz__opt" data-value="Holiday Party">Holiday Party</div>
+            <div class="pe-wiz__opt" data-value="Baby Shower">Baby Shower</div>
+            <div class="pe-wiz__opt" data-value="Graduation Party">Graduation Party</div>
+            <div class="pe-wiz__opt" data-value="Other">Other</div>
+          </div>
+          <div class="pe-wiz__nav">
+            <button class="pe-wiz__back" id="pe-wiz-back-2">← Back</button>
+            <button class="btn btn-primary btn--sm" id="pe-wiz-next-2" disabled>Continue →</button>
+          </div>
+        </div>
+
+        <!-- ── STEP 3: Guest count ── -->
+        <div class="pe-wiz__step" data-pe-step="3">
+          <div class="pe-wiz__step-title">How many guests?</div>
+          <p class="pe-wiz__step-sub">We size the bar team and machine setup to your headcount. Minimum 25 guests. $1,500 event minimum applies.</p>
+          <div class="pe-wiz__stepper">
+            <button class="pe-wiz__stepper-btn" id="pe-wiz-minus" type="button" aria-label="Decrease guest count">−</button>
+            <input type="number" id="pe-wiz-guests" class="pe-wiz__stepper-input" value="50" min="25" max="500" step="5" inputmode="numeric" aria-label="Number of guests" />
+            <button class="pe-wiz__stepper-btn" id="pe-wiz-plus" type="button" aria-label="Increase guest count">+</button>
+          </div>
+          <div class="pe-wiz__estimate" id="pe-wiz-estimate"></div>
+          <div class="pe-wiz__nav">
+            <button class="pe-wiz__back" id="pe-wiz-back-3">← Back</button>
+            <button class="btn btn-primary btn--sm" id="pe-wiz-next-3">Continue →</button>
+          </div>
+        </div>
+
+        <!-- ── STEP 4: Date + venue ── -->
+        <div class="pe-wiz__step" data-pe-step="4">
+          <div class="pe-wiz__step-title">When &amp; where is your event?</div>
+          <p class="pe-wiz__step-sub">We check availability for your date and confirm within 24 hours. Not sure yet? Leave the date blank and we'll reach out to find the right time.</p>
+          <div class="pe-wiz__form-fields">
+            <div class="pe-wiz__field">
+              <label for="pe-wiz-date">Event Date <span style="font-weight:400;color:#9b8c7e;">(optional)</span></label>
+              <input type="date" id="pe-wiz-date" />
+            </div>
+            <div class="pe-wiz__field">
+              <label for="pe-wiz-venue">Venue Type</label>
+              <select id="pe-wiz-venue">
+                <option value="" disabled selected>Select your venue type…</option>
+                <option value="Private residence / apartment">Private residence / apartment</option>
+                <option value="BYOB event loft or raw space">BYOB event loft or raw space</option>
+                <option value="Rooftop">Rooftop</option>
+                <option value="Office or private office event space">Office or private office event space</option>
+                <option value="Not sure yet">Not sure yet</option>
+              </select>
+            </div>
+          </div>
+          <div class="pe-wiz__nav">
+            <button class="pe-wiz__back" id="pe-wiz-back-4">← Back</button>
+            <button class="btn btn-primary btn--sm" id="pe-wiz-next-4">Continue →</button>
+          </div>
+        </div>
+
+        <!-- ── STEP 5: Contact ── -->
+        <div class="pe-wiz__step" data-pe-step="5">
+          <div class="pe-wiz__step-title">Almost there — last step</div>
+          <p class="pe-wiz__step-sub">Share your details and we'll send a personalized quote with pricing, staffing plan, and cocktail menu within one business day.</p>
+          <div class="pe-wiz__form-fields">
+            <div class="pe-wiz__field">
+              <label for="pe-wiz-name">Your Name</label>
+              <input type="text" id="pe-wiz-name" placeholder="Full name" autocomplete="name" />
+            </div>
+            <div class="pe-wiz__field">
+              <label for="pe-wiz-email">Email Address</label>
+              <input type="email" id="pe-wiz-email" placeholder="you@example.com" autocomplete="email" />
+            </div>
+            <div class="pe-wiz__field">
+              <label for="pe-wiz-phone">Phone <span style="font-weight:400;color:#9b8c7e;">(optional)</span></label>
+              <input type="tel" id="pe-wiz-phone" placeholder="(555) 123-4567" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="pe-wiz__error" id="pe-wiz-error" style="display:none;"></div>
+          <div class="pe-wiz__nav">
+            <button class="pe-wiz__back" id="pe-wiz-back-5">← Back</button>
+            <button class="btn btn-primary btn--sm" id="pe-wiz-submit">Get My Quote →</button>
+          </div>
+          <p style="font-size:12px; color:#9b8c7e; margin-top:16px; text-align:center;">No commitment. No credit card. Quote within 24 hours.</p>
+        </div>
+
+        <!-- ── SUCCESS ── -->
+        <div class="pe-wiz__step" data-pe-step="success">
+          <div class="pe-wiz__success-icon" aria-hidden="true">✓</div>
+          <div class="pe-wiz__step-title">Your quote request is in.</div>
+          <p class="pe-wiz__step-sub">We've received your event details and will send a personalized quote — pricing, staffing plan, and cocktail menu — within one business day.</p>
+          <p style="font-size:14px; color:#6b5f52; margin-top:8px;">Questions in the meantime? Email us at <a href="mailto:fareed@barsys.com" style="color:var(--color-gold-dark,#A68B5B); text-decoration:underline; text-underline-offset:2px;">fareed@barsys.com</a></p>
+        </div>
+
+      </div><!-- /pe-wizard -->
 
     </div>
   </section>
@@ -690,6 +873,206 @@
 <script src="js/nav.min.js" defer></script>
 <script src="js/accordion.min.js" defer></script>
 <script src="js/main.min.js" defer></script>
+
+<!-- Private Events Wizard — self-contained, no innerHTML, safe DOM methods only -->
+<script>
+(function () {
+  var peData = { pkg: '', pkgPrice: 0, eventType: '', guests: 50, date: '', venue: '', name: '', email: '', phone: '' };
+  var totalSteps = 5;
+
+  function showStep(n) {
+    document.querySelectorAll('.pe-wiz__step').forEach(function (s) { s.classList.remove('active'); });
+    var target = document.querySelector('.pe-wiz__step[data-pe-step="' + n + '"]');
+    if (target) target.classList.add('active');
+    var fill  = document.getElementById('pe-wiz-fill');
+    var label = document.getElementById('pe-wiz-label');
+    var prog  = document.querySelector('.pe-wiz__progress');
+    if (n === 'success') {
+      if (fill)  fill.style.width   = '100%';
+      if (label) label.textContent  = 'Complete';
+      if (prog)  prog.style.display = 'none';
+    } else {
+      if (fill)  fill.style.width   = (n / totalSteps * 100) + '%';
+      if (label) label.textContent  = 'Step ' + n + ' of ' + totalSteps;
+      if (prog)  prog.style.display = '';
+    }
+    var wiz = document.getElementById('pe-wizard');
+    if (wiz && window.innerWidth < 768) { wiz.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
+
+  /* Build estimate using safe DOM construction — no innerHTML */
+  function mkEl(tag, cls, txt) {
+    var el = document.createElement(tag);
+    if (cls) el.className = cls;
+    if (txt !== undefined) el.textContent = txt;
+    return el;
+  }
+
+  function updateEstimate() {
+    var el = document.getElementById('pe-wiz-estimate');
+    if (!el) return;
+    var gEl = document.getElementById('pe-wiz-guests');
+    var guests = parseInt(gEl ? gEl.value : 50, 10) || 50;
+    if (guests < 25) guests = 25;
+    var raw   = guests * peData.pkgPrice;
+    var total = Math.max(1500, raw);
+    peData.guests = guests;
+    while (el.firstChild) { el.removeChild(el.firstChild); }
+    if (peData.pkgPrice > 0) {
+      el.appendChild(mkEl('span', 'pe-wiz__est-pkg', peData.pkg + ' · $' + peData.pkgPrice + '/pp'));
+      var calc = mkEl('span', 'pe-wiz__est-calc');
+      calc.appendChild(document.createTextNode(guests + ' guests × $' + peData.pkgPrice + ' = '));
+      calc.appendChild(mkEl('strong', null, '~$' + total.toLocaleString()));
+      el.appendChild(calc);
+      if (raw < 1500) { el.appendChild(mkEl('span', 'pe-wiz__est-min', '$1,500 event minimum applies')); }
+    }
+  }
+
+  /* Step 1 — Package selection */
+  document.querySelectorAll('.pe-wiz__pkg').forEach(function (card) {
+    function pick() {
+      document.querySelectorAll('.pe-wiz__pkg').forEach(function (c) {
+        c.classList.remove('pe-wiz__pkg--selected');
+        c.setAttribute('aria-pressed', 'false');
+      });
+      card.classList.add('pe-wiz__pkg--selected');
+      card.setAttribute('aria-pressed', 'true');
+      peData.pkg      = card.getAttribute('data-pkg');
+      peData.pkgPrice = parseInt(card.getAttribute('data-price'), 10);
+      var btn = document.getElementById('pe-wiz-next-1');
+      if (btn) btn.disabled = false;
+    }
+    card.addEventListener('click', pick);
+    card.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+  var n1 = document.getElementById('pe-wiz-next-1');
+  if (n1) n1.addEventListener('click', function () { if (!n1.disabled) showStep(2); });
+
+  /* Step 2 — Event type */
+  document.querySelectorAll('.pe-wiz__opt').forEach(function (opt) {
+    opt.addEventListener('click', function () {
+      var parent = opt.closest('[data-pe-field]');
+      if (parent) parent.querySelectorAll('.pe-wiz__opt').forEach(function (o) { o.classList.remove('pe-wiz__opt--selected'); });
+      opt.classList.add('pe-wiz__opt--selected');
+      peData.eventType = opt.getAttribute('data-value');
+      var btn = document.getElementById('pe-wiz-next-2');
+      if (btn) btn.disabled = false;
+    });
+  });
+  var b2 = document.getElementById('pe-wiz-back-2'), n2 = document.getElementById('pe-wiz-next-2');
+  if (b2) b2.addEventListener('click', function () { showStep(1); });
+  if (n2) n2.addEventListener('click', function () { if (!n2.disabled) { updateEstimate(); showStep(3); } });
+
+  /* Step 3 — Guest count */
+  var guestEl = document.getElementById('pe-wiz-guests');
+  var minusEl = document.getElementById('pe-wiz-minus');
+  var plusEl  = document.getElementById('pe-wiz-plus');
+  if (guestEl) {
+    guestEl.addEventListener('input',  updateEstimate);
+    guestEl.addEventListener('change', function () {
+      var v = parseInt(guestEl.value, 10);
+      guestEl.value = isNaN(v) ? 25 : Math.min(500, Math.max(25, v));
+      updateEstimate();
+    });
+  }
+  if (minusEl) minusEl.addEventListener('click', function () { if (guestEl) { guestEl.value = Math.max(25,  parseInt(guestEl.value, 10) - 5); updateEstimate(); } });
+  if (plusEl)  plusEl.addEventListener('click',  function () { if (guestEl) { guestEl.value = Math.min(500, parseInt(guestEl.value, 10) + 5); updateEstimate(); } });
+  var b3 = document.getElementById('pe-wiz-back-3'), n3 = document.getElementById('pe-wiz-next-3');
+  if (b3) b3.addEventListener('click', function () { showStep(2); });
+  if (n3) n3.addEventListener('click', function () { peData.guests = parseInt(guestEl ? guestEl.value : 50, 10) || 50; showStep(4); });
+
+  /* Step 4 — Date + venue */
+  var b4 = document.getElementById('pe-wiz-back-4'), n4 = document.getElementById('pe-wiz-next-4');
+  if (b4) b4.addEventListener('click', function () { showStep(3); });
+  if (n4) n4.addEventListener('click', function () {
+    peData.date  = (document.getElementById('pe-wiz-date')  || {}).value || '';
+    peData.venue = (document.getElementById('pe-wiz-venue') || {}).value || '';
+    showStep(5);
+  });
+
+  /* Step 5 — Contact + submit */
+  var b5 = document.getElementById('pe-wiz-back-5');
+  if (b5) b5.addEventListener('click', function () { showStep(4); });
+
+  var submitEl = document.getElementById('pe-wiz-submit');
+  if (submitEl) {
+    submitEl.addEventListener('click', function () {
+      var errEl    = document.getElementById('pe-wiz-error');
+      var nameVal  = ((document.getElementById('pe-wiz-name')  || {}).value || '').trim();
+      var emailVal = ((document.getElementById('pe-wiz-email') || {}).value || '').trim();
+      var phoneVal = ((document.getElementById('pe-wiz-phone') || {}).value || '').trim();
+      if (errEl) errEl.style.display = 'none';
+      if (!nameVal || !emailVal) {
+        if (errEl) { errEl.textContent = 'Please enter your name and email to continue.'; errEl.style.display = 'block'; }
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        if (errEl) { errEl.textContent = 'Please enter a valid email address.'; errEl.style.display = 'block'; }
+        return;
+      }
+      peData.name  = nameVal;
+      peData.email = emailVal;
+      peData.phone = phoneVal;
+      submitEl.disabled    = true;
+      submitEl.textContent = 'Submitting…';
+
+      var total = Math.max(1500, peData.guests * peData.pkgPrice);
+      var payload = {
+        eventType: peData.eventType, guestCount: String(peData.guests),
+        experienceTier: peData.pkg,  package: peData.pkg,
+        pricePerPerson: '$' + peData.pkgPrice,
+        estimatedTotal: '$' + total.toLocaleString(),
+        eventDate: peData.date, venueType: peData.venue,
+        name: peData.name, email: peData.email, phone: peData.phone,
+        source: 'private-events-wizard',
+        landing_page: window.location.href,
+        referrer: document.referrer || ''
+      };
+      ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function (k) {
+        var v = sessionStorage.getItem(k); if (v) payload[k] = v;
+      });
+
+      fetch('https://script.google.com/macros/s/AKfycbx6sDtD4jJWw_uB4jOklbZuQHqqNGeT_713qSn_7phF_BUGRPZiyJWhmRlXVffxGQBbvw/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      }).catch(function () {});
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'pe_form_submit', event_type: peData.eventType,
+        guest_count: peData.guests, package: peData.pkg,
+        estimated_total: total, currency: 'USD', value: total
+      });
+
+      showStep('success');
+
+      try {
+        var subj  = encodeURIComponent('Private Event Quote — ' + peData.pkg + ' · ' + peData.eventType);
+        var lines = [
+          'Hi Barsys team,', '',
+          'Requesting a quote for a private event:', '',
+          'Name: ' + peData.name,
+          'Email: ' + peData.email,
+          peData.phone ? 'Phone: ' + peData.phone : null, '',
+          'Event Type: ' + peData.eventType,
+          'Package: ' + peData.pkg + ' ($' + peData.pkgPrice + '/pp)',
+          'Guests: ' + peData.guests,
+          'Estimated Total: ~$' + total.toLocaleString(),
+          'Event Date: ' + (peData.date || 'TBD'),
+          'Venue Type: ' + (peData.venue || 'TBD'), '',
+          'Looking forward to hearing from you!'
+        ].filter(Boolean).join('\n');
+        window.location.href = 'mailto:fareed@barsys.com?subject=' + subj + '&body=' + encodeURIComponent(lines);
+      } catch (e) {}
+
+      setTimeout(function () { submitEl.disabled = false; submitEl.textContent = 'Get My Quote →'; }, 3000);
+    });
+  }
+
+  updateEstimate();
+})();
+</script>
 
 <!-- Sticky Mobile Bottom CTA -->
 <div class="sticky-mobile-cta" id="sticky-mobile-cta" aria-hidden="true">
