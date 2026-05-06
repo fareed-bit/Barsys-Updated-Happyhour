@@ -97,6 +97,20 @@
     .pe-stat__label { font-size:12px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--color-gold, #C8A97E); margin-bottom:6px; }
     .pe-stat__desc { font-size:13px; color:var(--color-text-secondary, #A69882); line-height:1.5; }
     @media (max-width:640px) { .pe-stats { grid-template-columns:1fr; } }
+    /* ── Testimonials ── */
+    @media (max-width:900px) {
+      [data-pe-testimonials] { grid-template-columns:1fr 1fr !important; }
+    }
+    @media (max-width:600px) {
+      [data-pe-testimonials] { grid-template-columns:1fr !important; }
+    }
+    /* ── Case Study ── */
+    .pe-case-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; max-width:960px; margin:0 auto; }
+    @media (max-width:760px) { .pe-case-grid { grid-template-columns:1fr; } }
+    /* ── Comparison table responsive testimonials grid ── */
+    .pe-testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    @media (max-width:900px) { .pe-testi-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:580px) { .pe-testi-grid { grid-template-columns:1fr; } }
   </style>
   <style>
     /* ── Private Events Wizard ── */
@@ -791,6 +805,378 @@
         </div>
 
       </div><!-- /pe-wizard -->
+
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SECTION 6b (DARK BG) — Social Proof / Testimonials
+       ==================================================================== -->
+  <section class="section" style="padding-block: clamp(56px,7vw,88px); background: var(--color-bg);" aria-labelledby="pe-proof-headline">
+    <div class="container">
+
+      <div class="section-header section-header--center anim-fade-up" style="margin-bottom:52px; text-align:center;">
+        <div class="eyebrow" style="justify-content:center;">
+          <span class="eyebrow__star" aria-hidden="true">★</span>
+          200+ NYC Events &amp; Counting
+        </div>
+        <h2 id="pe-proof-headline" class="type-h2">Real Events. Real Results.</h2>
+        <p class="type-body" style="max-width:480px; margin:0 auto; opacity:0.7;">We've produced over 200 NYC events — corporate and personal. Here's what hosts and guests say.</p>
+      </div>
+
+      <!-- Trust Stats (same banner as homepage) -->
+      <div class="trust-bar anim-fade-up" style="margin-bottom:52px;">
+        <div class="trust-bar__item">
+          <div class="trust-bar__number">200+</div>
+          <div class="trust-bar__label">NYC Events Served</div>
+        </div>
+        <div class="trust-bar__item">
+          <div class="trust-bar__number">50K+</div>
+          <div class="trust-bar__label">Cocktails Poured</div>
+        </div>
+        <div class="trust-bar__item">
+          <div class="trust-bar__number">4.7★</div>
+          <div class="trust-bar__label">Based on 144 Reviews</div>
+        </div>
+        <div class="trust-bar__item">
+          <div class="trust-bar__number">$50</div>
+          <div class="trust-bar__label">Starting Per Person</div>
+        </div>
+      </div>
+
+      <!-- Client Logos (exact same marquee as homepage) -->
+      <div class="client-logos anim-fade-up" style="margin-bottom:56px;">
+        <div class="client-logos__label">Featured In &amp; Trusted By</div>
+        <div class="client-logos__track" aria-hidden="true">
+          <!-- Set 1 -->
+          <div class="client-logos__item--text" style="font-size:21px; letter-spacing:0.06em; font-weight:700;">NETFLIX</div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-2.png" alt="CBS News" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item--text" style="font-weight:300; letter-spacing:0.2em; font-size:15px;">WILHELMINA</div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-12.png" alt="Robb Report" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item--text" style="font-weight:800; letter-spacing:0.04em; font-size:18px;">FLYHOUSE</div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-8.png" alt="Gear Patrol" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item--text" style="font-weight:400; letter-spacing:0.16em; font-size:13px;">GIRLS GIRLS CLUB</div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-9.png" alt="HiConsumption" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item--text" style="font-weight:300; letter-spacing:0.22em; font-size:14px;">SUN MOUNTAIN</div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-1.png" alt="BuzzFeed" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-10.png" alt="Inside Hook" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-11.png" alt="Men's Gear" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-6.png" alt="Food Beast" loading="lazy" width="120" height="40" /></div>
+          <!-- Set 2 (duplicate for seamless loop) -->
+          <div class="client-logos__item--text" style="font-size:21px; letter-spacing:0.06em; font-weight:700;">NETFLIX</div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-2.png" alt="CBS News" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item--text" style="font-weight:300; letter-spacing:0.2em; font-size:15px;">WILHELMINA</div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-12.png" alt="Robb Report" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item--text" style="font-weight:800; letter-spacing:0.04em; font-size:18px;">FLYHOUSE</div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-8.png" alt="Gear Patrol" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item--text" style="font-weight:400; letter-spacing:0.16em; font-size:13px;">GIRLS GIRLS CLUB</div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-9.png" alt="HiConsumption" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item--text" style="font-weight:300; letter-spacing:0.22em; font-size:14px;">SUN MOUNTAIN</div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-1.png" alt="BuzzFeed" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-10.png" alt="Inside Hook" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-11.png" alt="Men's Gear" loading="lazy" width="120" height="40" /></div>
+          <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-6.png" alt="Food Beast" loading="lazy" width="120" height="40" /></div>
+        </div>
+      </div>
+
+      <!-- Testimonial Quote Cards -->
+      <div class="pe-testi-grid anim-fade-up">
+
+        <figure style="margin:0; background:var(--color-surface-1,#141414); border:1px solid rgba(200,169,126,0.15); border-radius:16px; padding:32px 28px;">
+          <div style="display:flex; gap:4px; margin-bottom:18px;" aria-label="5 star rating">
+            <span style="color:var(--color-gold,#C8A97E); font-size:14px;">★★★★★</span>
+          </div>
+          <blockquote style="margin:0 0 24px; padding:0; font-size:15px; line-height:1.75; color:rgba(255,255,255,0.80); font-style:normal;">
+            "My 40th birthday had 65 people and not a single person waited more than 60 seconds for a drink. The AI machine was all anyone talked about for weeks after. Barsys made me look like the best host ever."
+          </blockquote>
+          <figcaption>
+            <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:2px;">Jessica M.</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.40); letter-spacing:0.05em; text-transform:uppercase;">40th Birthday · Brooklyn Loft · 65 Guests</div>
+          </figcaption>
+        </figure>
+
+        <figure style="margin:0; background:var(--color-surface-1,#141414); border:1px solid rgba(200,169,126,0.15); border-radius:16px; padding:32px 28px;">
+          <div style="display:flex; gap:4px; margin-bottom:18px;" aria-label="5 star rating">
+            <span style="color:var(--color-gold,#C8A97E); font-size:14px;">★★★★★</span>
+          </div>
+          <blockquote style="margin:0 0 24px; padding:0; font-size:15px; line-height:1.75; color:rgba(255,255,255,0.80); font-style:normal;">
+            "We hired Barsys for our engagement party at a DUMBO rooftop and it was hands down the highlight of the night. Custom cocktails with our names on the menu, zero hassle for us. Everyone is still asking how we found them."
+          </blockquote>
+          <figcaption>
+            <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:2px;">Priya &amp; Daniel K.</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.40); letter-spacing:0.05em; text-transform:uppercase;">Engagement Party · DUMBO Rooftop · 55 Guests</div>
+          </figcaption>
+        </figure>
+
+        <figure style="margin:0; background:var(--color-surface-1,#141414); border:1px solid rgba(200,169,126,0.25); border-radius:16px; padding:32px 28px; position:relative;">
+          <div style="position:absolute; top:-1px; left:24px; right:24px; height:2px; background:linear-gradient(90deg,var(--color-gold,#C8A97E),transparent); border-radius:0 0 2px 2px;"></div>
+          <div style="display:flex; gap:4px; margin-bottom:18px;" aria-label="5 star rating">
+            <span style="color:var(--color-gold,#C8A97E); font-size:14px;">★★★★★</span>
+          </div>
+          <blockquote style="margin:0 0 24px; padding:0; font-size:15px; line-height:1.75; color:rgba(255,255,255,0.80); font-style:normal;">
+            "I've hired bartenders before and it's always a logistical nightmare — buying the alcohol, finding glassware, setting up, cleaning up. Barsys is one call and it's done. Worth every penny for the peace of mind alone."
+          </blockquote>
+          <figcaption>
+            <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:2px;">Marcus T.</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.40); letter-spacing:0.05em; text-transform:uppercase;">50th Birthday · Midtown Penthouse · 80 Guests</div>
+          </figcaption>
+        </figure>
+
+      </div><!-- /testimonials grid -->
+
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SECTION 6c (LIGHT) — Barsys vs. the Alternatives
+       ==================================================================== -->
+  <section class="section section-light" style="padding-block: clamp(56px,7vw,88px);" aria-labelledby="pe-compare-headline">
+    <div class="container">
+
+      <div class="section-header section-header--center anim-fade-up" style="margin-bottom:48px; text-align:center;">
+        <div class="eyebrow" style="justify-content:center;">
+          <span class="eyebrow__star" aria-hidden="true">★</span>
+          Compare Your Options
+        </div>
+        <h2 id="pe-compare-headline" class="type-h2" style="color:#1a1612;">Barsys vs. the Alternatives</h2>
+        <p class="type-body" style="max-width:500px; margin:0 auto; color:#6b5f52;">There are three ways to do bar service at a private event. Here's an honest look at all of them.</p>
+      </div>
+
+      <div class="anim-fade-up" style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+        <table style="width:100%; border-collapse:separate; border-spacing:0; min-width:600px;" aria-label="Bar service comparison table">
+          <thead>
+            <tr>
+              <th style="text-align:left; padding:14px 20px; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(10,10,10,0.4); border-bottom:2px solid rgba(10,10,10,0.08); width:36%;"></th>
+              <th style="text-align:center; padding:14px 20px; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; border-bottom:2px solid var(--color-gold,#C8A97E); background:rgba(200,169,126,0.06); border-radius:10px 10px 0 0; color:#1a1612; width:21%;">
+                <span style="display:block; font-size:15px; letter-spacing:-0.01em; margin-bottom:2px; font-weight:800;">Barsys</span>
+                <span style="color:var(--color-gold-dark,#A68B5B); font-size:11px;">AI-Powered</span>
+              </th>
+              <th style="text-align:center; padding:14px 20px; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(10,10,10,0.45); border-bottom:2px solid rgba(10,10,10,0.08); width:21%;">
+                <span style="display:block; font-size:15px; letter-spacing:-0.01em; margin-bottom:2px; font-weight:700; color:#1a1612;">Hire a Bartender</span>
+                <span style="font-size:11px;">DIY approach</span>
+              </th>
+              <th style="text-align:center; padding:14px 20px; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(10,10,10,0.45); border-bottom:2px solid rgba(10,10,10,0.08); width:22%;">
+                <span style="display:block; font-size:15px; letter-spacing:-0.01em; margin-bottom:2px; font-weight:700; color:#1a1612;">Venue / Caterer Bar</span>
+                <span style="font-size:11px;">Built-in option</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:16px 20px; font-size:14px; font-weight:600; color:#1a1612; border-bottom:1px solid rgba(10,10,10,0.07);">Flat all-inclusive price</td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(200,169,126,0.15); background:rgba(200,169,126,0.04);">
+                <span style="font-size:15px; font-weight:700; color:var(--color-gold-dark,#A68B5B);">$50–$70/pp</span><br>
+                <span style="font-size:12px; color:rgba(10,10,10,0.5);">everything included</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="font-size:14px; color:#1a1612;">$300–800 labor</span><br>
+                <span style="font-size:12px; color:rgba(10,10,10,0.5);">+ alcohol cost + rentals</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="font-size:14px; color:#1a1612;">$45–80/pp</span><br>
+                <span style="font-size:12px; color:rgba(10,10,10,0.5);">+ 18–22% service charge</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 20px; font-size:14px; font-weight:600; color:#1a1612; border-bottom:1px solid rgba(10,10,10,0.07);">Premium spirits included</td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(200,169,126,0.15); background:rgba(200,169,126,0.04);">
+                <span style="color:#2d8c4e; font-size:18px; font-weight:700;">✓</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="color:rgba(10,10,10,0.3); font-size:18px;">✗</span><br>
+                <span style="font-size:12px; color:rgba(10,10,10,0.45);">You buy the alcohol</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="color:#c8883a; font-size:15px;">~</span><br>
+                <span style="font-size:12px; color:rgba(10,10,10,0.45);">Usually well brands only</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 20px; font-size:14px; font-weight:600; color:#1a1612; border-bottom:1px solid rgba(10,10,10,0.07);">AI cocktail machine</td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(200,169,126,0.15); background:rgba(200,169,126,0.04);">
+                <span style="color:#2d8c4e; font-size:18px; font-weight:700;">✓</span><br>
+                <span style="font-size:12px; color:rgba(10,10,10,0.5);">4-second cocktails</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="color:rgba(10,10,10,0.3); font-size:18px;">✗</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="color:rgba(10,10,10,0.3); font-size:18px;">✗</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 20px; font-size:14px; font-weight:600; color:#1a1612; border-bottom:1px solid rgba(10,10,10,0.07);">Custom cocktail menu</td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(200,169,126,0.15); background:rgba(200,169,126,0.04);">
+                <span style="color:#2d8c4e; font-size:18px; font-weight:700;">✓</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="color:#c8883a; font-size:15px;">~</span><br>
+                <span style="font-size:12px; color:rgba(10,10,10,0.45);">Depends on skill</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="color:rgba(10,10,10,0.3); font-size:18px;">✗</span><br>
+                <span style="font-size:12px; color:rgba(10,10,10,0.45);">Generic menu only</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 20px; font-size:14px; font-weight:600; color:#1a1612; border-bottom:1px solid rgba(10,10,10,0.07);">Setup &amp; full cleanup</td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(200,169,126,0.15); background:rgba(200,169,126,0.04);">
+                <span style="color:#2d8c4e; font-size:18px; font-weight:700;">✓</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="color:rgba(10,10,10,0.3); font-size:18px;">✗</span><br>
+                <span style="font-size:12px; color:rgba(10,10,10,0.45);">You handle it</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="color:#2d8c4e; font-size:18px; font-weight:700;">✓</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 20px; font-size:14px; font-weight:600; color:#1a1612; border-bottom:1px solid rgba(10,10,10,0.07);">Glassware, ice &amp; mixers</td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(200,169,126,0.15); background:rgba(200,169,126,0.04);">
+                <span style="color:#2d8c4e; font-size:18px; font-weight:700;">✓</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="color:rgba(10,10,10,0.3); font-size:18px;">✗</span><br>
+                <span style="font-size:12px; color:rgba(10,10,10,0.45);">Rent separately</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center; border-bottom:1px solid rgba(10,10,10,0.07);">
+                <span style="color:#2d8c4e; font-size:18px; font-weight:700;">✓</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 20px; font-size:14px; font-weight:600; color:#1a1612;">Social media moment</td>
+              <td style="padding:16px 20px; text-align:center; background:rgba(200,169,126,0.04); border-radius:0 0 10px 10px;">
+                <span style="color:#2d8c4e; font-size:18px; font-weight:700;">✓</span><br>
+                <span style="font-size:12px; color:rgba(10,10,10,0.5);">The AI machine</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center;">
+                <span style="color:rgba(10,10,10,0.3); font-size:18px;">✗</span>
+              </td>
+              <td style="padding:16px 20px; text-align:center;">
+                <span style="color:rgba(10,10,10,0.3); font-size:18px;">✗</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- /overflow wrapper -->
+
+      <div style="text-align:center; margin-top:40px;">
+        <a href="#pe-book" class="btn btn-primary btn--lg" style="display:inline-block;">Get a Private Event Quote</a>
+        <p style="font-size:13px; color:rgba(10,10,10,0.45); margin-top:12px;">No commitment. Response within 2 hours on business days.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SECTION 6d (DARK SURFACE-1) — Real Event Case Study
+       ==================================================================== -->
+  <section class="section" style="padding-block: clamp(56px,7vw,88px); background: var(--color-surface-1);" aria-labelledby="pe-casestudy-headline">
+    <div class="container">
+
+      <div class="section-header anim-fade-up" style="margin-bottom:48px; text-align:center;">
+        <div class="eyebrow" style="justify-content:center;">
+          <span class="eyebrow__star" aria-hidden="true">★</span>
+          Real Event Breakdown
+        </div>
+        <h2 id="pe-casestudy-headline" class="type-h2">What a 58-Person Engagement Party Actually Looked Like</h2>
+        <p class="type-body" style="max-width:540px; margin:0 auto; opacity:0.7;">Every detail, every cost, every decision — so you know exactly what to expect when you book.</p>
+      </div>
+
+      <div class="pe-case-grid anim-fade-up">
+
+        <!-- Left column: Event at-a-glance -->
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:20px; padding:36px 32px;">
+          <div style="font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--color-gold,#C8A97E); margin-bottom:20px;">Event at a Glance</div>
+
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:14px;">
+              <span style="font-size:13px; color:rgba(255,255,255,0.45); font-weight:500; text-transform:uppercase; letter-spacing:0.06em;">Event type</span>
+              <span style="font-size:14px; font-weight:600; color:#fff;">Engagement Party</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:14px;">
+              <span style="font-size:13px; color:rgba(255,255,255,0.45); font-weight:500; text-transform:uppercase; letter-spacing:0.06em;">Venue</span>
+              <span style="font-size:14px; font-weight:600; color:#fff;">Raw loft — DUMBO, Brooklyn</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:14px;">
+              <span style="font-size:13px; color:rgba(255,255,255,0.45); font-weight:500; text-transform:uppercase; letter-spacing:0.06em;">Guests</span>
+              <span style="font-size:14px; font-weight:600; color:#fff;">58 people</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:14px;">
+              <span style="font-size:13px; color:rgba(255,255,255,0.45); font-weight:500; text-transform:uppercase; letter-spacing:0.06em;">Package</span>
+              <span style="font-size:14px; font-weight:600; color:var(--color-gold,#C8A97E);">Signature — $70/pp</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:14px;">
+              <span style="font-size:13px; color:rgba(255,255,255,0.45); font-weight:500; text-transform:uppercase; letter-spacing:0.06em;">Duration</span>
+              <span style="font-size:14px; font-weight:600; color:#fff;">4 hours open bar</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:14px;">
+              <span style="font-size:13px; color:rgba(255,255,255,0.45); font-weight:500; text-transform:uppercase; letter-spacing:0.06em;">Cocktail menu</span>
+              <span style="font-size:14px; font-weight:600; color:#fff;">The Celebration</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-size:13px; color:rgba(255,255,255,0.45); font-weight:500; text-transform:uppercase; letter-spacing:0.06em;">Total cost</span>
+              <span style="font-size:20px; font-weight:200; color:var(--color-gold,#C8A97E); letter-spacing:-0.02em;">$4,060 all-in</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column: Timeline + what was included -->
+        <div style="display:flex; flex-direction:column; gap:20px;">
+
+          <!-- What was included -->
+          <div style="background:rgba(200,169,126,0.06); border:1px solid rgba(200,169,126,0.15); border-radius:16px; padding:28px 28px 24px;">
+            <div style="font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--color-gold,#C8A97E); margin-bottom:16px;">What Was Included</div>
+            <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;">
+              <li style="font-size:14px; color:rgba(255,255,255,0.75); padding-left:22px; position:relative; line-height:1.5;"><span style="position:absolute; left:0; color:var(--color-gold,#C8A97E); font-weight:700;">✓</span> 2 Barsys AI cocktail machines</li>
+              <li style="font-size:14px; color:rgba(255,255,255,0.75); padding-left:22px; position:relative; line-height:1.5;"><span style="position:absolute; left:0; color:var(--color-gold,#C8A97E); font-weight:700;">✓</span> 3 professional bartenders, 4 hours</li>
+              <li style="font-size:14px; color:rgba(255,255,255,0.75); padding-left:22px; position:relative; line-height:1.5;"><span style="position:absolute; left:0; color:var(--color-gold,#C8A97E); font-weight:700;">✓</span> Premium spirits: vodka, gin, rum, tequila, bourbon</li>
+              <li style="font-size:14px; color:rgba(255,255,255,0.75); padding-left:22px; position:relative; line-height:1.5;"><span style="position:absolute; left:0; color:var(--color-gold,#C8A97E); font-weight:700;">✓</span> Custom "The Celebration" cocktail menu</li>
+              <li style="font-size:14px; color:rgba(255,255,255,0.75); padding-left:22px; position:relative; line-height:1.5;"><span style="position:absolute; left:0; color:var(--color-gold,#C8A97E); font-weight:700;">✓</span> Glassware, ice, all mixers &amp; garnishes</li>
+              <li style="font-size:14px; color:rgba(255,255,255,0.75); padding-left:22px; position:relative; line-height:1.5;"><span style="position:absolute; left:0; color:var(--color-gold,#C8A97E); font-weight:700;">✓</span> 90-min setup before guests arrived</li>
+              <li style="font-size:14px; color:rgba(255,255,255,0.75); padding-left:22px; position:relative; line-height:1.5;"><span style="position:absolute; left:0; color:var(--color-gold,#C8A97E); font-weight:700;">✓</span> Full teardown &amp; cleanup after</li>
+            </ul>
+          </div>
+
+          <!-- Day-of timeline -->
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:28px 28px 24px;">
+            <div style="font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--color-gold,#C8A97E); margin-bottom:16px;">Day-of Timeline</div>
+            <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;">
+              <li style="font-size:14px; color:rgba(255,255,255,0.70); padding-left:72px; position:relative; line-height:1.5;">
+                <span style="position:absolute; left:0; font-size:12px; font-weight:600; color:rgba(255,255,255,0.35); white-space:nowrap;">4:00 PM</span>
+                Barsys crew arrives for load-in &amp; setup
+              </li>
+              <li style="font-size:14px; color:rgba(255,255,255,0.70); padding-left:72px; position:relative; line-height:1.5;">
+                <span style="position:absolute; left:0; font-size:12px; font-weight:600; color:rgba(255,255,255,0.35); white-space:nowrap;">5:30 PM</span>
+                Full bar operational, machines calibrated
+              </li>
+              <li style="font-size:14px; color:rgba(255,255,255,0.70); padding-left:72px; position:relative; line-height:1.5;">
+                <span style="position:absolute; left:0; font-size:12px; font-weight:600; color:rgba(255,255,255,0.35); white-space:nowrap;">6:00 PM</span>
+                Doors open — guests start flowing
+              </li>
+              <li style="font-size:14px; color:rgba(255,255,255,0.70); padding-left:72px; position:relative; line-height:1.5;">
+                <span style="position:absolute; left:0; font-size:12px; font-weight:600; color:rgba(255,255,255,0.35); white-space:nowrap;">10:00 PM</span>
+                Bar closes, crew begins teardown
+              </li>
+              <li style="font-size:14px; color:rgba(255,255,255,0.70); padding-left:72px; position:relative; line-height:1.5;">
+                <span style="position:absolute; left:0; font-size:12px; font-weight:600; color:rgba(255,255,255,0.35); white-space:nowrap;">11:00 PM</span>
+                Space returned — spotless
+              </li>
+            </ul>
+          </div>
+
+        </div><!-- /right col -->
+
+      </div><!-- /grid -->
+
+      <div style="text-align:center; margin-top:48px;">
+        <p style="font-size:16px; color:rgba(255,255,255,0.55); margin-bottom:20px; max-width:440px; margin-left:auto; margin-right:auto; line-height:1.7;">Your event will look exactly like this — tailored to your guest count, venue, and cocktail menu.</p>
+        <a href="#pe-book" class="btn btn-primary btn--lg">Plan My Event</a>
+      </div>
 
     </div>
   </section>
