@@ -97,6 +97,8 @@
     .pe-stat__label { font-size:12px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--color-gold, #C8A97E); margin-bottom:6px; }
     .pe-stat__desc { font-size:13px; color:var(--color-text-secondary, #A69882); line-height:1.5; }
     @media (max-width:640px) { .pe-stats { grid-template-columns:1fr; } }
+    /* ── Social proof trust bar — thinner override ── */
+    .pe-proof-trust .trust-bar__item { padding:20px 24px !important; }
     /* ── Testimonials ── */
     @media (max-width:900px) {
       [data-pe-testimonials] { grid-template-columns:1fr 1fr !important; }
@@ -814,9 +816,9 @@
        SECTION 6b (DARK BG) — Social Proof / Testimonials
        ==================================================================== -->
   <section class="section" style="padding-block: clamp(56px,7vw,88px); background: var(--color-bg);" aria-labelledby="pe-proof-headline">
-    <div class="container">
 
-      <div class="section-header section-header--center anim-fade-up" style="margin-bottom:52px; text-align:center;">
+    <div class="container">
+      <div class="section-header section-header--center anim-fade-up" style="margin-bottom:40px; text-align:center;">
         <div class="eyebrow" style="justify-content:center;">
           <span class="eyebrow__star" aria-hidden="true">★</span>
           200+ NYC Events &amp; Counting
@@ -824,9 +826,10 @@
         <h2 id="pe-proof-headline" class="type-h2">Real Events. Real Results.</h2>
         <p class="type-body" style="max-width:480px; margin:0 auto; opacity:0.7;">We've produced over 200 NYC events — corporate and personal. Here's what hosts and guests say.</p>
       </div>
+    </div>
 
-      <!-- Trust Stats (same banner as homepage) -->
-      <div class="trust-bar anim-fade-up" style="margin-bottom:52px;">
+      <!-- Trust Stats — full-width, edge to edge, thinner -->
+      <div class="trust-bar pe-proof-trust anim-fade-up" style="margin-bottom:0;">
         <div class="trust-bar__item">
           <div class="trust-bar__number">200+</div>
           <div class="trust-bar__label">NYC Events Served</div>
@@ -845,8 +848,8 @@
         </div>
       </div>
 
-      <!-- Client Logos (exact same marquee as homepage) -->
-      <div class="client-logos anim-fade-up" style="margin-bottom:56px;">
+      <!-- Client Logos — full-width, edge to edge -->
+      <div class="client-logos anim-fade-up" style="margin-bottom:0;">
         <div class="client-logos__label">Featured In &amp; Trusted By</div>
         <div class="client-logos__track" aria-hidden="true">
           <!-- Set 1 -->
@@ -880,7 +883,8 @@
         </div>
       </div>
 
-      <!-- Testimonial Quote Cards -->
+      <!-- Testimonial Quote Cards — back inside container -->
+      <div class="container" style="margin-top:52px;">
       <div class="pe-testi-grid anim-fade-up">
 
         <figure style="margin:0; background:var(--color-surface-1,#141414); border:1px solid rgba(200,169,126,0.15); border-radius:16px; padding:32px 28px;">
@@ -924,8 +928,8 @@
         </figure>
 
       </div><!-- /testimonials grid -->
+      </div><!-- /container -->
 
-    </div>
   </section>
 
 
