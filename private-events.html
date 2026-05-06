@@ -101,7 +101,7 @@
     .pe-gallery { display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:auto auto; gap:12px; }
     .pe-gallery__item { position:relative; overflow:hidden; border-radius:14px; background:#1a1612; }
     .pe-gallery__item--tall { grid-row:span 2; }
-    .pe-gallery__item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; min-height:220px; }
+    .pe-gallery__item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; min-height:220px; filter:brightness(1.1) contrast(1.08) saturate(1.05); }
     .pe-gallery__item:hover img { transform:scale(1.03); }
     .pe-gallery__caption { position:absolute; bottom:0; left:0; right:0; padding:10px 14px; font-size:11px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:rgba(255,255,255,0.75); background:linear-gradient(transparent,rgba(0,0,0,0.55)); }
     @media (max-width:720px) { .pe-gallery { grid-template-columns:1fr 1fr; } .pe-gallery__item--tall { grid-row:span 1; } }
@@ -289,8 +289,8 @@
         </h1>
         <p class="hero__subheadline">NYC's AI-powered open bar for birthdays, engagement parties, and private celebrations. Bartenders, machines, spirits, setup &amp; cleanup — all in one flat rate. From $50 per person.</p>
         <div class="hero__ctas">
-          <a href="#pe-book" class="btn btn-primary btn--lg">See Packages &amp; Pricing</a>
-          <a href="#pe-book" class="btn btn--lg" style="background:transparent; border:1.5px solid var(--color-gold); color:var(--color-gold);">Browse Cocktail Menus</a>
+          <a href="#pe-book" class="btn btn-primary btn--lg">Plan My Celebration</a>
+          <a href="#pe-menus" class="btn btn--lg" style="background:transparent; border:1.5px solid var(--color-gold); color:var(--color-gold);">Explore Cocktail Menus</a>
         </div>
         <p style="font-size:12px; color:rgba(255,255,255,0.45); letter-spacing:0.09em; text-transform:uppercase; margin-top:20px;">Open bar &nbsp;&middot;&nbsp; 3–5 hours &nbsp;&middot;&nbsp; All-inclusive from $50/person</p>
       </div>
@@ -304,11 +304,11 @@
   <div class="trust-bar" role="region" aria-label="Key facts about Barsys">
     <div class="trust-bar__item anim-fade-up anim-stagger-1">
       <div class="trust-bar__number">200+</div>
-      <div class="trust-bar__label">NYC Events Served</div>
+      <div class="trust-bar__label">NYC Celebrations</div>
     </div>
     <div class="trust-bar__item anim-fade-up anim-stagger-2">
-      <div class="trust-bar__number">50K+</div>
-      <div class="trust-bar__label">Cocktails Served</div>
+      <div class="trust-bar__number">24hr</div>
+      <div class="trust-bar__label">Quote Turnaround</div>
     </div>
     <div class="trust-bar__item anim-fade-up anim-stagger-3">
       <div class="trust-bar__number">4.7★</div>
@@ -649,7 +649,7 @@
           From Real Events
         </div>
         <h2 id="pe-gallery-headline" class="type-h2" style="color:#1a1612;">Real Parties. Real Moments.</h2>
-        <p class="type-body" style="max-width:460px; margin:0 auto; color:#6b5f52;">Not stock photos. Not renderings. These are actual Barsys events in NYC.</p>
+        <p class="type-body" style="max-width:480px; margin:0 auto; color:#6b5f52;">Not stock photos. Not studio renders. These are actual Barsys events — shot at the party, not after it. We were a little busy making sure everyone's drink was perfect.</p>
       </div>
 
       <div class="pe-gallery anim-fade-up">
@@ -788,7 +788,7 @@
         <!-- ── STEP 3: Guest count ── -->
         <div class="pe-wiz__step" data-pe-step="3">
           <div class="pe-wiz__step-title">How many guests?</div>
-          <p class="pe-wiz__step-sub">We size the bar team and machine setup to your headcount. Minimum 25 guests. $1,500 event minimum applies.</p>
+          <p class="pe-wiz__step-sub">We size the bar team and machine setup to your headcount. Minimum 25 guests &mdash; though at $50/pp (Essential), the $1,500 event minimum means 30 guests in practice. Signature and Prestige reach $1,500 with fewer.</p>
           <div class="pe-wiz__stepper">
             <button class="pe-wiz__stepper-btn" id="pe-wiz-minus" type="button" aria-label="Decrease guest count">−</button>
             <input type="number" id="pe-wiz-guests" class="pe-wiz__stepper-input" value="50" min="25" max="500" step="5" inputmode="numeric" aria-label="Number of guests" />
@@ -1357,7 +1357,17 @@
           NYC · Private Events · from $50/person
         </div>
         <h2 style="font-size:clamp(30px,4vw,52px); font-weight:200; color:#fff; line-height:1.1; letter-spacing:-0.03em; margin-bottom:20px;">This is the night<br>they'll talk about<br><em style="font-style:normal; color:var(--color-gold,#C8A97E);">for years.</em></h2>
-        <p style="font-size:16px; color:rgba(255,255,255,0.55); line-height:1.8; max-width:460px; margin:0 auto 36px;">Tell us about your event. We'll send a quote — date, package, guest count, cocktail menu — within one business day. No commitment, no credit card.</p>
+        <p style="font-size:16px; color:rgba(255,255,255,0.55); line-height:1.8; max-width:460px; margin:0 auto 32px;">Tell us about your event. We'll send a quote — date, package, guest count, cocktail menu — within one business day. No commitment, no credit card.</p>
+
+        <!-- Fareed intro -->
+        <div style="display:inline-flex; align-items:center; gap:14px; background:rgba(255,255,255,0.05); border:1px solid rgba(200,169,126,0.2); border-radius:14px; padding:14px 20px; margin-bottom:32px; text-align:left; max-width:420px; width:100%;">
+          <div style="width:46px; height:46px; border-radius:50%; background:linear-gradient(135deg,#C8A97E 0%,#8B6A3A 100%); display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:700; color:#0A0A0A; flex-shrink:0; letter-spacing:-0.03em;">F</div>
+          <div>
+            <div style="font-size:14px; font-weight:600; color:rgba(255,255,255,0.9); margin-bottom:3px;">Fareed — Founder, Barsys</div>
+            <div style="font-size:13px; color:rgba(255,255,255,0.45); line-height:1.5;">"I personally review every quote we send. Your event is in good hands."</div>
+          </div>
+        </div>
+
         <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:28px;">
           <a href="#pe-book" class="btn btn-primary btn--lg">Plan My Event</a>
           <a href="mailto:fareed@barsys.com" class="btn btn--lg" style="background:transparent; border:1.5px solid rgba(255,255,255,0.18); color:rgba(255,255,255,0.65);">Talk to Fareed directly</a>

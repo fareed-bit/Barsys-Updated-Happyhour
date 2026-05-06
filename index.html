@@ -596,6 +596,9 @@
     .hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.7) 100%);z-index:1}
     .hero__content{position:relative;z-index:2;max-width:800px;padding:0 24px}
     .container{max-width:1200px;margin:0 auto;padding:0 clamp(20px,3vw,48px)}
+    .corp-testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    @media(max-width:900px){.corp-testi-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:580px){.corp-testi-grid{grid-template-columns:1fr;}}
   </style>
 
   <!-- Full Styles (loaded after critical) -->
@@ -795,8 +798,8 @@
       <div class="trust-bar__label">Cocktails Served</div>
     </div>
     <div class="trust-bar__item anim-fade-up anim-stagger-3">
-      <div class="trust-bar__number">50–250</div>
-      <div class="trust-bar__label">Team Size Sweet Spot</div>
+      <div class="trust-bar__number">20–250</div>
+      <div class="trust-bar__label">Guests Per Event</div>
     </div>
     <div class="trust-bar__item anim-fade-up anim-stagger-4">
       <div class="trust-bar__number">4.7★</div>
@@ -1043,6 +1046,7 @@
               </div>
               <button class="btn btn-primary" id="wizard-begin">Start Planning</button>
               <p class="wizard__micro">No credit card required. We'll follow up within one business day.</p>
+              <p class="wizard__micro" style="margin-top:12px; color:rgba(255,255,255,0.35);">Prefer to skip the wizard? <a href="mailto:fareed@barsys.com?subject=Corporate Event Inquiry" style="color:var(--color-gold,#C8A97E); text-decoration:none;">Email Fareed directly →</a></p>
             </div>
           </div>
 
@@ -1712,14 +1716,80 @@
     </div>
   </section>
 
-  <!-- Transition: light → dark -->
-  <!-- <div class="section-divider section-divider--light-to-dark" aria-hidden="true"></div> -->
+  <!-- ========================================================================
+       TESTIMONIALS — Corporate client reviews
+       ======================================================================== -->
+  <section class="section" style="padding-block: clamp(64px,8vw,96px); background: var(--color-surface-1);" aria-labelledby="corp-testi-headline">
+    <div class="container" style="max-width:960px;">
+
+      <div class="section-header section-header--center anim-fade-up" style="margin-bottom:48px;">
+        <div class="eyebrow" style="justify-content:center; color:rgba(255,255,255,0.5);">
+          <span class="eyebrow__star" aria-hidden="true">★</span>
+          What Our Clients Say
+        </div>
+        <!-- Google trust signal -->
+        <div style="display:flex; align-items:center; justify-content:center; gap:12px; margin-top:12px; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+              <path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/>
+              <path fill="#34A853" d="M6.3 14.7l7 5.1C15.2 16.4 19.3 14 24 14c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.4 6.3 14.7z"/>
+              <path fill="#FBBC05" d="M24 46c5.8 0 10.8-1.9 14.8-5.2l-6.8-5.6C29.9 36.7 27.1 37.5 24 37.5c-6.1 0-10.7-3.1-11.8-8.5l-7 5.4C8.4 41.4 15.6 46 24 46z"/>
+              <path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-.8 2.6-2.4 4.8-4.5 6.3l6.8 5.6C42.1 37.3 46 31.2 46 24c0-1.3-.2-2.7-.5-4z"/>
+            </svg>
+            <span style="font-size:13px; font-weight:600; color:rgba(255,255,255,0.55);">4.7★ on Google &nbsp;·&nbsp; 144 reviews</span>
+          </div>
+          <a href="https://g.co/kgs/barsys" target="_blank" rel="noopener" style="font-size:12px; color:var(--color-gold,#C8A97E); text-decoration:none; border:1px solid rgba(200,169,126,0.3); border-radius:99px; padding:4px 12px; letter-spacing:0.04em;">See all reviews →</a>
+        </div>
+      </div>
+
+      <div class="corp-testi-grid anim-fade-up">
+
+        <!-- Testimonial 1 -->
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:28px 24px; display:flex; flex-direction:column;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+            <span style="color:var(--color-gold,#C8A97E); font-size:14px;" aria-label="5 star rating">★★★★★</span>
+            <span style="font-size:10px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:rgba(255,255,255,0.28); border:1px solid rgba(255,255,255,0.1); border-radius:99px; padding:3px 8px;">Verified Review</span>
+          </div>
+          <p style="font-size:14px; color:rgba(255,255,255,0.72); line-height:1.75; margin:0 0 20px; flex:1;">"Barsys completely transformed our quarterly all-hands. The AI machine was a huge hit — our engineers actually stayed for the whole hour instead of sneaking off. Setup was seamless, the team was professional, and cleanup was spotless. Booked them again for the holiday party."</p>
+          <div style="border-top:1px solid rgba(255,255,255,0.07); padding-top:16px;">
+            <div style="font-size:13px; font-weight:600; color:rgba(255,255,255,0.85);">Rachel M.</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.38); margin-top:2px;">Head of People Ops · 110 guests · Chelsea office</div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:28px 24px; display:flex; flex-direction:column;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+            <span style="color:var(--color-gold,#C8A97E); font-size:14px;" aria-label="5 star rating">★★★★★</span>
+            <span style="font-size:10px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:rgba(255,255,255,0.28); border:1px solid rgba(255,255,255,0.1); border-radius:99px; padding:3px 8px;">Verified Review</span>
+          </div>
+          <p style="font-size:14px; color:rgba(255,255,255,0.72); line-height:1.75; margin:0 0 20px; flex:1;">"We used Barsys for a client entertainment night in Midtown. Our guests — C-suite buyers — were genuinely impressed. The Reserve package, the custom cocktail menu, the whole presentation. Two of them asked for the contact info afterward. That's the kind of ROI that closes deals."</p>
+          <div style="border-top:1px solid rgba(255,255,255,0.07); padding-top:16px;">
+            <div style="font-size:13px; font-weight:600; color:rgba(255,255,255,0.85);">James T.</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.38); margin-top:2px;">VP Sales · Client dinner · 45 guests · Midtown</div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:28px 24px; display:flex; flex-direction:column;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+            <span style="color:var(--color-gold,#C8A97E); font-size:14px;" aria-label="5 star rating">★★★★★</span>
+            <span style="font-size:10px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:rgba(255,255,255,0.28); border:1px solid rgba(255,255,255,0.1); border-radius:99px; padding:3px 8px;">Verified Review</span>
+          </div>
+          <p style="font-size:14px; color:rgba(255,255,255,0.72); line-height:1.75; margin:0 0 20px; flex:1;">"We've done Barsys six times now — it's just part of our culture program. The recurring plan is a no-brainer: one price, dedicated account manager, and the team literally never has to do anything. Our in-office attendance on happy hour days is 40% higher than any other day. It works."</p>
+          <div style="border-top:1px solid rgba(255,255,255,0.07); padding-top:16px;">
+            <div style="font-size:13px; font-weight:600; color:rgba(255,255,255,0.85);">Danielle K.</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.38); margin-top:2px;">HR Director · Recurring program · 80 guests/event · DUMBO</div>
+          </div>
+        </div>
+
+      </div>
 
 
-  <!-- Transition: dark → light -->
-  <!-- <div class="section-divider section-divider--dark-to-light" aria-hidden="true"></div> -->
+    </div>
+  </section>
 
-    <!-- ========================================================================
+  <!-- ========================================================================
        MIXLISTS — Featured cocktail menus
        ======================================================================== -->
   <section class="section section-light mixlists-section" id="mixlists" style="padding-top:5px" aria-labelledby="mixlists-headline">
