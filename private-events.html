@@ -16,6 +16,8 @@
   <meta property="og:image" content="https://happyhours.barsys.com/assets/og-image.jpg" />
   <meta property="og:site_name" content="Barsys" />
 
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
   <link rel="icon" href="favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 
@@ -66,9 +68,9 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      { "@type": "Question", "name": "Do you do birthday parties in NYC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We handle everything from milestone birthdays (40th, 50th, 60th) to larger celebration events. You bring the guests, we bring the open bar — AI cocktail machines, professional bartenders, all spirits, glassware, ice, setup, and cleanup. From $50 per person with a $1,500 minimum." } },
-      { "@type": "Question", "name": "Can Barsys do engagement parties?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Engagement parties are one of our most popular private events. The AI cocktail machine creates a memorable moment for your guests, and our team handles every detail so you can enjoy the night. Get a quote in 24 hours." } },
-      { "@type": "Question", "name": "What venues do you work with for private events?", "acceptedAnswer": { "@type": "Answer", "text": "We work best at BYOB venues, raw event lofts, private residences, rooftops, and any space that allows outside bar service. If you're booking a venue with its own liquor license, contact us and we'll help figure out the best approach." } },
+      { "@type": "Question", "name": "Do you do birthday parties in NYC?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Milestone birthdays (40th, 50th, 60th) are one of our most popular private events. You bring the guests, we bring the open bar — AI cocktail machines, professional bartenders, all spirits, glassware, ice, setup, and cleanup. From $50 per person with a $1,500 minimum." } },
+      { "@type": "Question", "name": "Can Barsys do engagement parties?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Engagement parties are one of our most popular private events. The AI cocktail machine creates a memorable moment for guests, and our team handles every detail so you can enjoy the night. Engagements typically book at $65/person for 30+ guests." } },
+      { "@type": "Question", "name": "What venues do you work with for private events?", "acceptedAnswer": { "@type": "Answer", "text": "We work best at BYOB venues, raw event lofts, private residences, rooftops, and any space that allows outside bar service. If your venue has its own liquor license, contact us and we'll help figure out the best approach." } },
       { "@type": "Question", "name": "How much does a private event bar service cost in NYC?", "acceptedAnswer": { "@type": "Answer", "text": "Our Classic package starts at $50 per person with a $1,500 event minimum. A birthday party with 50 guests is $2,500 all-inclusive — spirits, AI machines, professional bartenders, glassware, ice, setup, and cleanup. No hidden fees." } },
       { "@type": "Question", "name": "What's the difference between Barsys and a regular bartender for hire?", "acceptedAnswer": { "@type": "Answer", "text": "A regular bartender-for-hire shows up with skills but you buy the alcohol, rent the equipment, and manage everything else. Barsys is fully managed: we bring the AI cocktail machines, premium spirits, professional bartenders, glassware, ice, mixers, setup crew, and handle cleanup. One price, zero logistics." } }
     ]
@@ -82,224 +84,600 @@
   <link rel="stylesheet" href="css/index-page.min.css" />
 
   <style>
-    .geo-hero { padding: clamp(100px,12vw,160px) 0 clamp(64px,8vw,100px); text-align: center; background: var(--color-bg); }
-    .geo-hero__eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 20px; display: block; }
-    .geo-hero__headline { font-size: clamp(36px,5.5vw,72px); font-weight: 200; line-height: 1.08; letter-spacing: -0.03em; color: #fff; margin-bottom: 24px; }
-    .geo-hero__sub { font-size: clamp(16px,1.8vw,20px); color: rgba(255,255,255,0.65); line-height: 1.7; max-width: 580px; margin: 0 auto 40px; }
-    .geo-content { max-width: 860px; margin: 0 auto; padding: 0 24px; }
-    .geo-section { padding: clamp(48px,6vw,80px) 0; }
-    .geo-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; margin: 40px 0; }
-    .geo-card { background: var(--color-surface-1); border: 1px solid var(--color-border); border-radius: 12px; padding: 28px 24px; }
-    .geo-card__label { font-size: 11px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 10px; }
-    .geo-card__title { font-size: 18px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 8px; }
-    .geo-card__body { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; }
-    .event-types { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
-    .event-types span { font-size: 13px; padding: 7px 16px; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: 100px; color: var(--color-text-secondary); }
-    .event-types span.highlight { border-color: var(--color-gold); color: var(--color-gold); }
-    .pricing-table { width: 100%; border-collapse: collapse; margin: 28px 0; }
-    .pricing-table th { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--color-border); }
-    .pricing-table td { font-size: 14px; color: var(--color-text-secondary); padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); vertical-align: top; line-height: 1.5; }
-    .pricing-table td:first-child { color: var(--color-text-primary); font-weight: 500; }
-    .pricing-table td strong { color: var(--color-gold); }
-    .cta-block { text-align: center; background: var(--color-surface-1); border: 1px solid var(--color-gold-border); border-radius: 16px; padding: clamp(40px,5vw,64px); margin: 48px 0; }
-    .ai-callout { background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: 12px; padding: 32px 28px; margin: 32px 0; display: flex; gap: 20px; align-items: flex-start; }
-    .ai-callout__icon { font-size: 32px; flex-shrink: 0; margin-top: 2px; }
-    .ai-callout__body h4 { font-size: 16px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 8px; }
-    .ai-callout__body p { font-size: 14px; color: var(--color-text-secondary); line-height: 1.65; margin: 0; }
-    @media (max-width: 640px) { .geo-grid { grid-template-columns: 1fr; } .ai-callout { flex-direction: column; } }
+    /* ── Pricing Table ── */
+    .pe-pricing-table { width:100%; border-collapse:collapse; margin:28px 0; }
+    .pe-pricing-table th { font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(10,10,10,0.5); padding:10px 16px; text-align:left; border-bottom:1px solid rgba(10,10,10,0.10); }
+    .pe-pricing-table td { font-size:14px; color:rgba(10,10,10,0.65); padding:16px; border-bottom:1px solid rgba(10,10,10,0.07); vertical-align:top; line-height:1.5; }
+    .pe-pricing-table td:first-child { color:#1a1612; font-weight:600; }
+    .pe-pricing-table td strong { color:var(--color-gold-dark, #A68B5B); }
+    /* ── AI Stats Row ── */
+    .pe-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--color-border, rgba(255,255,255,0.08)); border:1px solid var(--color-border, rgba(255,255,255,0.08)); border-radius:12px; overflow:hidden; margin:48px 0; }
+    .pe-stat { background:var(--color-surface-1, #141414); padding:36px 28px; text-align:center; }
+    .pe-stat__number { font-size:clamp(36px,5vw,56px); font-weight:200; letter-spacing:-0.04em; color:#fff; line-height:1; margin-bottom:8px; }
+    .pe-stat__label { font-size:12px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--color-gold, #C8A97E); margin-bottom:6px; }
+    .pe-stat__desc { font-size:13px; color:var(--color-text-secondary, #A69882); line-height:1.5; }
+    @media (max-width:640px) { .pe-stats { grid-template-columns:1fr; } }
   </style>
 </head>
+
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-59D59MWD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<!-- Nav -->
+<!-- ====================================================================
+     NAV — Full nav, matches index.html
+     ==================================================================== -->
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav__inner">
-    <div class="nav__logo-wrap">
-      <a href="/" aria-label="Barsys Happy Hour home">
-        <img src="assets/HappyHour.Logo.White.png" alt="HappyHour by Barsys" style="height:44px;width:auto;" />
-      </a>
+
+    <a href="/" class="nav__logo" aria-label="Barsys Happy Hour home">
+      <img src="assets/HappyHour.Logo.White.png" alt="HappyHour by Barsys" class="nav__logo-mark" />
+    </a>
+
+    <ul class="nav__links" role="list">
+      <li><a href="/#video-showcase" class="nav__link">Experience</a></li>
+      <li><a href="/#mixlists" class="nav__link">Mixlists</a></li>
+      <li><a href="shop.html" class="nav__link">Shop</a></li>
+      <li><a href="/#book" class="nav__link">Packages</a></li>
+      <li><a href="blog/" class="nav__link">Blog</a></li>
+      <li><a href="/private-events" class="nav__link nav__link--active">Private Events</a></li>
+    </ul>
+
+    <div class="nav__actions">
+      <a href="mailto:fareed@barsys.com" class="nav__phone" aria-label="Contact us">Contact Us</a>
+      <a href="/#book" class="btn btn-primary btn--sm">Get a Quote</a>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span class="nav__hamburger-line"></span>
+        <span class="nav__hamburger-line"></span>
+        <span class="nav__hamburger-line"></span>
+      </button>
     </div>
-    <div></div>
-    <div style="display:flex;align-items:center;gap:20px;justify-content:flex-end;">
-      <a href="mailto:fareed@barsys.com" style="font-size:13px;color:var(--color-text-secondary);text-decoration:none;white-space:nowrap;">Contact Us</a>
-      <a href="/#book" class="btn btn-primary btn--sm">Plan Your Event</a>
-    </div>
+
   </div>
 </nav>
 
 <main id="main-content">
 
-  <!-- Hero -->
-  <div class="geo-hero">
-    <div class="container">
-      <span class="geo-hero__eyebrow">Private Events · New York City</span>
-      <h1 class="geo-hero__headline">Private Events That People<br><em style="font-style:normal; color:var(--color-gold);">Actually Remember</em></h1>
-      <p class="geo-hero__sub">The same AI-powered open bar NYC's top companies trust — now for your birthday, engagement party, or private celebration. Fully managed. Nothing to worry about.</p>
-      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-        <a href="/#book" class="btn btn-primary btn--lg">Get a Free Quote</a>
-        <a href="/" class="btn btn--lg" style="background:transparent;border:1.5px solid var(--color-gold);color:var(--color-gold);">See Packages</a>
+  <!-- ====================================================================
+       HERO — Dark, video background
+       ==================================================================== -->
+  <section class="hero" id="home" aria-label="Hero">
+
+    <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="poster.webp" aria-hidden="true">
+      <source src="0312.mp4" type="video/mp4">
+    </video>
+    <div class="hero__overlay" aria-hidden="true"></div>
+
+    <svg class="hero__spark" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M36 4L39.5 28.5L64 32L39.5 35.5L36 60L32.5 35.5L8 32L32.5 28.5L36 4Z" fill="#C8A97E" fill-opacity="0.9"/>
+      <path d="M62 8L63.5 17.5L73 19L63.5 20.5L62 30L60.5 20.5L51 19L60.5 17.5L62 8Z" fill="#C8A97E" fill-opacity="0.50"/>
+    </svg>
+
+    <div class="container hero__content">
+      <div class="hero__text-block">
+        <h1 class="hero__headline">
+          AI-Powered Bar Service<br><em style="font-style:normal; color:var(--color-gold);">for Private Events in NYC</em>
+        </h1>
+        <p class="hero__subheadline">The fully-managed open bar experience NYC's top companies trust — now for your birthday, engagement party, or private celebration. Everything included, from $50 per person.</p>
+        <div class="hero__ctas">
+          <a href="/#book" class="btn btn-primary btn--lg">Get a Free Quote</a>
+          <a href="/#book" class="btn btn--lg" style="background:transparent; border:1.5px solid var(--color-gold); color:var(--color-gold);">View Packages</a>
+        </div>
+        <p style="font-size:12px; color:rgba(255,255,255,0.45); letter-spacing:0.09em; text-transform:uppercase; margin-top:20px;">Open bar &nbsp;&middot;&nbsp; 3 hours &nbsp;&middot;&nbsp; All-inclusive from $50/person</p>
       </div>
-      <p style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:20px;letter-spacing:0.09em;text-transform:uppercase;">Open bar &nbsp;·&nbsp; 3 hours &nbsp;·&nbsp; All-inclusive from $50/person</p>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       TRUST BAR
+       ==================================================================== -->
+  <div class="trust-bar" role="region" aria-label="Key facts about Barsys">
+    <div class="trust-bar__item anim-fade-up anim-stagger-1">
+      <div class="trust-bar__number">200+</div>
+      <div class="trust-bar__label">NYC Events Served</div>
+    </div>
+    <div class="trust-bar__item anim-fade-up anim-stagger-2">
+      <div class="trust-bar__number">50K+</div>
+      <div class="trust-bar__label">Cocktails Served</div>
+    </div>
+    <div class="trust-bar__item anim-fade-up anim-stagger-3">
+      <div class="trust-bar__number">4.7★</div>
+      <div class="trust-bar__label">Based on 144 Reviews</div>
+    </div>
+    <div class="trust-bar__item anim-fade-up anim-stagger-4">
+      <div class="trust-bar__number">$50/pp</div>
+      <div class="trust-bar__label">Starting Price</div>
     </div>
   </div>
 
-  <!-- Trust bar -->
-  <div class="trust-bar">
-    <div class="trust-bar__item"><div class="trust-bar__number">200+</div><div class="trust-bar__label">NYC Events Served</div></div>
-    <div class="trust-bar__item"><div class="trust-bar__number">50K+</div><div class="trust-bar__label">Cocktails Served</div></div>
-    <div class="trust-bar__item"><div class="trust-bar__number">4.7★</div><div class="trust-bar__label">144 Reviews</div></div>
-    <div class="trust-bar__item"><div class="trust-bar__number">$50/pp</div><div class="trust-bar__label">Starting Price</div></div>
-  </div>
 
-  <!-- Content -->
-  <section class="geo-section" style="background:var(--color-bg);">
-    <div class="geo-content">
-      <h2 style="font-size:clamp(26px,3.5vw,40px);font-weight:200;color:#fff;margin-bottom:20px;">Your Event. Our Full Bar Operation.</h2>
-      <p style="font-size:16px;color:var(--color-text-secondary);line-height:1.75;margin-bottom:20px;">Most bar services hand you a bartender and leave you to figure out the rest. Barsys is different. We bring everything — AI cocktail machines, premium spirits, professional bartenders, glassware, ice, mixers, setup crew, and cleanup — so the only thing you're thinking about is enjoying your night.</p>
-      <p style="font-size:16px;color:var(--color-text-secondary);line-height:1.75;margin-bottom:36px;">We serve private events of 25 to 500+ guests across all five NYC boroughs. Most events book 2–4 weeks out. Get a personalized quote in 24 hours — no commitment required.</p>
+  <!-- ====================================================================
+       SECTION 1 (DARK) — What's Included — Why Barsys layout
+       ==================================================================== -->
+  <section class="section" style="padding: 48px 0; background: var(--color-bg);" aria-labelledby="pe-included-headline">
+    <div class="why-barsys__row">
 
-      <h3 style="font-size:18px;font-weight:600;color:#fff;margin-bottom:14px;">Events We Specialize In</h3>
-      <div class="event-types">
-        <span class="highlight">Birthday Parties</span>
-        <span class="highlight">Engagement Parties</span>
-        <span class="highlight">Milestone Anniversaries</span>
-        <span>Graduation Celebrations</span>
-        <span>Corporate Milestones</span>
-        <span>Retirement Parties</span>
-        <span>Baby Showers</span>
-        <span>BYOB Venue Events</span>
-        <span>Holiday Parties</span>
-        <span>Product Launches</span>
+      <div class="why-barsys__visual anim-fade-up">
+        <picture>
+          <source srcset="why-barsys-hero-800w.webp 800w, why-barsys-hero-1200w.webp 1200w, why-barsys-hero.webp 1600w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 90vw, 1600px" type="image/webp" />
+          <source srcset="why-barsys-hero-800w.jpg 800w, why-barsys-hero-1200w.jpg 1200w, why-barsys-hero.jpg 1600w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 90vw, 1600px" />
+          <img src="why-barsys-hero.jpg" alt="Barsys AI cocktail machine at a private event in NYC" loading="lazy" width="1600" height="678" />
+        </picture>
       </div>
 
-      <!-- AI Machine Callout -->
-      <div class="ai-callout">
-        <div class="ai-callout__icon">🤖</div>
-        <div class="ai-callout__body">
-          <h4>The moment your guests won't stop talking about</h4>
-          <p>Barsys AI cocktail machines deliver precision cocktails in under 5 seconds — no bartender can match the speed, consistency, or wow-factor. Your birthday or engagement party will have something no other bar service in NYC can offer. It's the social media moment that actually earns organic posts.</p>
+      <div class="why-barsys__content anim-fade-up">
+        <h2 class="why-barsys__headline" id="pe-included-headline">Your Event. Our Full Bar Operation.</h2>
+
+        <div class="why-barsys__grid">
+          <div class="why-barsys__item">
+            <span class="why-barsys__check" aria-hidden="true">✓</span>
+            <div>
+              <strong>Unlimited open bar</strong>
+              <p>3 hours of unlimited cocktails — no tabs, no tickets, no counting drinks.</p>
+            </div>
+          </div>
+          <div class="why-barsys__item">
+            <span class="why-barsys__check" aria-hidden="true">✓</span>
+            <div>
+              <strong>Barsys AI cocktail machines</strong>
+              <p>Precision cocktails in under 5 seconds. The moment guests photograph all night. <a href="shop.html" style="color: var(--color-gold); text-decoration: underline; text-underline-offset: 2px;">See our machines</a></p>
+            </div>
+          </div>
+          <div class="why-barsys__item">
+            <span class="why-barsys__check" aria-hidden="true">✓</span>
+            <div>
+              <strong>Professional bartenders</strong>
+              <p>Trained hospitality staff on-site throughout your event.</p>
+            </div>
+          </div>
+          <div class="why-barsys__item">
+            <span class="why-barsys__check" aria-hidden="true">✓</span>
+            <div>
+              <strong>All spirits, mixers &amp; garnishes</strong>
+              <p>Premium bottles, house mixers, fresh garnishes — we supply everything.</p>
+            </div>
+          </div>
+          <div class="why-barsys__item">
+            <span class="why-barsys__check" aria-hidden="true">✓</span>
+            <div>
+              <strong>Full setup &amp; teardown</strong>
+              <p>We arrive before guests do and leave without a trace.</p>
+            </div>
+          </div>
+          <div class="why-barsys__item">
+            <span class="why-barsys__check" aria-hidden="true">✓</span>
+            <div>
+              <strong>One flat rate. No surprises.</strong>
+              <p>Spirits, glassware, ice, tip, delivery, setup, and cleanup — all in the per-person price.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:40px; justify-content:center; width:100%;">
+          <a href="/#book" class="btn btn-primary">Get a Custom Quote</a>
+          <a href="/#book" class="btn btn-outline">Explore Packages</a>
         </div>
       </div>
 
-      <div class="geo-grid">
-        <div class="geo-card">
-          <div class="geo-card__label">What's Included</div>
-          <div class="geo-card__title">Everything. One price.</div>
-          <div class="geo-card__body">Unlimited cocktails for 3 hours, Barsys AI machines, professional bartenders, all spirits and mixers, garnishes, glassware, ice, full setup, service, and cleanup. Delivery and tip included.</div>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SECTION 2 (LIGHT) — How It Works
+       ==================================================================== -->
+  <section class="section section-light" style="padding-block: 64px 72px;" aria-labelledby="pe-how-headline">
+    <div class="container" style="max-width:1200px; text-align:center;">
+      <div class="eyebrow" style="justify-content:center; margin-bottom:16px;">
+        <span class="eyebrow__star" aria-hidden="true">★</span>
+        Simple Process
+      </div>
+      <h2 id="pe-how-headline" class="type-h2" style="margin-bottom:16px;">How It Works</h2>
+      <p class="type-body" style="max-width:500px; margin:0 auto 56px; color:#6b5f52;">From first message to final cocktail — we handle every detail so you don't have to.</p>
+
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:64px; text-align:center;">
+
+        <div class="anim-fade-up">
+          <div style="width:64px; height:64px; border-radius:50%; background:rgba(200,169,126,0.12); border:1px solid rgba(200,169,126,0.25); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:22px; font-weight:700; color:var(--color-gold);">1</div>
+          <h3 style="font-size:18px; font-weight:700; color:#1a1612; margin-bottom:10px;">Tell Us About Your Event</h3>
+          <p style="font-size:15px; color:#6b5f52; line-height:1.7; margin:0;">Fill out our 2-minute wizard. We build a personalized quote with staffing plan, machine setup, and cocktail menu within one business day.</p>
         </div>
-        <div class="geo-card">
-          <div class="geo-card__label">Pricing</div>
-          <div class="geo-card__title">From $50 per person</div>
-          <div class="geo-card__body">Classic at $50/pp · Signature at $70/pp · Reserve at $200/pp. $1,500 event minimum. A 50-person birthday is $2,500 all-in — less than buying the liquor yourself once you factor in everything else.</div>
+
+        <div class="anim-fade-up anim-stagger-2">
+          <div style="width:64px; height:64px; border-radius:50%; background:rgba(200,169,126,0.12); border:1px solid rgba(200,169,126,0.25); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:22px; font-weight:700; color:var(--color-gold);">2</div>
+          <h3 style="font-size:18px; font-weight:700; color:#1a1612; margin-bottom:10px;">We Handle Everything</h3>
+          <p style="font-size:15px; color:#6b5f52; line-height:1.7; margin:0;">AI machines, premium spirits, professional bartenders, glassware, ice, and setup crew delivered to your venue. Every logistical detail coordinated by us.</p>
         </div>
-        <div class="geo-card">
-          <div class="geo-card__label">Venues</div>
-          <div class="geo-card__title">BYOB lofts, homes & rooftops</div>
-          <div class="geo-card__body">We work best at BYOB event spaces, private residences, raw lofts, and rooftops — any venue that allows outside bar service. Not sure if your venue qualifies? Ask us.</div>
+
+        <div class="anim-fade-up anim-stagger-3">
+          <div style="width:64px; height:64px; border-radius:50%; background:rgba(200,169,126,0.12); border:1px solid rgba(200,169,126,0.25); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:22px; font-weight:700; color:var(--color-gold);">3</div>
+          <h3 style="font-size:18px; font-weight:700; color:#1a1612; margin-bottom:10px;">Show Up and Celebrate</h3>
+          <p style="font-size:15px; color:#6b5f52; line-height:1.7; margin:0;">Walk in to a fully operational bar. We run the entire event — service, replenishment, everything — and leave without a trace.</p>
         </div>
-        <div class="geo-card">
-          <div class="geo-card__label">Booking</div>
-          <div class="geo-card__title">Quote in 24 hours</div>
-          <div class="geo-card__body">Fill out our 2-minute event wizard and receive a personalized plan with pricing within one business day. No commitment, no credit card required upfront.</div>
+
+      </div>
+
+      <div style="margin-top:48px;">
+        <a href="/#book" class="btn btn-primary">Plan Your Event &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SECTION 3 (DARK SURFACE-1) — Events We Serve
+       ==================================================================== -->
+  <section class="section" style="padding-block: 72px; background: var(--color-surface-1);" aria-labelledby="pe-events-headline">
+    <div class="container">
+
+      <div class="section-header section-header--center anim-fade-up" style="margin-bottom:56px;">
+        <div class="eyebrow" style="justify-content:center;">
+          <span class="eyebrow__star" aria-hidden="true">★</span>
+          Event Types
+        </div>
+        <h2 id="pe-events-headline" class="type-h2">The Events We Specialize In</h2>
+        <p class="type-body" style="max-width:520px; margin:0 auto;">From milestone birthdays to BYOB venue events — here's what we do best and why Barsys fits each one.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+
+        <div style="background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:14px; padding:28px;" class="anim-fade-up">
+          <div style="font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--color-gold); margin-bottom:10px;">Most Popular</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text-primary); margin-bottom:8px;">Milestone Birthday Parties</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">40th, 50th, 60th — these are the nights that deserve something real. An AI cocktail machine, professional bartenders, and unlimited drinks for your guests. From $50/person with a $1,500 minimum.</p>
+        </div>
+
+        <div style="background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:14px; padding:28px;" class="anim-fade-up anim-stagger-2">
+          <div style="font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--color-gold); margin-bottom:10px;">High Demand</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text-primary); margin-bottom:8px;">Engagement Parties</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">The couple is in celebration mode, guests are in a generous mood, and the AI machine becomes the centerpiece of the night. Our most photographed private event type. Starts at $65/person.</p>
+        </div>
+
+        <div style="background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:14px; padding:28px;" class="anim-fade-up anim-stagger-3">
+          <div style="font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--color-gold); margin-bottom:10px;">Corporate</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text-primary); margin-bottom:8px;">Corporate Milestones &amp; Retirements</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">Company anniversaries, retirement send-offs, product launches, and major team wins. Same infrastructure as our corporate happy hour service — scaled for a personal milestone.</p>
+        </div>
+
+        <div style="background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:14px; padding:28px;" class="anim-fade-up">
+          <div style="font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--color-gold); margin-bottom:10px;">Best Fit</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text-primary); margin-bottom:8px;">BYOB Venue Events</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">Raw lofts, event spaces, and rooftops that allow outside bar service are our sweet spot. We become your venue's bar operation — fully managed, fully branded to your event. From $55/person.</p>
+        </div>
+
+        <div style="background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:14px; padding:28px;" class="anim-fade-up anim-stagger-2">
+          <div style="font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--color-gold); margin-bottom:10px;">Seasonal</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text-primary); margin-bottom:8px;">Holiday &amp; Graduation Parties</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">Year-end celebrations, graduation send-offs, and seasonal gatherings where the bar is the main event. Seasonal cocktail menus available. Classic package from $50/person.</p>
+        </div>
+
+        <div style="background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:14px; padding:28px;" class="anim-fade-up anim-stagger-3">
+          <div style="font-size:11px; font-weight:600; letter-spacing:0.10em; text-transform:uppercase; color:var(--color-gold); margin-bottom:10px;">Intimate</div>
+          <h3 style="font-size:17px; font-weight:700; color:var(--color-text-primary); margin-bottom:8px;">Baby Showers &amp; Private Dinners</h3>
+          <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.75; margin:0;">Smaller celebrations with elevated expectations. Our machines produce both cocktails and premium mocktails — so every guest at the table has something worth photographing.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SECTION 4 (DARK) — AI Machine Differentiator
+       ==================================================================== -->
+  <section class="section" style="padding-block: clamp(64px,8vw,100px); background: var(--color-bg);" aria-labelledby="pe-ai-headline">
+    <div class="container" style="max-width:900px; text-align:center;">
+
+      <div class="eyebrow" style="justify-content:center; margin-bottom:16px;">
+        <span class="eyebrow__star" aria-hidden="true">★</span>
+        The Technology
+      </div>
+      <h2 id="pe-ai-headline" class="type-h2" style="color:#fff; margin-bottom:20px;">Your Bar, Upgraded by AI.</h2>
+      <p style="font-size:clamp(15px,1.6vw,18px); color:rgba(255,255,255,0.6); line-height:1.75; max-width:640px; margin:0 auto 0;">Our AI cocktail machines don't just serve drinks — they're the moment that defines your event. No birthday party or engagement party in NYC has one. That's the point.</p>
+
+      <div class="pe-stats">
+        <div class="pe-stat">
+          <div class="pe-stat__label">Per cocktail</div>
+          <div class="pe-stat__number">5s</div>
+          <div class="pe-stat__desc">Faster than any human bartender can build a drink — no waiting, no lines.</div>
+        </div>
+        <div class="pe-stat">
+          <div class="pe-stat__label">Pour precision</div>
+          <div class="pe-stat__number">2ml</div>
+          <div class="pe-stat__desc">Every cocktail is measured to within 2ml — same drink, every time, all night.</div>
+        </div>
+        <div class="pe-stat">
+          <div class="pe-stat__label">Consistency</div>
+          <div class="pe-stat__number">100%</div>
+          <div class="pe-stat__desc">First drink of the night tastes identical to the last. No tired bartender, no variance.</div>
         </div>
       </div>
 
-      <!-- Pricing Table -->
-      <h3 style="font-size:20px;font-weight:600;color:#fff;margin:36px 0 16px;">Private Event Pricing</h3>
-      <p style="font-size:15px;color:var(--color-text-secondary);margin-bottom:20px;line-height:1.7;">All packages include bartenders, AI machines, spirits, glassware, ice, setup, and cleanup. 3-hour open bar. $1,500 event minimum applies.</p>
-      <table class="pricing-table">
+      <p style="font-size:15px; color:rgba(255,255,255,0.5); line-height:1.75; max-width:600px; margin:0 auto 40px;">The machine is also the social moment — guests interact with it, photograph it, and post it. It's organic content for your event without hiring a photographer.</p>
+
+      <a href="shop.html" class="btn btn-outline" style="border-color:var(--color-gold); color:var(--color-gold);">See Our Machines &rarr;</a>
+
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SECTION 5 (LIGHT) — Pricing
+       ==================================================================== -->
+  <section class="section section-light" style="padding-block: clamp(64px,8vw,96px);" aria-labelledby="pe-pricing-headline">
+    <div class="container" style="max-width:860px;">
+
+      <div class="section-header anim-fade-up" style="margin-bottom:48px; text-align:center;">
+        <div class="eyebrow" style="justify-content:center;">
+          <span class="eyebrow__star" aria-hidden="true">★</span>
+          Transparent Pricing
+        </div>
+        <h2 id="pe-pricing-headline" class="type-h2" style="margin-bottom:16px;">What Does a Private Event Cost?</h2>
+        <p class="type-body" style="max-width:520px; margin:0 auto; color:#6b5f52;">All packages include bartenders, AI machines, spirits, glassware, ice, setup, and cleanup. 3-hour open bar. $1,500 event minimum applies to all bookings.</p>
+      </div>
+
+      <table class="pe-pricing-table anim-fade-up">
         <thead>
           <tr>
             <th>Event Type</th>
             <th>Price Range</th>
-            <th>Notes</th>
+            <th>Minimum Guests</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Milestone Birthday (40th, 50th+)</td>
             <td><strong>$50–$70/person</strong></td>
-            <td>Minimum 25 guests · Full AI machine setup</td>
+            <td>25 guests · Full AI machine setup</td>
           </tr>
           <tr>
             <td>Engagement Party</td>
             <td><strong>$65/person</strong></td>
-            <td>Minimum 30 guests · Premium experience</td>
+            <td>30 guests · Premium experience</td>
           </tr>
           <tr>
             <td>BYOB Venue Event</td>
             <td><strong>$55/person</strong></td>
-            <td>Minimum 40 guests · Venue provides space</td>
+            <td>40 guests · Venue provides space</td>
           </tr>
           <tr>
             <td>Corporate Milestone / Retirement</td>
             <td><strong>$50–$70/person</strong></td>
-            <td>Minimum 20 guests · Recurring pricing available</td>
+            <td>20 guests · Recurring pricing available</td>
           </tr>
           <tr>
             <td>Holiday Party / Graduation</td>
             <td><strong>$50/person</strong></td>
-            <td>Classic package · Minimum 25 guests</td>
+            <td>25 guests · Classic package</td>
           </tr>
         </tbody>
       </table>
-      <p style="font-size:13px;color:var(--color-text-tertiary);margin-top:-8px;">All prices are per-person for a 3-hour open bar. Contact us for custom event pricing.</p>
 
-      <h3 style="font-size:20px;font-weight:600;color:#fff;margin:36px 0 16px;">Why Barsys for Your Private Event</h3>
-      <p style="font-size:16px;color:var(--color-text-secondary);line-height:1.75;margin-bottom:16px;">Most bar services at private events are an afterthought — someone's cousin who tends bar on weekends, or a caterer who throws a generic cocktail menu together. Your guests wait in line, drinks are inconsistent, and the whole setup looks like it was thrown together at the last minute.</p>
-      <p style="font-size:16px;color:var(--color-text-secondary);line-height:1.75;margin-bottom:16px;">Barsys was built to solve this. Our AI cocktail machines produce precision cocktails in under 5 seconds. Our professional bartenders are trained specifically for event service. And our team handles every logistical detail — from building access coordination to cleanup — so you're not managing vendors on your own birthday.</p>
-      <p style="font-size:16px;color:var(--color-text-secondary);line-height:1.75;">Trusted by 200+ NYC events. The same infrastructure Fortune 500 companies use for their quarterly happy hours — available for your most personal moments.</p>
+      <p style="font-size:13px; color:rgba(10,10,10,0.4); margin-top:4px; margin-bottom:40px;">All prices are per-person for a 3-hour open bar. Contact us for custom event pricing and larger groups.</p>
 
-      <div class="cta-block">
-        <p style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-gold);margin-bottom:16px;">Private Events · from $50/person · $1,500 minimum</p>
-        <h2 style="font-size:clamp(24px,3vw,36px);font-weight:200;color:#fff;margin-bottom:12px;">Ready to plan your event?</h2>
-        <p style="font-size:15px;color:var(--color-text-secondary);margin-bottom:32px;">Fill out our 2-minute wizard and get a personalized quote — including pricing, staffing plan, and machine setup — within one business day.</p>
-        <a href="/#book" class="btn btn-primary btn--lg">Get a Free Quote</a>
-        <p style="font-size:13px;color:var(--color-text-tertiary);margin-top:16px;">No commitment required · Quote in 24 hours · <a href="mailto:fareed@barsys.com" style="color:var(--color-gold);">fareed@barsys.com</a></p>
+      <div style="background:#fff; border:1px solid rgba(200,169,126,0.3); border-radius:14px; padding:32px 36px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;" class="anim-fade-up">
+        <div>
+          <p style="font-size:15px; font-weight:700; color:#1a1612; margin-bottom:4px;">Ready for a personalized quote?</p>
+          <p style="font-size:14px; color:#6b5f52; margin:0;">No commitment. Quote in 24 hours. No credit card required.</p>
+        </div>
+        <a href="/#book" class="btn btn-primary">Plan Your Event</a>
       </div>
 
-      <!-- FAQ -->
-      <h3 style="font-size:22px;font-weight:300;color:#fff;margin-bottom:24px;">Private Events FAQ</h3>
-      <div style="display:flex;flex-direction:column;gap:16px;">
-        <div style="border-bottom:1px solid var(--color-border);padding-bottom:16px;">
-          <p style="font-weight:600;color:var(--color-text-primary);margin-bottom:8px;">Do you do birthday parties in NYC?</p>
-          <p style="font-size:14px;color:var(--color-text-secondary);line-height:1.6;">Yes. Milestone birthdays (40th, 50th, 60th) are one of our most popular private events. You bring the guests, we bring the open bar — AI cocktail machines, professional bartenders, all spirits, glassware, ice, setup, and cleanup. From $50 per person with a $1,500 minimum.</p>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SECTION 6 (DARK SURFACE-1) — FAQ
+       ==================================================================== -->
+  <section class="section" style="padding-block: var(--section-padding); background: var(--color-surface-1);" aria-labelledby="pe-faq-headline">
+    <div class="container">
+
+      <div class="faq-split">
+
+        <div class="faq-split__left anim-fade-up">
+          <div class="eyebrow">
+            <span class="eyebrow__star" aria-hidden="true">★</span>
+            FAQs
+          </div>
+          <h2 class="faq-split__headline" id="pe-faq-headline">Private Events FAQ</h2>
+          <p class="faq-split__body">Common questions from people planning their first Barsys private event.</p>
+          <div style="display:flex; gap:16px; flex-wrap:wrap;">
+            <a href="/#book" class="btn btn-primary">Get a Custom Quote</a>
+            <a href="mailto:fareed@barsys.com" class="btn btn-outline">Send Us a Message</a>
+          </div>
         </div>
-        <div style="border-bottom:1px solid var(--color-border);padding-bottom:16px;">
-          <p style="font-weight:600;color:var(--color-text-primary);margin-bottom:8px;">Can Barsys do engagement parties?</p>
-          <p style="font-size:14px;color:var(--color-text-secondary);line-height:1.6;">Absolutely. Engagement parties are a perfect fit — guests are in a celebratory mood, the AI machine creates an unforgettable moment, and our team handles every detail so you can enjoy the night. Most engagement party bookings start at $65/person for 30+ guests.</p>
+
+        <div>
+          <div class="accordion anim-fade-up anim-stagger-2" role="list">
+
+            <div class="accordion__item" role="listitem">
+              <button class="accordion__trigger" aria-expanded="false">
+                <span class="accordion__question">Do you do birthday parties in NYC?</span>
+                <svg class="accordion__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="accordion__content">
+                <div class="accordion__content-inner">
+                  <p class="accordion__answer">Yes. Milestone birthdays (40th, 50th, 60th) are one of our most popular private events. You bring the guests, we bring the open bar — AI cocktail machines, professional bartenders, all spirits, glassware, ice, setup, and cleanup. From $50 per person with a $1,500 minimum.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion__item" role="listitem">
+              <button class="accordion__trigger" aria-expanded="false">
+                <span class="accordion__question">Can Barsys do engagement parties?</span>
+                <svg class="accordion__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="accordion__content">
+                <div class="accordion__content-inner">
+                  <p class="accordion__answer">Absolutely. Engagement parties are one of our most popular private events. Guests are in a celebratory mood, the AI machine creates an unforgettable moment, and our team handles every detail so you can enjoy the night. Most engagement party bookings start at $65/person for 30+ guests.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion__item" role="listitem">
+              <button class="accordion__trigger" aria-expanded="false">
+                <span class="accordion__question">What venues do you work with for private events?</span>
+                <svg class="accordion__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="accordion__content">
+                <div class="accordion__content-inner">
+                  <p class="accordion__answer">We work best at BYOB event lofts, private residences, rooftops, and raw event spaces that allow outside bar service. If your venue has its own liquor license, reach out and we'll help figure out the best approach for your event.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion__item" role="listitem">
+              <button class="accordion__trigger" aria-expanded="false">
+                <span class="accordion__question">How much does private event bar service cost in NYC?</span>
+                <svg class="accordion__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="accordion__content">
+                <div class="accordion__content-inner">
+                  <p class="accordion__answer">Our Classic package starts at $50 per person with a $1,500 event minimum. A 50-person birthday party is $2,500 all-inclusive — spirits, AI machines, professional bartenders, glassware, ice, setup, and cleanup. No hidden fees, no separate labor charges.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion__item" role="listitem">
+              <button class="accordion__trigger" aria-expanded="false">
+                <span class="accordion__question">What's the difference between Barsys and a regular bartender for hire?</span>
+                <svg class="accordion__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="accordion__content">
+                <div class="accordion__content-inner">
+                  <p class="accordion__answer">A regular bartender-for-hire shows up with skills — but you're still buying the alcohol, renting equipment, sourcing glassware, and managing the cleanup. Barsys is fully managed: we bring AI cocktail machines, premium spirits, professional bartenders, glassware, ice, mixers, setup crew, and handle cleanup. One price. Zero logistics.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-        <div style="border-bottom:1px solid var(--color-border);padding-bottom:16px;">
-          <p style="font-weight:600;color:var(--color-text-primary);margin-bottom:8px;">What venues do you work with for private events?</p>
-          <p style="font-size:14px;color:var(--color-text-secondary);line-height:1.6;">We work best at BYOB event lofts, private residences, rooftops, and raw event spaces that allow outside bar service. If your venue has its own liquor license, reach out and we'll help figure out the best approach for your event.</p>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====================================================================
+       SECTION 7 (DARK) — Final CTA
+       ==================================================================== -->
+  <section class="section" style="padding-block: clamp(64px,8vw,100px); background: var(--color-bg);" aria-label="Book a private event">
+    <div class="container" style="max-width:700px; text-align:center;">
+      <div style="background: var(--color-surface-1); border: 1px solid rgba(200,169,126,0.25); border-radius: 20px; padding: clamp(48px,6vw,80px) clamp(32px,5vw,64px);">
+        <div class="eyebrow" style="justify-content:center; margin-bottom:20px;">
+          <span class="eyebrow__star" aria-hidden="true">★</span>
+          Private Events · from $50/person
         </div>
-        <div style="border-bottom:1px solid var(--color-border);padding-bottom:16px;">
-          <p style="font-weight:600;color:var(--color-text-primary);margin-bottom:8px;">How much does private event bar service cost in NYC?</p>
-          <p style="font-size:14px;color:var(--color-text-secondary);line-height:1.6;">Our Classic package starts at $50 per person with a $1,500 event minimum. A 50-person birthday party is $2,500 all-inclusive — spirits, AI machines, professional bartenders, glassware, ice, setup, and cleanup. No hidden fees, no separate labor charges.</p>
+        <h2 style="font-size:clamp(28px,4vw,48px); font-weight:200; color:#fff; line-height:1.1; letter-spacing:-0.03em; margin-bottom:16px;">Ready to plan<br>your event?</h2>
+        <p style="font-size:16px; color:rgba(255,255,255,0.6); line-height:1.75; max-width:480px; margin:0 auto 36px;">Fill out our 2-minute wizard and get a personalized quote — pricing, staffing plan, and machine setup — within one business day.</p>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+          <a href="/#book" class="btn btn-primary btn--lg">Get a Free Quote</a>
+          <a href="mailto:fareed@barsys.com" class="btn btn--lg" style="background:transparent; border:1.5px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.7);">fareed@barsys.com</a>
         </div>
-        <div style="padding-bottom:16px;">
-          <p style="font-weight:600;color:var(--color-text-primary);margin-bottom:8px;">What's the difference between Barsys and a regular bartender for hire?</p>
-          <p style="font-size:14px;color:var(--color-text-secondary);line-height:1.6;">A regular bartender-for-hire shows up with skills — but you're still buying the alcohol, renting equipment, sourcing glassware, and managing the cleanup. Barsys is fully managed: we bring AI cocktail machines, premium spirits, professional bartenders, glassware, ice, mixers, setup crew, and handle cleanup. One price. Zero logistics.</p>
-        </div>
+        <p style="font-size:12px; color:rgba(255,255,255,0.3); margin-top:24px; letter-spacing:0.05em;">No commitment required &nbsp;&middot;&nbsp; Quote in 24 hours &nbsp;&middot;&nbsp; No credit card upfront</p>
       </div>
     </div>
   </section>
 
 </main>
 
-<footer class="footer" style="background:var(--color-bg);border-top:1px solid var(--color-border);padding:40px 0;text-align:center;">
+
+<!-- ====================================================================
+     FOOTER — Full footer, matches index.html
+     ==================================================================== -->
+<footer class="footer" role="contentinfo">
   <div class="container">
-    <p style="font-size:13px;color:var(--color-text-tertiary);">© 2026 Barsys Technologies, Inc. · <a href="/" style="color:var(--color-gold);">happyhours.barsys.com</a> · <a href="mailto:fareed@barsys.com" style="color:var(--color-text-secondary);">fareed@barsys.com</a></p>
-    <p style="font-size:12px;color:var(--color-text-tertiary);margin-top:8px;">
-      <a href="/manhattan" style="color:var(--color-text-tertiary);margin:0 8px;">Manhattan</a>
-      <a href="/brooklyn" style="color:var(--color-text-tertiary);margin:0 8px;">Brooklyn</a>
-      <a href="/midtown" style="color:var(--color-text-tertiary);margin:0 8px;">Midtown</a>
-      <a href="/financial-district" style="color:var(--color-text-tertiary);margin:0 8px;">Financial District</a>
-      <a href="/private-events" style="color:var(--color-text-tertiary);margin:0 8px;">Private Events</a>
-    </p>
+    <div class="footer__main">
+      <div class="footer__grid">
+
+        <div class="footer__brand">
+          <a href="/" class="footer__logo" aria-label="Barsys Happy Hour">
+            <img src="assets/HappyHour.Logo.White.png" alt="HappyHour by Barsys" class="footer__logo-mark" style="width:368px;height:auto;object-fit:contain;max-width:60vw;border-radius:0;" />
+          </a>
+          <p class="footer__tagline">NYC's top-rated bar service for corporate events and private celebrations.</p>
+          <div class="footer__social" role="list" aria-label="Social media">
+            <a href="https://www.instagram.com/barsys.inc/" target="_blank" rel="noopener" class="footer__social-link" aria-label="Instagram" role="listitem"><?xml version="1.0" encoding="UTF-8"?><svg width="20px" height="24px" stroke-width="1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#777777"><path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#777777" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16Z" stroke="#777777" stroke-width="1"></path><path d="M17.5 6.51L17.51 6.49889" stroke="#777777" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+            <a href="https://www.linkedin.com/company/barsys-llc/" target="_blank" rel="noopener" class="footer__social-link" aria-label="LinkedIn" role="listitem"><?xml version="1.0" encoding="UTF-8"?><svg width="20px" height="24px" stroke-width="1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#777777"><path d="M21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8Z" stroke="#777777" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7 17V13.5V10" stroke="#777777" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11 17V13.75M11 10V13.75M11 13.75C11 10 17 10 17 13.75V17" stroke="#777777" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7 7.01L7.01 6.99889" stroke="#777777" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+            <a href="https://x.com/barsyscocktail" target="_blank" rel="noopener" class="footer__social-link" aria-label="Twitter/X" role="listitem"><?xml version="1.0" encoding="UTF-8"?><svg width="20px" height="24px" viewBox="0 0 24 24" stroke-width="1" fill="none" xmlns="http://www.w3.org/2000/svg" color="#777777"><path d="M16.8198 20.7684L3.75317 3.96836C3.44664 3.57425 3.72749 3 4.22678 3H6.70655C6.8917 3 7.06649 3.08548 7.18016 3.23164L20.2468 20.0316C20.5534 20.4258 20.2725 21 19.7732 21H17.2935C17.1083 21 16.9335 20.9145 16.8198 20.7684Z" stroke="#777777" stroke-width="1"></path><path d="M20 3L4 21" stroke="#777777" stroke-width="1" stroke-linecap="round"></path></svg></a>
+            <a href="https://www.youtube.com/@TheBarsys" target="_blank" rel="noopener" class="footer__social-link" aria-label="YouTube" role="listitem"><?xml version="1.0" encoding="UTF-8"?><svg width="20px" height="24px" stroke-width="1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#777777"><path d="M14 12L10.5 14V10L14 12Z" fill="#777777" stroke="#777777" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 12.7075V11.2924C2 8.39705 2 6.94939 2.90549 6.01792C3.81099 5.08645 5.23656 5.04613 8.08769 4.96549C9.43873 4.92728 10.8188 4.8999 12 4.8999C13.1812 4.8999 14.5613 4.92728 15.9123 4.96549C18.7634 5.04613 20.189 5.08645 21.0945 6.01792C22 6.94939 22 8.39705 22 11.2924V12.7075C22 15.6028 22 17.0505 21.0945 17.9819C20.189 18.9134 18.7635 18.9537 15.9124 19.0344C14.5613 19.0726 13.1812 19.1 12 19.1C10.8188 19.1 9.43867 19.0726 8.0876 19.0344C5.23651 18.9537 3.81097 18.9134 2.90548 17.9819C2 17.0505 2 15.6028 2 12.7075Z" stroke="#777777" stroke-width="1"></path></svg></a>
+            <a href="https://www.tiktok.com/@thebarsys" target="_blank" rel="noopener" class="footer__social-link" aria-label="TikTok" role="listitem"><?xml version="1.0" encoding="UTF-8"?><svg width="20px" height="24px" stroke-width="1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#777777"><path d="M23 3.01006C23 3.01006 20.9821 4.20217 19.86 4.54006C19.2577 3.84757 18.4573 3.35675 17.567 3.13398C16.6767 2.91122 15.7395 2.96725 14.8821 3.29451C14.0247 3.62177 13.2884 4.20446 12.773 4.96377C12.2575 5.72309 11.9877 6.62239 12 7.54006V8.54006C10.2426 8.58562 8.50127 8.19587 6.93101 7.4055C5.36074 6.61513 4.01032 5.44869 3 4.01006C3 4.01006 -1 13.0101 8 17.0101C5.94053 18.408 3.48716 19.109 1 19.0101C10 24.0101 21 19.0101 21 7.51006C20.9991 7.23151 20.9723 6.95365 20.92 6.68006C21.9406 5.67355 23 3.01006 23 3.01006Z" stroke="#777777" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+          </div>
+        </div>
+
+        <div class="footer__column">
+          <div class="footer__column-title">Explore</div>
+          <nav class="footer__links" aria-label="Explore">
+            <a href="/#video-showcase" class="footer__link">The Experience</a>
+            <a href="/#mixlists" class="footer__link">Mixlists</a>
+            <a href="/#book" class="footer__link">Packages</a>
+            <a href="blog/" class="footer__link">Blog</a>
+            <a href="/private-events" class="footer__link">Private Events</a>
+          </nav>
+        </div>
+
+        <div class="footer__column">
+          <div class="footer__column-title">Packages</div>
+          <nav class="footer__links" aria-label="Packages">
+            <a href="/#book" class="footer__link">Classic — $50/pp</a>
+            <a href="/#book" class="footer__link">Signature — $70/pp</a>
+            <a href="/#book" class="footer__link">Reserve — $200/pp</a>
+            <a href="mailto:fareed@barsys.com?subject=Membership" class="footer__link">Membership Plans</a>
+          </nav>
+        </div>
+
+        <div class="footer__column">
+          <div class="footer__column-title">Neighborhoods</div>
+          <nav class="footer__links" aria-label="NYC neighborhoods">
+            <a href="/manhattan" class="footer__link">Manhattan</a>
+            <a href="/brooklyn" class="footer__link">Brooklyn</a>
+            <a href="/midtown" class="footer__link">Midtown</a>
+            <a href="/financial-district" class="footer__link">Financial District</a>
+          </nav>
+        </div>
+
+        <div class="footer__column">
+          <div class="footer__column-title">Contact</div>
+          <div class="footer__links">
+            <div class="footer__contact-item">
+              <span class="footer__contact-icon" aria-hidden="true">✉</span>
+              <a href="mailto:fareed@barsys.com" class="footer__link">fareed@barsys.com</a>
+            </div>
+            <div class="footer__contact-item">
+              <span class="footer__contact-icon" aria-hidden="true">◎</span>
+              <span style="font-size:var(--font-size-body-sm); color:var(--color-text-tertiary);">New York City, NY</span>
+            </div>
+            <a href="/#book" class="btn btn-primary btn--sm" style="margin-top: 16px;">Get a Quote</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="footer__bottom-inner">
+        <p class="footer__copyright">&copy; 2026 Barsys Technologies, Inc. All rights reserved.</p>
+        <nav class="footer__legal" aria-label="Legal">
+          <a href="privacy-policy.html" class="footer__link" style="font-size:var(--font-size-body-sm); color:var(--color-text-tertiary);">Privacy Policy</a>
+          <span style="color:var(--color-text-tertiary); opacity:0.3;">|</span>
+          <a href="terms-of-service.html" class="footer__link" style="font-size:var(--font-size-body-sm); color:var(--color-text-tertiary);">Terms of Service</a>
+        </nav>
+      </div>
+    </div>
   </div>
 </footer>
+
+
+<!-- Scripts — matches index.html -->
+<script src="js/nav.min.js" defer></script>
+<script src="js/accordion.min.js" defer></script>
+<script src="js/main.min.js" defer></script>
+
+<!-- Sticky Mobile Bottom CTA -->
+<div class="sticky-mobile-cta" id="sticky-mobile-cta" aria-hidden="true">
+  <a href="/#book" class="btn btn-primary">Plan Your Event</a>
+</div>
 
 </body>
 </html>
