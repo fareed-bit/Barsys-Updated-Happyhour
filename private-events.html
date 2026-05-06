@@ -98,6 +98,11 @@
     .pe-stat__desc { font-size:13px; color:var(--color-text-secondary, #A69882); line-height:1.5; }
     @media (max-width:640px) { .pe-stats { grid-template-columns:1fr; } }
   </style>
+  <style>
+    /* Nav logo — override bundle's object-fit:cover which crops the wide logo */
+    .nav__logo-mark { width: clamp(160px,20vw,320px) !important; height: auto !important; max-width: none !important; object-fit: contain !important; display: block !important; flex-shrink: 0 !important; }
+    .nav__logo { min-width: 0 !important; overflow: visible !important; }
+  </style>
 </head>
 
 <body>
@@ -110,7 +115,7 @@
   <div class="nav__inner">
 
     <a href="/" class="nav__logo" aria-label="Barsys Happy Hour home">
-      <img src="assets/HappyHour.Logo.White.png" alt="HappyHour by Barsys" class="nav__logo-mark" style="height:44px;width:auto;display:block;" />
+      <img src="assets/HappyHour.Logo.White.png" alt="HappyHour by Barsys" class="nav__logo-mark" />
     </a>
 
     <ul class="nav__links" role="list">
