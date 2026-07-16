@@ -156,6 +156,31 @@ function doPost(e) {
     // Optional: Send email notification for new leads
     sendLeadNotification(data, timestamp);
 
+    // --- Forward to APEX CRM (best-effort; never blocks the Sheet save) ---
+    // Signs the exact JSON body with HMAC-SHA256 under HAPPYHOURS_INBOUND_SECRET
+    // (Script Property) and POSTs to the APEX inbound endpoint. APEX verifies the
+    // X-Happyhours-Signature header (fail-closed) and normalizes/dedupes server-side.
+    try {
+      var apexSecret = PropertiesService.getScriptProperties()
+        .getProperty('HAPPYHOURS_INBOUND_SECRET');
+      if (apexSecret) {
+        var apexBody = JSON.stringify(data);
+        var sigBytes = Utilities.computeHmacSha256Signature(apexBody, apexSecret);
+        var sigHex = sigBytes.map(function (b) {
+          return ('0' + (b & 0xff).toString(16)).slice(-2);
+        }).join('');
+        UrlFetchApp.fetch('https://apex.barsys.com/api/inbound/web-leads', {
+          method: 'post',
+          contentType: 'application/json',
+          payload: apexBody,
+          headers: { 'X-Happyhours-Signature': 'sha256=' + sigHex },
+          muteHttpExceptions: true
+        });
+      }
+    } catch (apexErr) {
+      Logger.log('APEX forward failed (non-fatal): ' + apexErr.toString());
+    }
+
     return buildResponse('success', 'Lead saved successfully');
 
   } catch (error) {
