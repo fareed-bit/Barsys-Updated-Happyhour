@@ -151,7 +151,7 @@ test('an unknown tier prices at zero rather than NaN', () => {
 
 - [ ] **Step 2: Run the test to verify it fails**
 
-Run: `cd "/Users/kellysinclair/Sentinel connection/Barsys-Updated-Happyhour" && node --test tests/`
+Run: `cd "/Users/kellysinclair/Sentinel connection/Barsys-Updated-Happyhour" && node --test tests/*.test.js`
 Expected: FAIL — `Cannot find module '../js/pricing.js'`.
 
 - [ ] **Step 3: Write the module**
@@ -242,7 +242,7 @@ Create `js/pricing.js`. The `ADD_ONS` table and the arithmetic are transcribed v
 
 - [ ] **Step 4: Run the test to verify it passes**
 
-Run: `node --test tests/`
+Run: `node --test tests/*.test.js`
 Expected: PASS, 13/13.
 
 - [ ] **Step 5: Delegate from `main.js` and delete the duplicated tables**
@@ -735,7 +735,7 @@ Expected: no step divs; any surviving `showStep` calls target only `success` or 
 
 - [ ] **Step 3: Full unit suite**
 
-Run: `node --test tests/`
+Run: `node --test tests/*.test.js`
 Expected: PASS, 13/13. Paste the raw output into the task record — do not summarise it.
 
 - [ ] **Step 4: Cross-page check**

@@ -179,21 +179,11 @@
         name: '', email: '', phone: ''
       };
 
-      /* ---- Pricing data ---- */
-      var TAX_RATE = 0.08875;
-      var tierBasePrice = { Classic: 50, Signature: 70, Reserve: 200 };
-      var tierMemberPrice = { Classic: 45, Signature: 65, Reserve: 190 };
+      /* ---- Pricing data ----
+         Rates, tax and the add-on table now live in js/pricing.js
+         (window.BarsysPricing) as the single source of truth. Only
+         non-pricing lookups remain here. */
       var tierMixlistLimits = { Classic: 2, Signature: 3, Reserve: 5 };
-
-      var addOnsData = [
-        { id: 'extra-hour',       name: 'Extra Hour of Service',            price: 500, type: 'flat',       desc: 'Extend your event by one additional hour' },
-        { id: 'extra-mixlist',    name: 'Additional Mixlist',               price: 5,   type: 'per-person', desc: 'Add one more cocktail menu beyond your package limit' },
-        { id: 'premium-garnish',  name: 'Premium Garnish Upgrade',          price: 8,   type: 'per-person', desc: 'Fresh fruit, edible flowers, and artisan garnishes' },
-        { id: 'branded-items',    name: 'Custom Branded Napkins & Stirrers',price: 350, type: 'flat',       desc: 'Your logo on cocktail napkins and stirrers' },
-        { id: 'mocktail-station', name: 'Non-Alcoholic Cocktail Station',   price: 12,  type: 'per-person', desc: 'Dedicated zero-proof craft cocktail menu' },
-        { id: 'beer-wine',        name: 'Beer & Wine Supplement',           price: 15,  type: 'per-person', desc: 'Curated craft beer and wine alongside cocktails' },
-        { id: 'photographer',     name: 'Event Photographer (2 hrs)',       price: 800, type: 'flat',       desc: 'Professional photographer for candid and posed shots' }
-      ];
 
       var tierDefaultSpirits = {
         Classic: [
@@ -914,7 +904,7 @@
         var tier = formData.experienceTier || '';
         var recommended = tierRecommendedAddOns[tier] || [];
 
-        grid.innerHTML = addOnsData.map(function(a) {
+        grid.innerHTML = window.BarsysPricing.ADD_ONS.map(function(a) {
           var priceLabel = a.type === 'flat' ? '+$' + a.price.toLocaleString() + ' flat' : '+$' + a.price + '/person';
           var recBadge = recommended.indexOf(a.id) > -1 ? '<div class="wizard__addon-recommended">Recommended</div>' : '';
           return '<div class="wizard__addon" data-addon-id="' + a.id + '">' +
@@ -969,50 +959,21 @@
         });
       }
 
-      /* ========== DYNAMIC PRICING ENGINE ========== */
-      var recurringDiscounts = { Monthly: 5, Quarterly: 10 };
-
+      /* ========== DYNAMIC PRICING ENGINE ==========
+         All arithmetic lives in js/pricing.js (window.BarsysPricing) so it can
+         be unit-tested. This wrapper only marshals formData into that call and
+         returns its result unchanged — every downstream reader of the old
+         return shape keeps working. */
       function calculatePricing() {
-        var guests = parseInt(formData.guestCount) || 0;
-        var tier = formData.experienceTier || '';
-        var isMember = window.__barsysMemberPricing || false;
-        var basePerPerson = isMember ? (tierMemberPrice[tier] || 0) : (tierBasePrice[tier] || 0);
-
-        /* Apply recurring cadence discount */
-        var discountPerPerson = 0;
-        if (formData.frequency === 'Recurring Program' && formData.recurringCadence) {
-          discountPerPerson = recurringDiscounts[formData.recurringCadence] || 0;
-        }
-        var effectivePerPerson = Math.max(0, basePerPerson - discountPerPerson);
-        var baseTotal = effectivePerPerson * guests;
-
-        var addOnTotal = 0;
-        var addOnDetails = [];
-        formData.addOns.forEach(function(addonId) {
-          var addon = null;
-          for (var ai = 0; ai < addOnsData.length; ai++) {
-            if (addOnsData[ai].id === addonId) { addon = addOnsData[ai]; break; }
-          }
-          if (!addon) return;
-          var cost = addon.type === 'flat' ? addon.price : addon.price * guests;
-          addOnTotal += cost;
-          addOnDetails.push({ name: addon.name, cost: cost });
+        return window.BarsysPricing.calculate({
+          guests: formData.guestCount,
+          tier: formData.experienceTier,
+          isMember: window.__barsysMemberPricing || false,
+          frequency: formData.frequency,
+          recurringCadence: formData.recurringCadence,
+          addOns: formData.addOns,
+          spiritUpchargePerPerson: getSpiritUpchargePerPerson()
         });
-
-        var spiritUpchargePerPerson = getSpiritUpchargePerPerson();
-        var spiritTotal = spiritUpchargePerPerson * guests;
-        var subtotal = baseTotal + addOnTotal + spiritTotal;
-        var tax = Math.round(subtotal * TAX_RATE * 100) / 100;
-        var grandTotal = subtotal + tax;
-
-        return {
-          guests: guests, tier: tier, isMember: isMember,
-          basePerPerson: basePerPerson, effectivePerPerson: effectivePerPerson,
-          discountPerPerson: discountPerPerson, baseTotal: baseTotal,
-          addOnDetails: addOnDetails, addOnTotal: addOnTotal,
-          spiritUpchargePerPerson: spiritUpchargePerPerson, spiritTotal: spiritTotal,
-          subtotal: subtotal, tax: tax, grandTotal: grandTotal
-        };
       }
 
       function updatePricing() {
@@ -1150,10 +1111,7 @@
             featEl.appendChild(li2);
           }
           formData.addOns.forEach(function(addonId) {
-            var addon = null;
-            for (var ai = 0; ai < addOnsData.length; ai++) {
-              if (addOnsData[ai].id === addonId) { addon = addOnsData[ai]; break; }
-            }
+            var addon = window.BarsysPricing.findAddOn(addonId);
             if (addon) {
               var li3 = document.createElement('li');
               li3.textContent = addon.name;
