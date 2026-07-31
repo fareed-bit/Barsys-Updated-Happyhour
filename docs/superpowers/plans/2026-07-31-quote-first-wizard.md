@@ -338,7 +338,9 @@ git rm js/main.min.js
 - [ ] **Step 5: Confirm nothing else referenced it**
 
 ```bash
-grep -rn 'main.min.js' --include=*.html --include=*.js --include=*.toml --include=*.json . || echo "no remaining references"
+# Quote the --include globs: unquoted, zsh expands them and the command dies
+# with "no matches found" while still looking like a clean pass.
+grep -rn 'main\.min\.js' --include='*.html' --include='*.js' --include='*.toml' --include='*.json' . || echo "no remaining references"
 ```
 
 Expected: `no remaining references`. If anything turns up, repoint it before committing.
