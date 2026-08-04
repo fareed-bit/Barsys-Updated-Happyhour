@@ -210,8 +210,38 @@
         Rum:     [{ brand: 'Flor de Cana 7', upcharge: 5 }, { brand: 'Mount Gay XO', upcharge: 10 }],
         Tequila: [{ brand: 'Herradura', upcharge: 5 }, { brand: 'Don Julio Blanco', upcharge: 8 }, { brand: 'Clase Azul', upcharge: 20 }],
         Gin:     [{ brand: "Hendrick's", upcharge: 5 }, { brand: 'Botanist', upcharge: 8 }, { brand: 'Monkey 47', upcharge: 15 }],
-        Whiskey: [{ brand: 'Woodford Reserve', upcharge: 5 }, { brand: 'Macallan 12', upcharge: 10 }, { brand: 'Hibiki Harmony', upcharge: 15 }]
+        Whiskey: [{ brand: 'Woodford Reserve', upcharge: 5 }, { brand: 'Macallan 12', upcharge: 10 }, { brand: 'Hibiki Harmony', upcharge: 15 }],
+        /* Mezcal is new: four menus pour it (Agave Lover's, Neon Shadows,
+           Dusk to Agave, Sombra & Sol) and there was previously no swap for it.
+           `rank` orders the ladder so a tier is never offered something below
+           what it already includes — see mezcalDefaultRank. Other categories
+           carry no rank and are unfiltered, preserving existing behaviour. */
+        Mezcal:  [{ brand: 'Montelobos Espadín', upcharge: 5, rank: 1 }, { brand: 'Ilegal Joven', upcharge: 8, rank: 2 }, { brand: 'Del Maguey Chichicapa', upcharge: 15, rank: 3 }]
       };
+
+      /* Included brand for any category a chosen menu needs. tierDefaultSpirits
+         only covers the four categories each tier advertises (Classic has no
+         Whiskey, nobody has Mezcal), so menu-derived categories resolve here.
+         Left deliberately separate: the no-menu fallback still reads
+         tierDefaultSpirits, so today's default behaviour is untouched. */
+      var tierBrandByCategory = {
+        Classic: {
+          Vodka: "Tito's", Gin: 'Beefeater', Tequila: 'Espolon',
+          Mezcal: 'Del Maguey Vida', Rum: 'Bacardi', Whiskey: 'Bulleit Bourbon'
+        },
+        Signature: {
+          Vodka: 'Ketel One', Gin: 'Tanqueray', Tequila: 'Herradura',
+          Mezcal: 'Montelobos Espadín', Rum: 'Flor de Cana 7', Whiskey: 'JW Black'
+        },
+        Reserve: {
+          Vodka: 'Grey Goose', Gin: "Hendrick's", Tequila: 'Don Julio',
+          Mezcal: 'Del Maguey Chichicapa', Rum: 'Mount Gay XO', Whiskey: 'Macallan 12'
+        }
+      };
+
+      /* Rank of the mezcal each tier includes. Reserve already pours the top of
+         the ladder, so it correctly gets no upgrade options at all. */
+      var mezcalDefaultRank = { Classic: 0, Signature: 1, Reserve: 3 };
 
       /* ---- Recommendation data ---- */
       var tierRec = {
@@ -605,6 +635,17 @@
           }
         });
         formData.mixlists = selectedMixlists.slice();
+
+        /* The spirits list is now derived from the chosen menus, so it has to
+           be rebuilt whenever that selection changes. renderSpiritSubstitutions
+           clears formData.spiritUpgrades, which also prevents a stale upgrade
+           (e.g. a mezcal swap) from still being charged after the menu that
+           needed it is deselected. updatePricing picks up that reset. */
+        if (typeof renderSpiritSubstitutions === 'function') {
+          renderSpiritSubstitutions();
+          updatePricing();
+          updateSummary();
+        }
       }
 
       wizard.querySelectorAll('.wizard__mixlist-option').forEach(function(opt) {
@@ -656,18 +697,78 @@
       });
 
       /* ========== LIQUOR SUBSTITUTIONS (Step 5) ========== */
+      /* Which spirits to show, and why.
+           tier -> no menus chosen; fall back to the tier's advertised four
+           menu -> show exactly what the chosen menus pour
+           none -> menus chosen, but none of them pour a base spirit */
+      function resolveSpiritRows() {
+        var tier = formData.experienceTier || 'Signature';
+        var derived = window.BarsysMixlistSpirits.categoriesFor(formData.mixlists);
+
+        if (derived === null) {
+          return { mode: 'tier', rows: tierDefaultSpirits[tier] || tierDefaultSpirits.Signature };
+        }
+        if (!derived.length) {
+          return { mode: 'none', rows: [] };
+        }
+        var brands = tierBrandByCategory[tier] || tierBrandByCategory.Signature;
+        return {
+          mode: 'menu',
+          rows: derived.map(function(cat) {
+            return { category: cat, defaultBrand: brands[cat] };
+          })
+        };
+      }
+
+      function upgradesFor(category, defaultBrand) {
+        var tier = formData.experienceTier || 'Signature';
+        return (spiritUpgrades[category] || []).filter(function(u) {
+          if (u.brand === defaultBrand) return false;
+          /* Ranked ladders (Mezcal) only ever offer a step up. Unranked
+             categories behave exactly as before. */
+          if (typeof u.rank === 'number' && category === 'Mezcal') {
+            return u.rank > (mezcalDefaultRank[tier] || 0);
+          }
+          return true;
+        });
+      }
+
       function renderSpiritSubstitutions() {
         var tier = formData.experienceTier || 'Signature';
-        var spirits = tierDefaultSpirits[tier] || tierDefaultSpirits.Signature;
         var grid = document.getElementById('spirits-grid');
         var tierLabel = document.getElementById('sub-tier-name');
         if (tierLabel) tierLabel.textContent = tier;
         if (!grid) return;
 
-        grid.innerHTML = spirits.map(function(spirit) {
-          var upgrades = (spiritUpgrades[spirit.category] || []).filter(function(u) {
-            return u.brand !== spirit.defaultBrand;
-          });
+        var resolved = resolveSpiritRows();
+
+        if (resolved.mode === 'none') {
+          grid.innerHTML = '<div class="wizard__spirit-empty">' +
+            'Your selected menus are spritz and aperitivo based, so there are no ' +
+            'base spirits to upgrade. Everything is included as listed.' +
+          '</div>';
+          formData.spiritUpgrades = {};
+          updateSpiritTotalDisplay();
+          return;
+        }
+
+        grid.innerHTML = resolved.rows.map(function(spirit) {
+          var upgrades = upgradesFor(spirit.category, spirit.defaultBrand);
+          var tag = resolved.mode === 'menu' ? 'In your menus' : 'Included';
+
+          /* Top of a ladder: nothing above it, so no dropdown at all. */
+          if (!upgrades.length) {
+            return '<div class="wizard__spirit-row wizard__spirit-row--fixed" data-category="' + spirit.category + '">' +
+              '<div class="wizard__spirit-default">' +
+                '<div class="wizard__spirit-category">' + spirit.category + '</div>' +
+                '<div class="wizard__spirit-brand">' + spirit.defaultBrand + '</div>' +
+                '<div class="wizard__spirit-tag">' + tag + '</div>' +
+              '</div>' +
+              '<div class="wizard__spirit-arrow">&rarr;</div>' +
+              '<div class="wizard__spirit-top">Top shelf &mdash; no upgrade needed</div>' +
+            '</div>';
+          }
+
           var options = '<option value="">Keep ' + spirit.defaultBrand + '</option>';
           upgrades.forEach(function(u) {
             options += '<option value="' + u.brand + '" data-upcharge="' + u.upcharge + '">' + u.brand + ' (+$' + u.upcharge + '/pp)</option>';
@@ -676,7 +777,7 @@
             '<div class="wizard__spirit-default">' +
               '<div class="wizard__spirit-category">' + spirit.category + '</div>' +
               '<div class="wizard__spirit-brand">' + spirit.defaultBrand + '</div>' +
-              '<div class="wizard__spirit-tag">Included</div>' +
+              '<div class="wizard__spirit-tag">' + tag + '</div>' +
             '</div>' +
             '<div class="wizard__spirit-arrow">&rarr;</div>' +
             '<select class="wizard__spirit-select" data-category="' + spirit.category + '">' + options + '</select>' +
