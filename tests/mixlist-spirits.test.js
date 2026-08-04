@@ -30,7 +30,7 @@ test('unknown menu names are ignored and fall back', () => {
 test('unknown names mixed with real ones use only the real ones', () => {
   assert.deepStrictEqual(
     M.categoriesFor(['Not A Real Mixlist', 'Sombra & Sol']),
-    ['Mezcal']
+    ['Tequila', 'Mezcal']
   );
 });
 
@@ -41,8 +41,23 @@ test('multiple menus union their categories', () => {
   );
 });
 
+test('a phantom Gin is not derived from "Ginger Beer"', () => {
+  // Regression: a leading-only \b made "gin" match "Ginger", which added a
+  // Gin row to four menus that pour none.
+  assert.deepStrictEqual(M.deriveFromIngredients('Teremana Anejo, Ginger Beer'), ['Tequila']);
+  assert.deepStrictEqual(M.deriveFromIngredients('Vodka, Ginger Beer, Lime'), ['Vodka']);
+});
+
+test('brands are recognised without their category word', () => {
+  assert.deepStrictEqual(M.deriveFromIngredients('Teremana Reposado, Lime'), ['Tequila']);
+  assert.deepStrictEqual(M.deriveFromIngredients('Bulleit Rye, Vermouth'), ['Whiskey']);
+  assert.deepStrictEqual(M.deriveFromIngredients('Sipsmith, Tonic'), ['Gin']);
+});
+
 test('union is deduplicated', () => {
-  assert.deepStrictEqual(M.categoriesFor(['Sharp & Steady', 'Fluid Code']), ['Gin']);
+  assert.deepStrictEqual(
+    M.categoriesFor(['Confessions in Glass', 'Fluid Code']), ['Gin']
+  );
 });
 
 test('output is always in canonical order regardless of input order', () => {
@@ -82,30 +97,28 @@ test('deriveFromIngredients is not fooled by substrings', () => {
   assert.deepStrictEqual(M.deriveFromIngredients('Virgin Mary mix'), []);
 });
 
-/* Drift guard: the curated table must still match the recipe data it was
-   derived from. If someone edits mixlistData in main.js, this fails loudly
-   instead of the spirits step quietly listing the wrong liquors. */
-test('MIXLIST_SPIRITS matches mixlistData in main.js', () => {
+/* Drift guard: the curated table must still match MIXLIST_RECIPES — the recipe
+   set the mixlist modal shows a customer. If someone edits a recipe, this fails
+   loudly instead of the spirits step quietly listing the wrong liquors. */
+test('MIXLIST_SPIRITS matches MIXLIST_RECIPES in main.js', () => {
   const src = fs.readFileSync(path.join(__dirname, '..', 'js', 'main.js'), 'utf8');
-  const start = src.indexOf('var mixlistData');
-  assert.ok(start > -1, 'mixlistData not found in main.js');
-  const end = src.indexOf('\n      };', start);
-  const seg = src.slice(start, end);
+  const start = src.indexOf('var MIXLIST_RECIPES');
+  assert.ok(start > -1, 'MIXLIST_RECIPES not found in main.js');
+  const seg = src.slice(start, src.indexOf('\n      };', start));
 
-  const blocks = seg.split(/\n        (?=['"])/);
   const derived = {};
-  for (const b of blocks) {
-    const m = b.match(/^['"](.+?)['"]: \{ type/);
+  for (const b of seg.split(/\n        (?=['"])/)) {
+    const m = b.match(/^(?:'((?:[^'\\]|\\.)*)'|"([^"]*)"): \{/);
     if (!m) continue;
-    const ingredients = [...b.matchAll(/ingredients: '([^']+)'/g)]
-      .map(x => x[1]).join(' ');
-    derived[m[1]] = M.deriveFromIngredients(ingredients);
+    const name = (m[1] || m[2]).replace(/\\'/g, "'");
+    const ingredients = [...b.matchAll(/ingredients: '([^']+)'/g)].map(x => x[1]).join(' ');
+    derived[name] = M.deriveFromIngredients(ingredients);
   }
 
   assert.strictEqual(
     Object.keys(derived).length,
     Object.keys(M.MIXLIST_SPIRITS).length,
-    'mixlist count drifted between main.js and mixlist-spirits.js'
+    'menu count drifted between main.js and mixlist-spirits.js'
   );
   for (const [name, cats] of Object.entries(derived)) {
     assert.deepStrictEqual(

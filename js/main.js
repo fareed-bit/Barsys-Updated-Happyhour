@@ -206,17 +206,25 @@
       };
 
       var spiritUpgrades = {
-        Vodka:   [{ brand: 'Belvedere', upcharge: 5 }, { brand: 'Grey Goose', upcharge: 5 }, { brand: 'Chopin', upcharge: 8 }],
-        Rum:     [{ brand: 'Flor de Cana 7', upcharge: 5 }, { brand: 'Mount Gay XO', upcharge: 10 }],
-        Tequila: [{ brand: 'Herradura', upcharge: 5 }, { brand: 'Don Julio Blanco', upcharge: 8 }, { brand: 'Clase Azul', upcharge: 20 }],
-        Gin:     [{ brand: "Hendrick's", upcharge: 5 }, { brand: 'Botanist', upcharge: 8 }, { brand: 'Monkey 47', upcharge: 15 }],
-        Whiskey: [{ brand: 'Woodford Reserve', upcharge: 5 }, { brand: 'Macallan 12', upcharge: 10 }, { brand: 'Hibiki Harmony', upcharge: 15 }],
+        Vodka:   [{ brand: 'Belvedere', upcharge: 5, rank: 2 }, { brand: 'Grey Goose', upcharge: 5, rank: 2 }, { brand: 'Chopin', upcharge: 8, rank: 3 }],
+        Rum:     [{ brand: 'Flor de Cana 7', upcharge: 5, rank: 2 }, { brand: 'Mount Gay XO', upcharge: 10, rank: 3 }],
+        Tequila: [{ brand: 'Herradura', upcharge: 5, rank: 2 }, { brand: 'Don Julio Blanco', upcharge: 8, rank: 3 }, { brand: 'Clase Azul', upcharge: 20, rank: 4 }],
+        Gin:     [{ brand: "Hendrick's", upcharge: 5, rank: 2 }, { brand: 'Botanist', upcharge: 8, rank: 3 }, { brand: 'Monkey 47', upcharge: 15, rank: 4 }],
+        Whiskey: [{ brand: 'Woodford Reserve', upcharge: 5, rank: 2 }, { brand: 'Macallan 12', upcharge: 10, rank: 3 }, { brand: 'Hibiki Harmony', upcharge: 15, rank: 4 }],
         /* Mezcal is new: four menus pour it (Agave Lover's, Neon Shadows,
-           Dusk to Agave, Sombra & Sol) and there was previously no swap for it.
-           `rank` orders the ladder so a tier is never offered something below
-           what it already includes — see mezcalDefaultRank. Other categories
-           carry no rank and are unfiltered, preserving existing behaviour. */
-        Mezcal:  [{ brand: 'Montelobos Espadín', upcharge: 5, rank: 1 }, { brand: 'Ilegal Joven', upcharge: 8, rank: 2 }, { brand: 'Del Maguey Chichicapa', upcharge: 15, rank: 3 }]
+           Dusk to Agave, Sombra & Sol) and there was previously no swap for it. */
+        Mezcal:  [{ brand: 'Montelobos Espadín', upcharge: 5, rank: 2 }, { brand: 'Ilegal Joven', upcharge: 8, rank: 3 }, { brand: 'Del Maguey Chichicapa', upcharge: 15, rank: 4 }]
+      };
+
+      /* Quality rank of the brand each tier already includes, per category
+         (rank 1 = the entry brand, which never appears as a paid upgrade).
+         Upgrades are filtered to a strictly higher rank, so a guest is never
+         charged for a sideways or downward swap — Reserve was previously
+         offered Herradura at +$5 while already pouring Don Julio. */
+      var includedSpiritRank = {
+        Classic:   { Vodka: 1, Gin: 1, Tequila: 1, Mezcal: 1, Rum: 1, Whiskey: 1 },
+        Signature: { Vodka: 1, Gin: 1, Tequila: 2, Mezcal: 2, Rum: 2, Whiskey: 2 },
+        Reserve:   { Vodka: 2, Gin: 2, Tequila: 3, Mezcal: 4, Rum: 3, Whiskey: 3 }
       };
 
       /* Included brand for any category a chosen menu needs. tierDefaultSpirits
@@ -239,9 +247,6 @@
         }
       };
 
-      /* Rank of the mezcal each tier includes. Reserve already pours the top of
-         the ladder, so it correctly gets no upgrade options at all. */
-      var mezcalDefaultRank = { Classic: 0, Signature: 1, Reserve: 3 };
 
       /* ---- Recommendation data ---- */
       var tierRec = {
@@ -609,6 +614,7 @@
       });
 
       var selectedMixlists = [];
+      var mixlistSkipped = false;   /* true only while "I'll decide later" is chosen */
 
       function getMixlistLimit() {
         return tierMixlistLimits[formData.experienceTier] || 3;
@@ -634,7 +640,12 @@
             opt.classList.remove('disabled');
           }
         });
-        formData.mixlists = selectedMixlists.slice();
+        /* "I'll decide later" has to survive this function. It used to set
+           formData.mixlists = ['Skip'] and then call updateMixlistUI(), which
+           overwrote it with the (empty) selection — so Skip was indistinguishable
+           from no-selection in the lead payload, and buildRecommendation's
+           mixlists[0] === 'Skip' branch could never fire. */
+        formData.mixlists = mixlistSkipped ? ['Skip'] : selectedMixlists.slice();
 
         /* The spirits list is now derived from the chosen menus, so it has to
            be rebuilt whenever that selection changes. renderSpiritSubstitutions
@@ -654,6 +665,7 @@
           if (opt.classList.contains('disabled')) return;
 
           if (val === 'Skip') {
+            mixlistSkipped = true;
             selectedMixlists = [];
             wizard.querySelectorAll('.wizard__mixlist-option').forEach(function(o) {
               o.classList.remove('selected');
@@ -667,6 +679,8 @@
             return;
           }
 
+          /* Picking any real menu cancels "I'll decide later". */
+          mixlistSkipped = false;
           var skipOpt = wizard.querySelector('.wizard__mixlist-option--skip');
           if (skipOpt) skipOpt.classList.remove('selected');
 
@@ -722,14 +736,11 @@
 
       function upgradesFor(category, defaultBrand) {
         var tier = formData.experienceTier || 'Signature';
+        var ranks = includedSpiritRank[tier] || includedSpiritRank.Signature;
+        var floor = ranks[category] || 1;
         return (spiritUpgrades[category] || []).filter(function(u) {
           if (u.brand === defaultBrand) return false;
-          /* Ranked ladders (Mezcal) only ever offer a step up. Unranked
-             categories behave exactly as before. */
-          if (typeof u.rank === 'number' && category === 'Mezcal') {
-            return u.rank > (mezcalDefaultRank[tier] || 0);
-          }
-          return true;
+          return (u.rank || 99) > floor;
         });
       }
 
@@ -744,8 +755,10 @@
 
         if (resolved.mode === 'none') {
           grid.innerHTML = '<div class="wizard__spirit-empty">' +
-            'Your selected menus are spritz and aperitivo based, so there are no ' +
-            'base spirits to upgrade. Everything is included as listed.' +
+            'Your selected menus are built on aperitifs, liqueurs and fortified ' +
+            'wines rather than a base spirit, so there is nothing to upgrade here. ' +
+            'Everything is included as listed, and our team will confirm the full ' +
+            'pour list with you.' +
           '</div>';
           formData.spiritUpgrades = {};
           updateSpiritTotalDisplay();
