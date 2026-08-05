@@ -93,37 +93,53 @@ test('an unknown tier prices at zero rather than NaN', () => {
    The rental minimum is $900 for 385 glasses covering 200 guests. Neither
    'flat' nor 'per-person' can express that, so these pin the stepping. */
 
-test('glassware costs one block up to 200 guests', () => {
+test('glassware is one service while glasses fit in 385', () => {
   const glass = BarsysPricing.findAddOn('glassware');
-  assert.strictEqual(BarsysPricing.addOnCost(glass, 20), 1200);
-  assert.strictEqual(BarsysPricing.addOnCost(glass, 50), 1200);
-  assert.strictEqual(BarsysPricing.addOnCost(glass, 200), 1200);
+  // 2 glasses per guest, so 385 glasses covers floor(385/2) = 192 guests
+  assert.strictEqual(BarsysPricing.addOnCost(glass, 20), 1200);   // 40 glasses
+  assert.strictEqual(BarsysPricing.addOnCost(glass, 50), 1200);   // 100
+  assert.strictEqual(BarsysPricing.addOnCost(glass, 192), 1200);  // 384 — still one
 });
 
-test('glassware steps to a second block at 201 guests', () => {
+test('glassware steps at 193 guests, not 201', () => {
   const glass = BarsysPricing.findAddOn('glassware');
-  assert.strictEqual(BarsysPricing.addOnCost(glass, 201), 2400);
-  assert.strictEqual(BarsysPricing.addOnCost(glass, 400), 2400);
+  // Regression: counting guests at 200-per-service under-charged $900 across
+  // 193-200. 200 guests needs 400 glasses, which is two services.
+  assert.strictEqual(BarsysPricing.addOnCost(glass, 193), 2400);  // 386 glasses
+  assert.strictEqual(BarsysPricing.addOnCost(glass, 200), 2400);  // 400
+  assert.strictEqual(BarsysPricing.addOnCost(glass, 300), 2400);  // 600
+  assert.strictEqual(BarsysPricing.addOnCost(glass, 385), 2400);  // 770
 });
 
-test('glassware steps to a third block at 401 guests', () => {
+test('glassware steps to a third service at 386 guests', () => {
   const glass = BarsysPricing.findAddOn('glassware');
-  assert.strictEqual(BarsysPricing.addOnCost(glass, 401), 3600);
-  assert.strictEqual(BarsysPricing.addOnCost(glass, 500), 3600);
+  assert.strictEqual(BarsysPricing.addOnCost(glass, 386), 3600);  // 772 glasses
+  assert.strictEqual(BarsysPricing.addOnCost(glass, 400), 3600);  // 800
+  assert.strictEqual(BarsysPricing.addOnCost(glass, 500), 3600);  // 1000
 });
 
-test('the overage add-on is free up to 200 guests (first service included)', () => {
+test('the overage add-on is free while one service covers the event', () => {
   const extra = BarsysPricing.findAddOn('glassware-extra');
   assert.strictEqual(BarsysPricing.addOnCost(extra, 50), 0);
-  assert.strictEqual(BarsysPricing.addOnCost(extra, 200), 0);
+  assert.strictEqual(BarsysPricing.addOnCost(extra, 192), 0);
 });
 
-test('the overage add-on charges only for blocks beyond the first', () => {
+test('the overage add-on charges only for services beyond the first', () => {
   const extra = BarsysPricing.findAddOn('glassware-extra');
-  assert.strictEqual(BarsysPricing.addOnCost(extra, 201), 900);
-  assert.strictEqual(BarsysPricing.addOnCost(extra, 400), 900);
-  assert.strictEqual(BarsysPricing.addOnCost(extra, 401), 1800);
+  assert.strictEqual(BarsysPricing.addOnCost(extra, 193), 900);
+  assert.strictEqual(BarsysPricing.addOnCost(extra, 200), 900);
+  assert.strictEqual(BarsysPricing.addOnCost(extra, 385), 900);
+  assert.strictEqual(BarsysPricing.addOnCost(extra, 386), 1800);
   assert.strictEqual(BarsysPricing.addOnCost(extra, 500), 1800);
+});
+
+test('glasses are exactly two per guest', () => {
+  const glass = BarsysPricing.findAddOn('glassware');
+  assert.strictEqual(glass.glassesPerGuest, 2);
+  assert.strictEqual(glass.glassesPerBlock, 385);
+  // the figures quoted by the operator: 200 -> 400, 300 -> 600
+  assert.strictEqual(200 * glass.glassesPerGuest, 400);
+  assert.strictEqual(300 * glass.glassesPerGuest, 600);
 });
 
 test('a block add-on never goes negative below its free allowance', () => {
