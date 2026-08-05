@@ -218,7 +218,8 @@
         Classic: {
           title: 'Classic Experience',
           desc: 'A clean, turnkey cocktail experience for your office. Curated menu with premium spirits, AI cocktail machines, and professional bartenders.',
-          features: ['AI cocktail machines + professional bartenders', 'Curated cocktail menu with premium spirits', 'Full bar setup with glassware, ice, and garnishes', 'Complete setup, service, and cleanup', 'Non-alcoholic cocktail options included']
+          /* Classic does not include glassware — do not re-add it here. */
+          features: ['AI cocktail machines + professional bartenders', 'Curated cocktail menu with premium spirits', 'Full bar setup with ice and garnishes', 'Complete setup, service, and cleanup', 'Non-alcoholic cocktail options included']
         },
         Signature: {
           title: 'Signature Experience',
@@ -733,14 +734,54 @@
         Reserve:   ['branded-items', 'photographer', 'extra-hour']
       };
 
+      /* A block add-on's price depends on headcount, so its label has to say what
+         THIS event costs — otherwise it reads as "+$1,200/person". The figure
+         comes from the engine so the label can never drift from the quote. */
+      function blockAddOnLabel(a) {
+        var cost = window.BarsysPricing.addOnCost(a, formData.guestCount);
+        if (cost === 0) return 'Included at this size';
+        return '+$' + cost.toLocaleString() +
+          ' (' + (cost / a.price) + ' × ' + (a.guestsPerBlock || 1) + ' guests)';
+      }
+
+      /* Zone A (guests) and Zone B (add-ons) are visible at the same time, so a
+         headcount change must update the block labels in place. A full
+         renderAddOns() here would rebuild the grid on every keystroke and drop
+         the user's selections. */
+      function refreshBlockAddOnLabels() {
+        var grid = document.getElementById('addon-grid');
+        if (!grid) return;
+        grid.querySelectorAll('.wizard__addon').forEach(function(el) {
+          var a = window.BarsysPricing.findAddOn(el.dataset.addonId);
+          if (!a || a.type !== 'block') return;
+          var lbl = el.querySelector('.wizard__addon-price');
+          if (lbl) lbl.textContent = blockAddOnLabel(a);
+        });
+      }
+
       function renderAddOns() {
         var grid = document.getElementById('addon-grid');
         if (!grid) return;
         var tier = formData.experienceTier || '';
         var recommended = tierRecommendedAddOns[tier] || [];
 
-        grid.innerHTML = window.BarsysPricing.ADD_ONS.map(function(a) {
-          var priceLabel = a.type === 'flat' ? '+$' + a.price.toLocaleString() + ' flat' : '+$' + a.price + '/person';
+        /* Drop add-ons this tier may not select, and clear any that were already
+           chosen before the tier changed — otherwise a stale selection keeps
+           being priced after it stops being offered. */
+        var eligible = window.BarsysPricing.addOnsForTier(tier);
+        formData.addOns = formData.addOns.filter(function(id) {
+          return eligible.some(function(a) { return a.id === id; });
+        });
+
+        grid.innerHTML = eligible.map(function(a) {
+          var priceLabel;
+          if (a.type === 'block') {
+            priceLabel = blockAddOnLabel(a);
+          } else if (a.type === 'flat') {
+            priceLabel = '+$' + a.price.toLocaleString() + ' flat';
+          } else {
+            priceLabel = '+$' + a.price + '/person';
+          }
           var recBadge = recommended.indexOf(a.id) > -1 ? '<div class="wizard__addon-recommended">Recommended</div>' : '';
           return '<div class="wizard__addon" data-addon-id="' + a.id + '">' +
             '<div class="wizard__addon-info">' +
@@ -834,6 +875,7 @@
             ' per person \u00b7 ' + pricing.guests + ' guests \u00b7 incl. tax';
         }
 
+        refreshBlockAddOnLabels();
         queueQuoteViewed(pricing);
       }
 
