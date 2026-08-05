@@ -3297,126 +3297,13 @@
 
 
 
-/* ==========================================================================
-   QUOTE-FIRST WIZARD ZONES
-   Zones A/B/C replace the old 12-step sequence. Always visible; the quote
-   re-renders on every input.
-   ========================================================================== */
-
-.wizard__zone {
-  display: block;
-  padding-bottom: 32px;
-  margin-bottom: 32px;
-  border-bottom: 1px solid var(--color-border);
-}
-.wizard__zone:last-of-type {
-  padding-bottom: 0;
-  margin-bottom: 0;
-  border-bottom: none;
+/* ===================================================================
 }
 
-/* ---- Zone A: the live quote ---- */
-.wizard__quote {
-  text-align: center;
-  padding: 28px 20px;
-  margin: 20px 0 28px;
-  border: 1px solid var(--color-gold);
-  border-radius: 12px;
-  background: rgba(200, 169, 126, 0.06);
-}
-.wizard__quote-total {
-  font-size: 44px;
-  line-height: 1.05;
-  font-weight: 600;
-  color: var(--color-gold);
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-}
-.wizard__quote-meta {
-  margin-top: 10px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.55);
-}
-
-/* ---- Zone B/C: disclosure rows ---- */
-.wizard__refine,
-.wizard__optional {
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  padding: 0 18px;
-  margin-bottom: 12px;
-  background: rgba(255, 255, 255, 0.02);
-}
-.wizard__refine > summary,
-.wizard__optional > summary {
-  cursor: pointer;
-  padding: 16px 0;
-  font-size: 15px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 10px;
-}
-.wizard__refine > summary::-webkit-details-marker,
-.wizard__optional > summary::-webkit-details-marker {
-  display: none;
-}
-.wizard__refine > summary::after,
-.wizard__optional > summary::after {
-  content: '+';
-  margin-left: auto;
-  font-size: 20px;
-  font-weight: 400;
-  color: var(--color-gold);
-  line-height: 1;
-}
-.wizard__refine[open] > summary::after,
-.wizard__optional[open] > summary::after {
-  content: '\2013';
-}
-.wizard__refine[open] > summary,
-.wizard__optional[open] > summary {
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: 18px;
-}
-.wizard__refine > *:last-child,
-.wizard__optional > *:last-child {
-  margin-bottom: 18px;
-}
-.wizard__refine-hint {
+/* Trim hint on stepped (block) add-ons */
+.wizard__addon-hint {
+  margin-top: 6px;
   font-size: 12px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.4);
-}
-.wizard__optional-label {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 22px 0 10px;
-}
-.wizard__optional-label:first-of-type {
-  margin-top: 0;
-}
-
-/* ---- Zone C: the two exits, deliberately equal weight ---- */
-.wizard__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 24px;
-}
-.wizard__actions .btn {
-  flex: 1 1 200px;
-  text-align: center;
-}
-
-@media (max-width: 560px) {
-  .wizard__quote-total { font-size: 34px; }
-  .wizard__quote { padding: 22px 14px; }
-  .wizard__actions .btn { flex: 1 1 100%; }
+  line-height: 1.45;
+  color: var(--color-gold);
 }

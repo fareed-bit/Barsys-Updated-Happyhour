@@ -188,3 +188,47 @@ test('untiered add-ons stay available to every tier', () => {
     assert.ok(ids.includes('beer-wine'), `${t} lost beer-wine`);
   }
 });
+
+/* ---- Trim hint ---- */
+
+test('trim hint appears just past a service boundary', () => {
+  const glass = BarsysPricing.findAddOn('glassware');
+  assert.deepStrictEqual(BarsysPricing.blockTrimHint(glass, 193),
+    { trim: 1, toGuests: 192, saving: 1200 });
+  assert.deepStrictEqual(BarsysPricing.blockTrimHint(glass, 200),
+    { trim: 8, toGuests: 192, saving: 1200 });
+});
+
+test('trim hint is silent when the trim is unrealistic', () => {
+  const glass = BarsysPricing.findAddOn('glassware');
+  assert.strictEqual(BarsysPricing.blockTrimHint(glass, 208), null);  // trim 16 > 15
+  assert.strictEqual(BarsysPricing.blockTrimHint(glass, 250), null);  // trim 58
+  assert.strictEqual(BarsysPricing.blockTrimHint(glass, 500), null);  // trim 115
+});
+
+test('trim hint is silent inside the first service', () => {
+  const glass = BarsysPricing.findAddOn('glassware');
+  assert.strictEqual(BarsysPricing.blockTrimHint(glass, 50), null);
+  assert.strictEqual(BarsysPricing.blockTrimHint(glass, 192), null);
+});
+
+test('trim hint tracks the second boundary too', () => {
+  const glass = BarsysPricing.findAddOn('glassware');
+  assert.deepStrictEqual(BarsysPricing.blockTrimHint(glass, 386),
+    { trim: 1, toGuests: 385, saving: 1200 });
+  assert.deepStrictEqual(BarsysPricing.blockTrimHint(glass, 400),
+    { trim: 15, toGuests: 385, saving: 1200 });
+  assert.strictEqual(BarsysPricing.blockTrimHint(glass, 401), null);
+});
+
+test('trim saving uses the overage price for included tiers', () => {
+  const extra = BarsysPricing.findAddOn('glassware-extra');
+  assert.deepStrictEqual(BarsysPricing.blockTrimHint(extra, 200),
+    { trim: 8, toGuests: 192, saving: 900 });
+});
+
+test('trim hint ignores non-block add-ons', () => {
+  assert.strictEqual(BarsysPricing.blockTrimHint(BarsysPricing.findAddOn('extra-hour'), 200), null);
+  assert.strictEqual(BarsysPricing.blockTrimHint(BarsysPricing.findAddOn('beer-wine'), 200), null);
+  assert.strictEqual(BarsysPricing.blockTrimHint(null, 200), null);
+});
