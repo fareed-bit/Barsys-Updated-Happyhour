@@ -192,7 +192,36 @@
         { id: 'branded-items',    name: 'Custom Branded Napkins & Stirrers',price: 350, type: 'flat',       desc: 'Your logo on cocktail napkins and stirrers' },
         { id: 'mocktail-station', name: 'Non-Alcoholic Cocktail Station',   price: 12,  type: 'per-person', desc: 'Dedicated zero-proof craft cocktail menu' },
         { id: 'beer-wine',        name: 'Beer & Wine Supplement',           price: 15,  type: 'per-person', desc: 'Curated craft beer and wine alongside cocktails' },
-        { id: 'photographer',     name: 'Event Photographer (2 hrs)',       price: 800, type: 'flat',       desc: 'Professional photographer for candid and posed shots' }
+        { id: 'photographer',     name: 'Event Photographer (2 hrs)',       price: 800, type: 'flat',       desc: 'Professional photographer for candid and posed shots' },
+
+        /* ---- Drinkware ----
+           The glassware rental company bills a MINIMUM of $900 for 385 glasses,
+           which covers 200 guests. There is no smaller order and no per-glass
+           rate, so neither 'flat' nor 'per-person' can price it: flat
+           under-quotes every event over 200 guests (by $900 at 250, $1,800 at
+           500), and per-person under-quotes every event under 385 glasses (at
+           50 guests you'd charge ~$117 against a $900 invoice).
+
+           Hence type 'block', counted in GLASSES rather than guests:
+               glasses = guests x glassesPerGuest
+               cost    = max(0, ceil(glasses / glassesPerBlock) - freeBlocks) x price
+
+           Counting in guests was wrong. An event uses 2 glasses per guest, so
+           one 385-glass service covers floor(385/2) = 192 guests, not 200 —
+           and a "200 guests per service" rule under-charged by $900 across
+           193-200 and 386-400 guests. 200 is exactly the round number a
+           coordinator is most likely to type.
+
+           `freeBlocks: 1` expresses "the first service is already included in
+           this tier", so the same formula covers both the Classic add-on and
+           the Signature/Reserve overage.
+
+           `tiers` restricts which packages may select an add-on. Without it a
+           Classic booking could select the Signature/Reserve overage and be
+           charged $900+ for topping up a service it never included. */
+        { id: 'plastic-cups',     name: 'Premium Plastic Tumblers',         price: 2,    type: 'per-person', tiers: ['Classic'], desc: 'Heavyweight clear tumblers — no rental minimum, scales to any headcount' },
+        { id: 'glassware',        name: 'Real Glassware Rental',            price: 1200, type: 'block', glassesPerGuest: 2, glassesPerBlock: 385, freeBlocks: 0, tiers: ['Classic'], desc: 'Real glass at 2 per guest, rented in services of 385 glasses' },
+        { id: 'glassware-extra',  name: 'Additional Glassware Service',     price: 900,  type: 'block', glassesPerGuest: 2, glassesPerBlock: 385, freeBlocks: 1, tiers: ['Signature', 'Reserve'], desc: 'Only applies above 192 guests — your tier already includes the first 385-glass service' }
       ];
 
       var tierDefaultSpirits = {
@@ -229,7 +258,8 @@
         Classic: {
           title: 'Classic Experience',
           desc: 'A clean, turnkey cocktail experience for your office. Curated menu with premium spirits, AI cocktail machines, and professional bartenders.',
-          features: ['AI cocktail machines + professional bartenders', 'Curated cocktail menu with premium spirits', 'Full bar setup with glassware, ice, and garnishes', 'Complete setup, service, and cleanup', 'Non-alcoholic cocktail options included']
+          /* Classic does not include glassware — do not re-add it here. */
+          features: ['AI cocktail machines + professional bartenders', 'Curated cocktail menu with premium spirits', 'Full bar setup with ice and garnishes', 'Complete setup, service, and cleanup', 'Non-alcoholic cocktail options included']
         },
         Signature: {
           title: 'Signature Experience',
@@ -504,6 +534,11 @@
           }
           updateMixlistUI();
           formData.spiritUpgrades = {};
+          /* Add-on eligibility is tier-dependent now, so re-render here rather
+             than waiting for step 6. Without this, switching Classic -> Signature
+             kept charging the $1,200/service Classic glassware add-on on a tier
+             that already includes glassware. */
+          renderAddOns();
           updatePricing();
           updateSummary();
         });
@@ -527,6 +562,11 @@
           }
           updateMixlistUI();
           formData.spiritUpgrades = {};
+          /* Add-on eligibility is tier-dependent now, so re-render here rather
+             than waiting for step 6. Without this, switching Classic -> Signature
+             kept charging the $1,200/service Classic glassware add-on on a tier
+             that already includes glassware. */
+          renderAddOns();
           updatePricing();
           updateSummary();
         });
@@ -908,20 +948,76 @@
         Reserve:   ['branded-items', 'photographer', 'extra-hour']
       };
 
+
+      /* How many guests to trim to drop a whole glassware service.
+         At 200 guests you need 400 glasses = 2 services; 192 guests fits 384
+         into one. Losing 8 guests therefore saves a full $1,200 — worth telling
+         a coordinator who has any flex on headcount. Only surfaced when the trim
+         is realistic; at 250 guests the boundary is 58 back, which is not. */
+      var GLASS_TRIM_MAX = 15;
+
+      function blockTrimHint(a, guests) {
+        guests = parseInt(guests, 10) || 0;
+        var gpg = a.glassesPerGuest || 1;
+        var gpb = a.glassesPerBlock || 1;
+        var total = Math.ceil(guests * gpg / gpb);
+        if (total < 2) return null;
+
+        var toGuests = Math.floor((total - 1) * gpb / gpg);
+        var trim = guests - toGuests;
+        if (trim < 1 || trim > GLASS_TRIM_MAX) return null;
+
+        var free = a.freeBlocks || 0;
+        var saving = (Math.max(0, total - free) - Math.max(0, total - 1 - free)) * a.price;
+        if (saving <= 0) return null;
+        return { trim: trim, toGuests: toGuests, saving: saving };
+      }
+
       function renderAddOns() {
         var grid = document.getElementById('addon-grid');
         if (!grid) return;
         var tier = formData.experienceTier || '';
         var recommended = tierRecommendedAddOns[tier] || [];
 
-        grid.innerHTML = addOnsData.map(function(a) {
-          var priceLabel = a.type === 'flat' ? '+$' + a.price.toLocaleString() + ' flat' : '+$' + a.price + '/person';
+        /* Drop add-ons this tier may not select, and clear any that were already
+           chosen before the tier changed — otherwise a stale selection keeps
+           being priced after it stops being offered. */
+        var eligible = addOnsData.filter(function(a) {
+          return !a.tiers || a.tiers.indexOf(tier) > -1;
+        });
+        formData.addOns = formData.addOns.filter(function(id) {
+          return eligible.some(function(a) { return a.id === id; });
+        });
+
+        grid.innerHTML = eligible.map(function(a) {
+          var priceLabel;
+          var blockHint = '';
+          if (a.type === 'block') {
+            /* Show the glass count, not just a price: "2 per guest" is the rule
+               the customer is being billed against, and without it a block
+               add-on reads as "+$1,200/person". */
+            var gl = (formData.guestCount || 0) * (a.glassesPerGuest || 1);
+            var svc = Math.max(0, Math.ceil(gl / (a.glassesPerBlock || 1)) - (a.freeBlocks || 0));
+            priceLabel = svc === 0
+              ? gl + ' glasses — included'
+              : '+$' + (svc * a.price).toLocaleString() + ' · ' + gl + ' glasses (' + svc + ' service' + (svc > 1 ? 's' : '') + ')';
+            var hint = blockTrimHint(a, formData.guestCount);
+            if (hint) {
+              blockHint = '<div class="wizard__addon-hint">' + hint.toGuests +
+                ' guests fits one fewer service — trimming ' + hint.trim +
+                ' saves $' + hint.saving.toLocaleString() + '</div>';
+            }
+          } else if (a.type === 'flat') {
+            priceLabel = '+$' + a.price.toLocaleString() + ' flat';
+          } else {
+            priceLabel = '+$' + a.price + '/person';
+          }
           var recBadge = recommended.indexOf(a.id) > -1 ? '<div class="wizard__addon-recommended">Recommended</div>' : '';
           return '<div class="wizard__addon" data-addon-id="' + a.id + '">' +
             '<div class="wizard__addon-info">' +
               recBadge +
               '<div class="wizard__addon-name">' + a.name + '</div>' +
-              '<div class="wizard__addon-desc">' + a.desc + '</div>' +
+              '<div class="wizard__addon-desc">' + a.desc + '</div>' + blockHint +
             '</div>' +
             '<div class="wizard__addon-price">' + priceLabel + '</div>' +
             '<div class="wizard__addon-toggle"><button class="wizard__addon-check" type="button" aria-pressed="false"><span class="wizard__addon-check-icon"></span></button></div>' +
@@ -994,7 +1090,17 @@
             if (addOnsData[ai].id === addonId) { addon = addOnsData[ai]; break; }
           }
           if (!addon) return;
-          var cost = addon.type === 'flat' ? addon.price : addon.price * guests;
+          var cost;
+          if (addon.type === 'block') {
+            var glasses = guests * (addon.glassesPerGuest || 1);
+            var perBlock = addon.glassesPerBlock || 1;
+            var blocks = Math.max(0, Math.ceil(glasses / perBlock) - (addon.freeBlocks || 0));
+            cost = blocks * addon.price;
+          } else if (addon.type === 'flat') {
+            cost = addon.price;
+          } else {
+            cost = addon.price * guests;
+          }
           addOnTotal += cost;
           addOnDetails.push({ name: addon.name, cost: cost });
         });
@@ -1546,6 +1652,10 @@
       };
 
       var modal = document.getElementById('mixlist-modal');
+      /* Pages that share main.js but have no mixlist modal (private-events.html)
+         must not throw here — the unguarded modal.querySelector below used to
+         kill the rest of this IIFE. */
+      if (!modal) return;
       var modalTitle = modal.querySelector('.mixlist-modal__title');
       var modalDesc = modal.querySelector('.mixlist-modal__desc');
       var modalGrid = document.getElementById('mixlist-modal-grid');
