@@ -165,10 +165,9 @@
       var wizard = document.getElementById('booking-wizard');
       if (!wizard) return;
 
-      var steps = wizard.querySelectorAll('.wizard__step[data-step]');
-      var bars = wizard.querySelectorAll('.wizard__progress-bar');
-      var totalSteps = 10;
-      var currentStep = 'start';
+      /* No step list, progress bars or current-step cursor any more — the
+         zones are always visible. showSuccess() finds the success screen
+         directly. */
 
       /* ---- Form data store ---- */
       var formData = {
@@ -179,21 +178,11 @@
         name: '', email: '', phone: ''
       };
 
-      /* ---- Pricing data ---- */
-      var TAX_RATE = 0.08875;
-      var tierBasePrice = { Classic: 50, Signature: 70, Reserve: 200 };
-      var tierMemberPrice = { Classic: 45, Signature: 65, Reserve: 190 };
+      /* ---- Pricing data ----
+         Rates, tax and the add-on table now live in js/pricing.js
+         (window.BarsysPricing) as the single source of truth. Only
+         non-pricing lookups remain here. */
       var tierMixlistLimits = { Classic: 2, Signature: 3, Reserve: 5 };
-
-      var addOnsData = [
-        { id: 'extra-hour',       name: 'Extra Hour of Service',            price: 500, type: 'flat',       desc: 'Extend your event by one additional hour' },
-        { id: 'extra-mixlist',    name: 'Additional Mixlist',               price: 5,   type: 'per-person', desc: 'Add one more cocktail menu beyond your package limit' },
-        { id: 'premium-garnish',  name: 'Premium Garnish Upgrade',          price: 8,   type: 'per-person', desc: 'Fresh fruit, edible flowers, and artisan garnishes' },
-        { id: 'branded-items',    name: 'Custom Branded Napkins & Stirrers',price: 350, type: 'flat',       desc: 'Your logo on cocktail napkins and stirrers' },
-        { id: 'mocktail-station', name: 'Non-Alcoholic Cocktail Station',   price: 12,  type: 'per-person', desc: 'Dedicated zero-proof craft cocktail menu' },
-        { id: 'beer-wine',        name: 'Beer & Wine Supplement',           price: 15,  type: 'per-person', desc: 'Curated craft beer and wine alongside cocktails' },
-        { id: 'photographer',     name: 'Event Photographer (2 hrs)',       price: 800, type: 'flat',       desc: 'Professional photographer for candid and posed shots' }
-      ];
 
       var tierDefaultSpirits = {
         Classic: [
@@ -229,7 +218,8 @@
         Classic: {
           title: 'Classic Experience',
           desc: 'A clean, turnkey cocktail experience for your office. Curated menu with premium spirits, AI cocktail machines, and professional bartenders.',
-          features: ['AI cocktail machines + professional bartenders', 'Curated cocktail menu with premium spirits', 'Full bar setup with glassware, ice, and garnishes', 'Complete setup, service, and cleanup', 'Non-alcoholic cocktail options included']
+          /* Classic does not include glassware — do not re-add it here. */
+          features: ['AI cocktail machines + professional bartenders', 'Curated cocktail menu with premium spirits', 'Full bar setup with ice and garnishes', 'Complete setup, service, and cleanup', 'Non-alcoholic cocktail options included']
         },
         Signature: {
           title: 'Signature Experience',
@@ -243,135 +233,31 @@
         }
       };
 
-      /* ---- Show/hide steps ---- */
-      var stepNames = { start: 'Start', 1: 'Event Type', 2: 'Guest Count', 3: 'Package', 4: 'Mixlists', 5: 'Spirit Upgrades', 6: 'Add-Ons', 7: 'Frequency', 8: 'Company Info', 9: 'Review', 10: 'Contact Info', success: 'Success' };
+      /* ---- Zones ----
+         The wizard is no longer sequenced. Zones A/B/C are always visible and
+         the quote re-renders on every input. The only remaining "step" is the
+         success screen, which replaces the zones after a successful submit. */
+      var zones = wizard.querySelectorAll('.wizard__zone');
 
-      function showStep(n) {
-        steps.forEach(function(s) { s.classList.remove('active'); });
-        var target = wizard.querySelector('[data-step="' + n + '"]');
-        if (target) target.classList.add('active');
-
-        var stepIdx = stepOrder.indexOf(n);
-        var numericStep = stepIdx > 0 ? stepIdx : 0;
-        bars.forEach(function(bar, i) {
-          bar.classList.toggle('active', i < numericStep);
-        });
-
-        var progress = wizard.querySelector('.wizard__progress');
-        if (progress) {
-          progress.setAttribute('aria-valuenow', numericStep);
-          progress.style.display = (n === 'start' || n === 'success') ? 'none' : 'flex';
-        }
-
-        currentStep = n;
-
-        /* Analytics: track wizard step progression */
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: 'wizard_step',
-          wizard_step_number: numericStep,
-          wizard_step_name: stepNames[n] || String(n)
-        });
-
-        /* Initialize guest count when entering step 2 */
-        if (n === 2 && guestInput && !formData.guestCount) {
-          var initVal = parseInt(guestInput.value) || 50;
-          formData.guestCount = clampGuests(initVal);
-          guestInput.value = formData.guestCount;
-        }
-        if (n === 5) renderSpiritSubstitutions();
-        if (n === 6) revealAddOns();
-        if (n === 9) buildRecommendation();
-        if (n === 10) {
-          var compConfirm = document.getElementById('wiz-company-confirm');
-          if (compConfirm) compConfirm.value = formData.company;
-        }
-
-        if (n !== 'start') {
-          wizard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-
-      /* ---- Step sequencing ---- */
-      var stepOrder = ['start', 1, 3, 2, 4, 5, 6, 7, 8, 9, 10, 'success'];
-
-      /* ---- Step Validation ---- */
-      function validateStep(step) {
-        clearErrors();
-        switch (step) {
-          case 1:
-            if (!formData.eventType) {
-              showStepError(step, 'Please select an event type to continue.');
-              shakeOptions(step);
-              return false;
-            }
-            return true;
-          case 2:
-            if (!formData.guestCount || formData.guestCount < 20) {
-              showStepError(step, 'Please enter at least 20 guests.');
-              var gi = document.getElementById('wiz-guest-count');
-              if (gi) gi.classList.add('wizard__input--error');
-              return false;
-            }
-            return true;
-          case 3:
-            if (!formData.experienceTier) {
-              showStepError(step, 'Please select an experience package.');
-              shakeOptions(step);
-              return false;
-            }
-            return true;
-          case 4:
-            if (formData.mixlists.length === 0) {
-              showStepError(step, 'Please select at least one mixlist or choose "Let the team recommend."');
-              shakeOptions(step);
-              return false;
-            }
-            return true;
-          case 5: return true; // Spirit upgrades are optional
-          case 6: return true; // Add-ons are optional
-          case 7:
-            if (!formData.frequency) {
-              showStepError(step, 'Please choose single event or recurring program.');
-              shakeOptions(step);
-              return false;
-            }
-            if (formData.frequency === 'Recurring Program' && !formData.recurringCadence) {
-              showStepError(step, 'Please select a recurring cadence.');
-              return false;
-            }
-            return true;
-          case 8:
-            var comp = document.getElementById('wiz-company');
-            var city = document.getElementById('wiz-city');
-            var state = document.getElementById('wiz-state');
-            var valid = true;
-            if (!comp || !comp.value.trim()) { markFieldError(comp); valid = false; }
-            if (!city || !city.value.trim()) { markFieldError(city); valid = false; }
-            if (!state || !state.value.trim()) { markFieldError(state); valid = false; }
-            if (!valid) showStepError(step, 'Please fill in Company, City, and State.');
-            return valid;
-          case 9: return true; // Review step — always pass
-          case 10:
-            return validateContactForm();
-          default: return true;
-        }
+      function showSuccess() {
+        zones.forEach(function(z) { z.style.display = 'none'; });
+        var s = wizard.querySelector('[data-step="success"]');
+        if (s) s.classList.add('active');
+        wizard.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
       function validateContactForm() {
+        clearErrors();
         var nameEl = document.getElementById('wiz-name');
         var emailEl = document.getElementById('wiz-email');
-        var phoneEl = document.getElementById('wiz-phone');
         var valid = true;
 
         if (!nameEl || !nameEl.value.trim()) { markFieldError(nameEl); valid = false; }
-        if (!emailEl || !emailEl.value.trim() || !isValidEmail(emailEl.value)) {
-          markFieldError(emailEl);
-          valid = false;
-        }
-        if (!phoneEl || !phoneEl.value.trim()) { markFieldError(phoneEl); valid = false; }
+        if (!emailEl || !isValidEmail(emailEl.value || '')) { markFieldError(emailEl); valid = false; }
 
-        if (!valid) showStepError(10, 'Please fill in all contact fields with a valid email.');
+        /* Phone, event date, company, venue, event type and mixlists are all
+           optional now — they must never block a submit. */
+        if (!valid) showCaptureError('Add your name and a valid work email.');
         return valid;
       }
 
@@ -379,26 +265,22 @@
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
       }
 
-      function showStepError(step, message) {
-        var stepEl = wizard.querySelector('[data-step="' + step + '"]');
-        if (!stepEl) return;
-        /* Remove any existing error */
-        var existing = stepEl.querySelector('.wizard__step-error');
+      function showCaptureError(message) {
+        var panel = document.getElementById('capture-panel');
+        if (!panel) return;
+        var existing = panel.querySelector('.wizard__step-error');
         if (existing) existing.remove();
 
         var errDiv = document.createElement('div');
         errDiv.className = 'wizard__step-error';
-        errDiv.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> ' + message;
+        errDiv.textContent = message;
 
-        /* Insert before the nav buttons */
-        var nav = stepEl.querySelector('.wizard__nav');
-        if (nav) {
-          nav.parentNode.insertBefore(errDiv, nav);
+        var actions = panel.querySelector('.wizard__actions');
+        if (actions) {
+          actions.parentNode.insertBefore(errDiv, actions);
         } else {
-          stepEl.appendChild(errDiv);
+          panel.appendChild(errDiv);
         }
-
-        /* Auto-remove after 4 seconds */
         setTimeout(function() { if (errDiv.parentNode) errDiv.remove(); }, 4000);
       }
 
@@ -420,46 +302,6 @@
         });
       }
 
-      function shakeOptions(step) {
-        var stepEl = wizard.querySelector('[data-step="' + step + '"]');
-        if (!stepEl) return;
-        var grid = stepEl.querySelector('.wizard__option-grid, .wizard__packages-grid, .wizard__mixlist-grid');
-        if (grid) {
-          grid.classList.add('wizard__shake');
-          setTimeout(function() { grid.classList.remove('wizard__shake'); }, 600);
-        }
-      }
-
-      function nextStep() {
-        var idx = stepOrder.indexOf(currentStep);
-        if (idx < stepOrder.length - 1) showStep(stepOrder[idx + 1]);
-      }
-
-      function prevStep() {
-        var idx = stepOrder.indexOf(currentStep);
-        if (idx > 0) showStep(stepOrder[idx - 1]);
-      }
-
-      /* ---- Start button ---- */
-      var beginBtn = document.getElementById('wizard-begin');
-      if (beginBtn) beginBtn.addEventListener('click', function() { showStep(1); });
-
-      /* ---- Next/Prev buttons (with validation) ---- */
-      wizard.querySelectorAll('[data-wizard-next]').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-          if (typeof currentStep === 'number') {
-            if (!validateStep(currentStep)) {
-              e.stopImmediatePropagation();
-              e.preventDefault();
-              return false;
-            }
-          }
-          nextStep();
-        });
-      });
-      wizard.querySelectorAll('[data-wizard-prev]').forEach(function(btn) {
-        btn.addEventListener('click', prevStep);
-      });
 
       /* ---- Option tile selection (single-select for event type, frequency) ---- */
       wizard.querySelectorAll('.wizard__option').forEach(function(opt) {
@@ -486,30 +328,7 @@
         });
       });
 
-      /* ---- Tier card selection (legacy) ---- */
-      wizard.querySelectorAll('.wizard__tier').forEach(function(tier) {
-        tier.addEventListener('click', function() {
-          var grid = tier.closest('.wizard__tier-grid');
-          grid.querySelectorAll('.wizard__tier').forEach(function(t) { t.classList.remove('selected'); });
-          tier.classList.add('selected');
-          formData.experienceTier = tier.dataset.value;
-          var newLimit = tierMixlistLimits[formData.experienceTier] || 3;
-          if (selectedMixlists.length > newLimit) {
-            selectedMixlists = selectedMixlists.slice(0, newLimit);
-            wizard.querySelectorAll('.wizard__mixlist-option').forEach(function(o) {
-              if (o.dataset.value !== 'Skip') {
-                o.classList.toggle('selected', selectedMixlists.indexOf(o.dataset.value) > -1);
-              }
-            });
-          }
-          updateMixlistUI();
-          formData.spiritUpgrades = {};
-          updatePricing();
-          updateSummary();
-        });
-      });
-
-      /* ---- Package card selection (full cards in Step 3) ---- */
+      /* ---- Package card selection (tier cards, Zone A) ---- */
       wizard.querySelectorAll('.package-card--selectable').forEach(function(card) {
         card.addEventListener('click', function() {
           var grid = card.closest('.wizard__packages-grid');
@@ -527,6 +346,13 @@
           }
           updateMixlistUI();
           formData.spiritUpgrades = {};
+          /* Entering steps 5/6/9 used to trigger these. With zones there is no
+             entry event, so a tier change must refresh the tier-dependent
+             views itself: spirit defaults, recommended add-on badges and the
+             recommendation card. */
+          renderSpiritSubstitutions();
+          renderAddOns();
+          buildRecommendation();
           updatePricing();
           updateSummary();
         });
@@ -908,20 +734,92 @@
         Reserve:   ['branded-items', 'photographer', 'extra-hour']
       };
 
+
+      /* A block add-on's price depends on headcount, so its label has to say what
+         THIS event costs — otherwise it reads as "+$1,200/person". The figure
+         comes from the engine so the label can never drift from the quote. */
+      var GLASS_TRIM_MAX = 15;   /* only advise a trim this small */
+
+      function blockAddOnLabel(a) {
+        var glasses = (parseInt(formData.guestCount, 10) || 0) * (a.glassesPerGuest || 1);
+        var cost = window.BarsysPricing.addOnCost(a, formData.guestCount);
+        if (cost === 0) return glasses + ' glasses — included';
+        var services = cost / a.price;
+        return '+$' + cost.toLocaleString() + ' · ' + glasses +
+          ' glasses (' + services + ' service' + (services > 1 ? 's' : '') + ')';
+      }
+
+      /* Zone A (guests) and Zone B (add-ons) are visible at the same time, so a
+         headcount change must update the block labels in place. A full
+         renderAddOns() here would rebuild the grid on every keystroke and drop
+         the user's selections. */
+      function refreshBlockAddOnLabels() {
+        var grid = document.getElementById('addon-grid');
+        if (!grid) return;
+        grid.querySelectorAll('.wizard__addon').forEach(function(el) {
+          var a = window.BarsysPricing.findAddOn(el.dataset.addonId);
+          if (!a || a.type !== 'block') return;
+
+          var lbl = el.querySelector('.wizard__addon-price');
+          if (lbl) lbl.textContent = blockAddOnLabel(a);
+
+          /* The trim hint is headcount-dependent too, so it has to appear and
+             disappear with the boundary — not just get written once at render. */
+          var info = el.querySelector('.wizard__addon-info');
+          var hintEl = el.querySelector('.wizard__addon-hint');
+          var hint = window.BarsysPricing.blockTrimHint(a, formData.guestCount, GLASS_TRIM_MAX);
+          if (!hint) {
+            if (hintEl) hintEl.remove();
+            return;
+          }
+          if (!hintEl && info) {
+            hintEl = document.createElement('div');
+            hintEl.className = 'wizard__addon-hint';
+            info.appendChild(hintEl);
+          }
+          if (hintEl) {
+            hintEl.textContent = hint.toGuests + ' guests fits one fewer service — trimming ' +
+              hint.trim + ' saves $' + hint.saving.toLocaleString();
+          }
+        });
+      }
+
       function renderAddOns() {
         var grid = document.getElementById('addon-grid');
         if (!grid) return;
         var tier = formData.experienceTier || '';
         var recommended = tierRecommendedAddOns[tier] || [];
 
-        grid.innerHTML = addOnsData.map(function(a) {
-          var priceLabel = a.type === 'flat' ? '+$' + a.price.toLocaleString() + ' flat' : '+$' + a.price + '/person';
+        /* Drop add-ons this tier may not select, and clear any that were already
+           chosen before the tier changed — otherwise a stale selection keeps
+           being priced after it stops being offered. */
+        var eligible = window.BarsysPricing.addOnsForTier(tier);
+        formData.addOns = formData.addOns.filter(function(id) {
+          return eligible.some(function(a) { return a.id === id; });
+        });
+
+        grid.innerHTML = eligible.map(function(a) {
+          var priceLabel;
+          var blockHint = '';
+          if (a.type === 'block') {
+            priceLabel = blockAddOnLabel(a);
+            var hint = window.BarsysPricing.blockTrimHint(a, formData.guestCount, GLASS_TRIM_MAX);
+            if (hint) {
+              blockHint = '<div class="wizard__addon-hint">' + hint.toGuests +
+                ' guests fits one fewer service — trimming ' + hint.trim +
+                ' saves $' + hint.saving.toLocaleString() + '</div>';
+            }
+          } else if (a.type === 'flat') {
+            priceLabel = '+$' + a.price.toLocaleString() + ' flat';
+          } else {
+            priceLabel = '+$' + a.price + '/person';
+          }
           var recBadge = recommended.indexOf(a.id) > -1 ? '<div class="wizard__addon-recommended">Recommended</div>' : '';
           return '<div class="wizard__addon" data-addon-id="' + a.id + '">' +
             '<div class="wizard__addon-info">' +
               recBadge +
               '<div class="wizard__addon-name">' + a.name + '</div>' +
-              '<div class="wizard__addon-desc">' + a.desc + '</div>' +
+              '<div class="wizard__addon-desc">' + a.desc + '</div>' + blockHint +
             '</div>' +
             '<div class="wizard__addon-price">' + priceLabel + '</div>' +
             '<div class="wizard__addon-toggle"><button class="wizard__addon-check" type="button" aria-pressed="false"><span class="wizard__addon-check-icon"></span></button></div>' +
@@ -969,55 +867,72 @@
         });
       }
 
-      /* ========== DYNAMIC PRICING ENGINE ========== */
-      var recurringDiscounts = { Monthly: 5, Quarterly: 10 };
-
+      /* ========== DYNAMIC PRICING ENGINE ==========
+         All arithmetic lives in js/pricing.js (window.BarsysPricing) so it can
+         be unit-tested. This wrapper only marshals formData into that call and
+         returns its result unchanged — every downstream reader of the old
+         return shape keeps working. */
       function calculatePricing() {
-        var guests = parseInt(formData.guestCount) || 0;
-        var tier = formData.experienceTier || '';
-        var isMember = window.__barsysMemberPricing || false;
-        var basePerPerson = isMember ? (tierMemberPrice[tier] || 0) : (tierBasePrice[tier] || 0);
-
-        /* Apply recurring cadence discount */
-        var discountPerPerson = 0;
-        if (formData.frequency === 'Recurring Program' && formData.recurringCadence) {
-          discountPerPerson = recurringDiscounts[formData.recurringCadence] || 0;
-        }
-        var effectivePerPerson = Math.max(0, basePerPerson - discountPerPerson);
-        var baseTotal = effectivePerPerson * guests;
-
-        var addOnTotal = 0;
-        var addOnDetails = [];
-        formData.addOns.forEach(function(addonId) {
-          var addon = null;
-          for (var ai = 0; ai < addOnsData.length; ai++) {
-            if (addOnsData[ai].id === addonId) { addon = addOnsData[ai]; break; }
-          }
-          if (!addon) return;
-          var cost = addon.type === 'flat' ? addon.price : addon.price * guests;
-          addOnTotal += cost;
-          addOnDetails.push({ name: addon.name, cost: cost });
+        return window.BarsysPricing.calculate({
+          guests: formData.guestCount,
+          tier: formData.experienceTier,
+          isMember: window.__barsysMemberPricing || false,
+          frequency: formData.frequency,
+          recurringCadence: formData.recurringCadence,
+          addOns: formData.addOns,
+          spiritUpchargePerPerson: getSpiritUpchargePerPerson()
         });
-
-        var spiritUpchargePerPerson = getSpiritUpchargePerPerson();
-        var spiritTotal = spiritUpchargePerPerson * guests;
-        var subtotal = baseTotal + addOnTotal + spiritTotal;
-        var tax = Math.round(subtotal * TAX_RATE * 100) / 100;
-        var grandTotal = subtotal + tax;
-
-        return {
-          guests: guests, tier: tier, isMember: isMember,
-          basePerPerson: basePerPerson, effectivePerPerson: effectivePerPerson,
-          discountPerPerson: discountPerPerson, baseTotal: baseTotal,
-          addOnDetails: addOnDetails, addOnTotal: addOnTotal,
-          spiritUpchargePerPerson: spiritUpchargePerPerson, spiritTotal: spiritTotal,
-          subtotal: subtotal, tax: tax, grandTotal: grandTotal
-        };
       }
 
+      function formatUSD(n) {
+        return '$' + n.toLocaleString('en-US', {
+          minimumFractionDigits: 2, maximumFractionDigits: 2
+        });
+      }
+
+      /* Single render entry point. Every guest/tier/spirit/add-on/cadence
+         handler already called updatePricing(), so redefining it here drives
+         the whole quote-first UI with no extra wiring. */
       function updatePricing() {
         var pricing = calculatePricing();
         updateSummaryPanel(pricing);
+
+        var totalEl = document.getElementById('quote-total');
+        if (totalEl) totalEl.textContent = formatUSD(pricing.grandTotal);
+
+        var metaEl = document.getElementById('quote-per-person');
+        if (metaEl) {
+          var per = pricing.guests > 0 ? pricing.subtotal / pricing.guests : 0;
+          metaEl.textContent = formatUSD(per).replace(/\.00$/, '') +
+            ' per person \u00b7 ' + pricing.guests + ' guests \u00b7 incl. tax';
+        }
+
+        refreshBlockAddOnLabels();
+        queueQuoteViewed(pricing);
+      }
+
+      /* ---- quote_viewed (replaces wizard_step) ----
+         Debounced so dragging the stepper does not spray events, and
+         signature-guarded so returning to a previous quote fires nothing. */
+      var quoteViewedTimer = null;
+      var lastQuoteSignature = '';
+
+      function queueQuoteViewed(pricing) {
+        clearTimeout(quoteViewedTimer);
+        quoteViewedTimer = setTimeout(function() {
+          var signature = pricing.guests + '|' + pricing.tier + '|' + pricing.grandTotal;
+          if (signature === lastQuoteSignature) return;
+          lastQuoteSignature = signature;
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: 'quote_viewed',
+            guest_count: pricing.guests,
+            experience_tier: pricing.tier,
+            estimated_total: pricing.grandTotal.toFixed(2),
+            currency: 'USD',
+            value: pricing.grandTotal
+          });
+        }, 800);
       }
 
       /* ========== SUMMARY PANEL ========== */
@@ -1150,10 +1065,7 @@
             featEl.appendChild(li2);
           }
           formData.addOns.forEach(function(addonId) {
-            var addon = null;
-            for (var ai = 0; ai < addOnsData.length; ai++) {
-              if (addOnsData[ai].id === addonId) { addon = addOnsData[ai]; break; }
-            }
+            var addon = window.BarsysPricing.findAddOn(addonId);
             if (addon) {
               var li3 = document.createElement('li');
               li3.textContent = addon.name;
@@ -1266,7 +1178,7 @@
             frequency: formData.frequency
           });
 
-          showStep('success');
+          showSuccess();
 
           var subject = encodeURIComponent('Barsys Event — Availability Request');
           var lines = [];
@@ -1306,7 +1218,7 @@
           /* Re-enable in case user navigates back */
           setTimeout(function() {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Get My Event Plan';
+            submitBtn.textContent = 'Email me this quote';
           }, 3000);
         });
       }
@@ -1317,30 +1229,50 @@
         updateSummary();
       });
 
-      /* ---- Direct-to-step links (e.g. "View Packages" opens step 3) ---- */
+      /* ---- "View Packages" links ----
+         The tier cards live in Zone A and are always visible, so these just
+         scroll there instead of opening a step. */
       document.querySelectorAll('[data-wizard-open]').forEach(function(el) {
-        el.addEventListener('click', function(e) {
-          e.preventDefault();
-          var target = parseInt(el.dataset.wizardOpen);
-          if (!isNaN(target)) showStep(target);
+        el.addEventListener('click', function() {
+          var panel = document.getElementById('quote-panel');
+          if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       });
 
-      /* ---- Package card pre-selection from pricing section ---- */
-      document.querySelectorAll('[data-select-package]').forEach(function(link) {
-        link.addEventListener('click', function() {
-          var pkg = this.dataset.selectPackage;
-          formData.experienceTier = pkg;
-          var cards = wizard.querySelectorAll('[data-step="3"] .package-card--selectable');
-          cards.forEach(function(c) {
-            c.classList.remove('selected');
-            if (c.dataset.value === pkg) c.classList.add('selected');
-          });
-          updateMixlistUI();
-          updatePricing();
-          updateSummary();
-        });
+      /* ---- Bootstrap the quote-first UI ----
+         Steps used to trigger these on entry (5 -> spirits, 6 -> add-ons,
+         9 -> recommendation). With zones there is no entry event, so seed the
+         defaults and paint everything once on load. */
+      formData.guestCount = clampGuests(parseInt(guestInput && guestInput.value) || 50);
+      if (guestInput) guestInput.value = formData.guestCount;
+      formData.experienceTier = 'Signature';
+      formData.frequency = 'Single Event';
+
+      wizard.querySelectorAll('.package-card--selectable').forEach(function(c) {
+        c.classList.toggle('selected', c.dataset.value === 'Signature');
       });
+      wizard.querySelectorAll('[data-field="frequency"] .wizard__option').forEach(function(o) {
+        o.classList.toggle('selected', o.dataset.value === 'Single Event');
+      });
+
+      updateMixlistUI();
+      renderSpiritSubstitutions();
+      renderAddOns();
+      buildRecommendation();
+      updatePricing();
+      updateSummary();
+
+      /* revealAddOns() does the staggered card animation that used to fire on
+         entering step 6. Zone B's add-ons live in a <details>, so run it when
+         that disclosure opens instead of discarding the animation. */
+      var addonDetails = document.getElementById('addon-grid');
+      addonDetails = addonDetails && addonDetails.closest('details');
+      if (addonDetails) {
+        addonDetails.addEventListener('toggle', function() {
+          if (addonDetails.open) revealAddOns();
+        });
+      }
+
     })();
 
     (function () {
@@ -1546,6 +1478,10 @@
       };
 
       var modal = document.getElementById('mixlist-modal');
+      /* Pages that share main.js but have no mixlist modal (e.g.
+         private-events.html) must not throw here — the unguarded
+         modal.querySelector below used to kill the rest of this IIFE. */
+      if (!modal) return;
       var modalTitle = modal.querySelector('.mixlist-modal__title');
       var modalDesc = modal.querySelector('.mixlist-modal__desc');
       var modalGrid = document.getElementById('mixlist-modal-grid');
