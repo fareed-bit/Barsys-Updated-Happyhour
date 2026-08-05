@@ -192,7 +192,29 @@
         { id: 'branded-items',    name: 'Custom Branded Napkins & Stirrers',price: 350, type: 'flat',       desc: 'Your logo on cocktail napkins and stirrers' },
         { id: 'mocktail-station', name: 'Non-Alcoholic Cocktail Station',   price: 12,  type: 'per-person', desc: 'Dedicated zero-proof craft cocktail menu' },
         { id: 'beer-wine',        name: 'Beer & Wine Supplement',           price: 15,  type: 'per-person', desc: 'Curated craft beer and wine alongside cocktails' },
-        { id: 'photographer',     name: 'Event Photographer (2 hrs)',       price: 800, type: 'flat',       desc: 'Professional photographer for candid and posed shots' }
+        { id: 'photographer',     name: 'Event Photographer (2 hrs)',       price: 800, type: 'flat',       desc: 'Professional photographer for candid and posed shots' },
+
+        /* ---- Drinkware ----
+           The glassware rental company bills a MINIMUM of $900 for 385 glasses,
+           which covers 200 guests. There is no smaller order and no per-glass
+           rate, so neither 'flat' nor 'per-person' can price it: flat
+           under-quotes every event over 200 guests (by $900 at 250, $1,800 at
+           500), and per-person under-quotes every event under 385 glasses (at
+           50 guests you'd charge ~$117 against a $900 invoice).
+
+           Hence type 'block':
+               cost = max(0, ceil(guests / guestsPerBlock) - freeBlocks) x price
+
+           `freeBlocks: 1` expresses "the first service is already included in
+           this tier", so the same formula covers both the Classic add-on and
+           the Signature/Reserve overage.
+
+           `tiers` restricts which packages may select an add-on. Without it a
+           Classic booking could select the Signature/Reserve overage and be
+           charged $900+ for topping up a service it never included. */
+        { id: 'plastic-cups',     name: 'Premium Plastic Tumblers',         price: 2,    type: 'per-person', tiers: ['Classic'], desc: 'Heavyweight clear tumblers — no rental minimum, scales to any headcount' },
+        { id: 'glassware',        name: 'Real Glassware Rental',            price: 1200, type: 'block', guestsPerBlock: 200, freeBlocks: 0, tiers: ['Classic'], desc: 'Real glass, rented per service covering up to 200 guests' },
+        { id: 'glassware-extra',  name: 'Additional Glassware Service',     price: 900,  type: 'block', guestsPerBlock: 200, freeBlocks: 1, tiers: ['Signature', 'Reserve'], desc: 'Only applies above 200 guests — your tier already includes the first service' }
       ];
 
       var tierDefaultSpirits = {
@@ -505,6 +527,11 @@
           }
           updateMixlistUI();
           formData.spiritUpgrades = {};
+          /* Add-on eligibility is tier-dependent now, so re-render here rather
+             than waiting for step 6. Without this, switching Classic -> Signature
+             kept charging the $1,200/service Classic glassware add-on on a tier
+             that already includes glassware. */
+          renderAddOns();
           updatePricing();
           updateSummary();
         });
@@ -528,6 +555,11 @@
           }
           updateMixlistUI();
           formData.spiritUpgrades = {};
+          /* Add-on eligibility is tier-dependent now, so re-render here rather
+             than waiting for step 6. Without this, switching Classic -> Signature
+             kept charging the $1,200/service Classic glassware add-on on a tier
+             that already includes glassware. */
+          renderAddOns();
           updatePricing();
           updateSummary();
         });
@@ -915,8 +947,31 @@
         var tier = formData.experienceTier || '';
         var recommended = tierRecommendedAddOns[tier] || [];
 
-        grid.innerHTML = addOnsData.map(function(a) {
-          var priceLabel = a.type === 'flat' ? '+$' + a.price.toLocaleString() + ' flat' : '+$' + a.price + '/person';
+        /* Drop add-ons this tier may not select, and clear any that were already
+           chosen before the tier changed — otherwise a stale selection keeps
+           being priced after it stops being offered. */
+        var eligible = addOnsData.filter(function(a) {
+          return !a.tiers || a.tiers.indexOf(tier) > -1;
+        });
+        formData.addOns = formData.addOns.filter(function(id) {
+          return eligible.some(function(a) { return a.id === id; });
+        });
+
+        grid.innerHTML = eligible.map(function(a) {
+          var priceLabel;
+          if (a.type === 'block') {
+            /* Show what this headcount actually costs, and why it can step.
+               Without the live figure a block add-on reads as "+$1,200/person". */
+            var pb = a.guestsPerBlock || 1;
+            var blk = Math.max(0, Math.ceil((formData.guestCount || 0) / pb) - (a.freeBlocks || 0));
+            priceLabel = blk === 0
+              ? 'Included at this size'
+              : '+$' + (blk * a.price).toLocaleString() + ' (' + blk + ' × ' + pb + ' guests)';
+          } else if (a.type === 'flat') {
+            priceLabel = '+$' + a.price.toLocaleString() + ' flat';
+          } else {
+            priceLabel = '+$' + a.price + '/person';
+          }
           var recBadge = recommended.indexOf(a.id) > -1 ? '<div class="wizard__addon-recommended">Recommended</div>' : '';
           return '<div class="wizard__addon" data-addon-id="' + a.id + '">' +
             '<div class="wizard__addon-info">' +
@@ -995,7 +1050,16 @@
             if (addOnsData[ai].id === addonId) { addon = addOnsData[ai]; break; }
           }
           if (!addon) return;
-          var cost = addon.type === 'flat' ? addon.price : addon.price * guests;
+          var cost;
+          if (addon.type === 'block') {
+            var perBlock = addon.guestsPerBlock || 1;
+            var blocks = Math.max(0, Math.ceil(guests / perBlock) - (addon.freeBlocks || 0));
+            cost = blocks * addon.price;
+          } else if (addon.type === 'flat') {
+            cost = addon.price;
+          } else {
+            cost = addon.price * guests;
+          }
           addOnTotal += cost;
           addOnDetails.push({ name: addon.name, cost: cost });
         });
