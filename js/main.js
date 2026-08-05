@@ -202,8 +202,15 @@
            500), and per-person under-quotes every event under 385 glasses (at
            50 guests you'd charge ~$117 against a $900 invoice).
 
-           Hence type 'block':
-               cost = max(0, ceil(guests / guestsPerBlock) - freeBlocks) x price
+           Hence type 'block', counted in GLASSES rather than guests:
+               glasses = guests x glassesPerGuest
+               cost    = max(0, ceil(glasses / glassesPerBlock) - freeBlocks) x price
+
+           Counting in guests was wrong. An event uses 2 glasses per guest, so
+           one 385-glass service covers floor(385/2) = 192 guests, not 200 —
+           and a "200 guests per service" rule under-charged by $900 across
+           193-200 and 386-400 guests. 200 is exactly the round number a
+           coordinator is most likely to type.
 
            `freeBlocks: 1` expresses "the first service is already included in
            this tier", so the same formula covers both the Classic add-on and
@@ -213,8 +220,8 @@
            Classic booking could select the Signature/Reserve overage and be
            charged $900+ for topping up a service it never included. */
         { id: 'plastic-cups',     name: 'Premium Plastic Tumblers',         price: 2,    type: 'per-person', tiers: ['Classic'], desc: 'Heavyweight clear tumblers — no rental minimum, scales to any headcount' },
-        { id: 'glassware',        name: 'Real Glassware Rental',            price: 1200, type: 'block', guestsPerBlock: 200, freeBlocks: 0, tiers: ['Classic'], desc: 'Real glass, rented per service covering up to 200 guests' },
-        { id: 'glassware-extra',  name: 'Additional Glassware Service',     price: 900,  type: 'block', guestsPerBlock: 200, freeBlocks: 1, tiers: ['Signature', 'Reserve'], desc: 'Only applies above 200 guests — your tier already includes the first service' }
+        { id: 'glassware',        name: 'Real Glassware Rental',            price: 1200, type: 'block', glassesPerGuest: 2, glassesPerBlock: 385, freeBlocks: 0, tiers: ['Classic'], desc: 'Real glass at 2 per guest, rented in services of 385 glasses' },
+        { id: 'glassware-extra',  name: 'Additional Glassware Service',     price: 900,  type: 'block', glassesPerGuest: 2, glassesPerBlock: 385, freeBlocks: 1, tiers: ['Signature', 'Reserve'], desc: 'Only applies above 192 guests — your tier already includes the first 385-glass service' }
       ];
 
       var tierDefaultSpirits = {
@@ -960,13 +967,14 @@
         grid.innerHTML = eligible.map(function(a) {
           var priceLabel;
           if (a.type === 'block') {
-            /* Show what this headcount actually costs, and why it can step.
-               Without the live figure a block add-on reads as "+$1,200/person". */
-            var pb = a.guestsPerBlock || 1;
-            var blk = Math.max(0, Math.ceil((formData.guestCount || 0) / pb) - (a.freeBlocks || 0));
-            priceLabel = blk === 0
-              ? 'Included at this size'
-              : '+$' + (blk * a.price).toLocaleString() + ' (' + blk + ' × ' + pb + ' guests)';
+            /* Show the glass count, not just a price: "2 per guest" is the rule
+               the customer is being billed against, and without it a block
+               add-on reads as "+$1,200/person". */
+            var gl = (formData.guestCount || 0) * (a.glassesPerGuest || 1);
+            var svc = Math.max(0, Math.ceil(gl / (a.glassesPerBlock || 1)) - (a.freeBlocks || 0));
+            priceLabel = svc === 0
+              ? gl + ' glasses — included'
+              : '+$' + (svc * a.price).toLocaleString() + ' · ' + gl + ' glasses (' + svc + ' service' + (svc > 1 ? 's' : '') + ')';
           } else if (a.type === 'flat') {
             priceLabel = '+$' + a.price.toLocaleString() + ' flat';
           } else {
@@ -1052,8 +1060,9 @@
           if (!addon) return;
           var cost;
           if (addon.type === 'block') {
-            var perBlock = addon.guestsPerBlock || 1;
-            var blocks = Math.max(0, Math.ceil(guests / perBlock) - (addon.freeBlocks || 0));
+            var glasses = guests * (addon.glassesPerGuest || 1);
+            var perBlock = addon.glassesPerBlock || 1;
+            var blocks = Math.max(0, Math.ceil(glasses / perBlock) - (addon.freeBlocks || 0));
             cost = blocks * addon.price;
           } else if (addon.type === 'flat') {
             cost = addon.price;
