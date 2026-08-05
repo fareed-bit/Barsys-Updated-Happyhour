@@ -948,6 +948,31 @@
         Reserve:   ['branded-items', 'photographer', 'extra-hour']
       };
 
+
+      /* How many guests to trim to drop a whole glassware service.
+         At 200 guests you need 400 glasses = 2 services; 192 guests fits 384
+         into one. Losing 8 guests therefore saves a full $1,200 — worth telling
+         a coordinator who has any flex on headcount. Only surfaced when the trim
+         is realistic; at 250 guests the boundary is 58 back, which is not. */
+      var GLASS_TRIM_MAX = 15;
+
+      function blockTrimHint(a, guests) {
+        guests = parseInt(guests, 10) || 0;
+        var gpg = a.glassesPerGuest || 1;
+        var gpb = a.glassesPerBlock || 1;
+        var total = Math.ceil(guests * gpg / gpb);
+        if (total < 2) return null;
+
+        var toGuests = Math.floor((total - 1) * gpb / gpg);
+        var trim = guests - toGuests;
+        if (trim < 1 || trim > GLASS_TRIM_MAX) return null;
+
+        var free = a.freeBlocks || 0;
+        var saving = (Math.max(0, total - free) - Math.max(0, total - 1 - free)) * a.price;
+        if (saving <= 0) return null;
+        return { trim: trim, toGuests: toGuests, saving: saving };
+      }
+
       function renderAddOns() {
         var grid = document.getElementById('addon-grid');
         if (!grid) return;
@@ -966,6 +991,7 @@
 
         grid.innerHTML = eligible.map(function(a) {
           var priceLabel;
+          var blockHint = '';
           if (a.type === 'block') {
             /* Show the glass count, not just a price: "2 per guest" is the rule
                the customer is being billed against, and without it a block
@@ -975,6 +1001,12 @@
             priceLabel = svc === 0
               ? gl + ' glasses — included'
               : '+$' + (svc * a.price).toLocaleString() + ' · ' + gl + ' glasses (' + svc + ' service' + (svc > 1 ? 's' : '') + ')';
+            var hint = blockTrimHint(a, formData.guestCount);
+            if (hint) {
+              blockHint = '<div class="wizard__addon-hint">' + hint.toGuests +
+                ' guests fits one fewer service — trimming ' + hint.trim +
+                ' saves $' + hint.saving.toLocaleString() + '</div>';
+            }
           } else if (a.type === 'flat') {
             priceLabel = '+$' + a.price.toLocaleString() + ' flat';
           } else {
@@ -985,7 +1017,7 @@
             '<div class="wizard__addon-info">' +
               recBadge +
               '<div class="wizard__addon-name">' + a.name + '</div>' +
-              '<div class="wizard__addon-desc">' + a.desc + '</div>' +
+              '<div class="wizard__addon-desc">' + a.desc + '</div>' + blockHint +
             '</div>' +
             '<div class="wizard__addon-price">' + priceLabel + '</div>' +
             '<div class="wizard__addon-toggle"><button class="wizard__addon-check" type="button" aria-pressed="false"><span class="wizard__addon-check-icon"></span></button></div>' +
