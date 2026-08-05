@@ -1652,6 +1652,10 @@
       };
 
       var modal = document.getElementById('mixlist-modal');
+      /* Pages that share main.js but have no mixlist modal (private-events.html)
+         must not throw here — the unguarded modal.querySelector below used to
+         kill the rest of this IIFE. */
+      if (!modal) return;
       var modalTitle = modal.querySelector('.mixlist-modal__title');
       var modalDesc = modal.querySelector('.mixlist-modal__desc');
       var modalGrid = document.getElementById('mixlist-modal-grid');
