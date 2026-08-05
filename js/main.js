@@ -206,12 +206,47 @@
       };
 
       var spiritUpgrades = {
-        Vodka:   [{ brand: 'Belvedere', upcharge: 5 }, { brand: 'Grey Goose', upcharge: 5 }, { brand: 'Chopin', upcharge: 8 }],
-        Rum:     [{ brand: 'Flor de Cana 7', upcharge: 5 }, { brand: 'Mount Gay XO', upcharge: 10 }],
-        Tequila: [{ brand: 'Herradura', upcharge: 5 }, { brand: 'Don Julio Blanco', upcharge: 8 }, { brand: 'Clase Azul', upcharge: 20 }],
-        Gin:     [{ brand: "Hendrick's", upcharge: 5 }, { brand: 'Botanist', upcharge: 8 }, { brand: 'Monkey 47', upcharge: 15 }],
-        Whiskey: [{ brand: 'Woodford Reserve', upcharge: 5 }, { brand: 'Macallan 12', upcharge: 10 }, { brand: 'Hibiki Harmony', upcharge: 15 }]
+        Vodka:   [{ brand: 'Belvedere', upcharge: 5, rank: 2 }, { brand: 'Grey Goose', upcharge: 5, rank: 2 }, { brand: 'Chopin', upcharge: 8, rank: 3 }],
+        Rum:     [{ brand: 'Flor de Cana 7', upcharge: 5, rank: 2 }, { brand: 'Mount Gay XO', upcharge: 10, rank: 3 }],
+        Tequila: [{ brand: 'Herradura', upcharge: 5, rank: 2 }, { brand: 'Don Julio Blanco', upcharge: 8, rank: 3 }, { brand: 'Clase Azul', upcharge: 20, rank: 4 }],
+        Gin:     [{ brand: "Hendrick's", upcharge: 5, rank: 2 }, { brand: 'Botanist', upcharge: 8, rank: 3 }, { brand: 'Monkey 47', upcharge: 15, rank: 4 }],
+        Whiskey: [{ brand: 'Woodford Reserve', upcharge: 5, rank: 2 }, { brand: 'Macallan 12', upcharge: 10, rank: 3 }, { brand: 'Hibiki Harmony', upcharge: 15, rank: 4 }],
+        /* Mezcal is new: four menus pour it (Agave Lover's, Neon Shadows,
+           Dusk to Agave, Sombra & Sol) and there was previously no swap for it. */
+        Mezcal:  [{ brand: 'Montelobos Espadín', upcharge: 5, rank: 2 }, { brand: 'Ilegal Joven', upcharge: 8, rank: 3 }, { brand: 'Del Maguey Chichicapa', upcharge: 15, rank: 4 }]
       };
+
+      /* Quality rank of the brand each tier already includes, per category
+         (rank 1 = the entry brand, which never appears as a paid upgrade).
+         Upgrades are filtered to a strictly higher rank, so a guest is never
+         charged for a sideways or downward swap — Reserve was previously
+         offered Herradura at +$5 while already pouring Don Julio. */
+      var includedSpiritRank = {
+        Classic:   { Vodka: 1, Gin: 1, Tequila: 1, Mezcal: 1, Rum: 1, Whiskey: 1 },
+        Signature: { Vodka: 1, Gin: 1, Tequila: 2, Mezcal: 2, Rum: 2, Whiskey: 2 },
+        Reserve:   { Vodka: 2, Gin: 2, Tequila: 3, Mezcal: 4, Rum: 3, Whiskey: 3 }
+      };
+
+      /* Included brand for any category a chosen menu needs. tierDefaultSpirits
+         only covers the four categories each tier advertises (Classic has no
+         Whiskey, nobody has Mezcal), so menu-derived categories resolve here.
+         Left deliberately separate: the no-menu fallback still reads
+         tierDefaultSpirits, so today's default behaviour is untouched. */
+      var tierBrandByCategory = {
+        Classic: {
+          Vodka: "Tito's", Gin: 'Beefeater', Tequila: 'Espolon',
+          Mezcal: 'Del Maguey Vida', Rum: 'Bacardi', Whiskey: 'Bulleit Bourbon'
+        },
+        Signature: {
+          Vodka: 'Ketel One', Gin: 'Tanqueray', Tequila: 'Herradura',
+          Mezcal: 'Montelobos Espadín', Rum: 'Flor de Cana 7', Whiskey: 'JW Black'
+        },
+        Reserve: {
+          Vodka: 'Grey Goose', Gin: "Hendrick's", Tequila: 'Don Julio',
+          Mezcal: 'Del Maguey Chichicapa', Rum: 'Mount Gay XO', Whiskey: 'Macallan 12'
+        }
+      };
+
 
       /* ---- Recommendation data ---- */
       var tierRec = {
@@ -580,6 +615,7 @@
       });
 
       var selectedMixlists = [];
+      var mixlistSkipped = false;   /* true only while "I'll decide later" is chosen */
 
       function getMixlistLimit() {
         return tierMixlistLimits[formData.experienceTier] || 3;
@@ -605,7 +641,23 @@
             opt.classList.remove('disabled');
           }
         });
-        formData.mixlists = selectedMixlists.slice();
+        /* "I'll decide later" has to survive this function. It used to set
+           formData.mixlists = ['Skip'] and then call updateMixlistUI(), which
+           overwrote it with the (empty) selection — so Skip was indistinguishable
+           from no-selection in the lead payload, and buildRecommendation's
+           mixlists[0] === 'Skip' branch could never fire. */
+        formData.mixlists = mixlistSkipped ? ['Skip'] : selectedMixlists.slice();
+
+        /* The spirits list is now derived from the chosen menus, so it has to
+           be rebuilt whenever that selection changes. renderSpiritSubstitutions
+           clears formData.spiritUpgrades, which also prevents a stale upgrade
+           (e.g. a mezcal swap) from still being charged after the menu that
+           needed it is deselected. updatePricing picks up that reset. */
+        if (typeof renderSpiritSubstitutions === 'function') {
+          renderSpiritSubstitutions();
+          updatePricing();
+          updateSummary();
+        }
       }
 
       wizard.querySelectorAll('.wizard__mixlist-option').forEach(function(opt) {
@@ -614,6 +666,7 @@
           if (opt.classList.contains('disabled')) return;
 
           if (val === 'Skip') {
+            mixlistSkipped = true;
             selectedMixlists = [];
             wizard.querySelectorAll('.wizard__mixlist-option').forEach(function(o) {
               o.classList.remove('selected');
@@ -627,6 +680,8 @@
             return;
           }
 
+          /* Picking any real menu cancels "I'll decide later". */
+          mixlistSkipped = false;
           var skipOpt = wizard.querySelector('.wizard__mixlist-option--skip');
           if (skipOpt) skipOpt.classList.remove('selected');
 
@@ -657,18 +712,77 @@
       });
 
       /* ========== LIQUOR SUBSTITUTIONS (Step 5) ========== */
+      /* Which spirits to show, and why.
+           tier -> no menus chosen; fall back to the tier's advertised four
+           menu -> show exactly what the chosen menus pour
+           none -> menus chosen, but none of them pour a base spirit */
+      function resolveSpiritRows() {
+        var tier = formData.experienceTier || 'Signature';
+        var derived = window.BarsysMixlistSpirits.categoriesFor(formData.mixlists);
+
+        if (derived === null) {
+          return { mode: 'tier', rows: tierDefaultSpirits[tier] || tierDefaultSpirits.Signature };
+        }
+        if (!derived.length) {
+          return { mode: 'none', rows: [] };
+        }
+        var brands = tierBrandByCategory[tier] || tierBrandByCategory.Signature;
+        return {
+          mode: 'menu',
+          rows: derived.map(function(cat) {
+            return { category: cat, defaultBrand: brands[cat] };
+          })
+        };
+      }
+
+      function upgradesFor(category, defaultBrand) {
+        var tier = formData.experienceTier || 'Signature';
+        var ranks = includedSpiritRank[tier] || includedSpiritRank.Signature;
+        var floor = ranks[category] || 1;
+        return (spiritUpgrades[category] || []).filter(function(u) {
+          if (u.brand === defaultBrand) return false;
+          return (u.rank || 99) > floor;
+        });
+      }
+
       function renderSpiritSubstitutions() {
         var tier = formData.experienceTier || 'Signature';
-        var spirits = tierDefaultSpirits[tier] || tierDefaultSpirits.Signature;
         var grid = document.getElementById('spirits-grid');
         var tierLabel = document.getElementById('sub-tier-name');
         if (tierLabel) tierLabel.textContent = tier;
         if (!grid) return;
 
-        grid.innerHTML = spirits.map(function(spirit) {
-          var upgrades = (spiritUpgrades[spirit.category] || []).filter(function(u) {
-            return u.brand !== spirit.defaultBrand;
-          });
+        var resolved = resolveSpiritRows();
+
+        if (resolved.mode === 'none') {
+          grid.innerHTML = '<div class="wizard__spirit-empty">' +
+            'Your selected menus are built on aperitifs, liqueurs and fortified ' +
+            'wines rather than a base spirit, so there is nothing to upgrade here. ' +
+            'Everything is included as listed, and our team will confirm the full ' +
+            'pour list with you.' +
+          '</div>';
+          formData.spiritUpgrades = {};
+          updateSpiritTotalDisplay();
+          return;
+        }
+
+        grid.innerHTML = resolved.rows.map(function(spirit) {
+          var upgrades = upgradesFor(spirit.category, spirit.defaultBrand);
+          var tag = resolved.mode === 'menu' ? 'In your menus' : 'Included';
+
+          /* Top of a ladder: nothing above it, so no dropdown at all. */
+          if (!upgrades.length) {
+            return '<div class="wizard__spirit-row wizard__spirit-row--fixed" data-category="' + spirit.category + '">' +
+              '<div class="wizard__spirit-default">' +
+                '<div class="wizard__spirit-category">' + spirit.category + '</div>' +
+                '<div class="wizard__spirit-brand">' + spirit.defaultBrand + '</div>' +
+                '<div class="wizard__spirit-tag">' + tag + '</div>' +
+              '</div>' +
+              '<div class="wizard__spirit-arrow">&rarr;</div>' +
+              '<div class="wizard__spirit-top">Top shelf &mdash; no upgrade needed</div>' +
+            '</div>';
+          }
+
           var options = '<option value="">Keep ' + spirit.defaultBrand + '</option>';
           upgrades.forEach(function(u) {
             options += '<option value="' + u.brand + '" data-upcharge="' + u.upcharge + '">' + u.brand + ' (+$' + u.upcharge + '/pp)</option>';
@@ -677,7 +791,7 @@
             '<div class="wizard__spirit-default">' +
               '<div class="wizard__spirit-category">' + spirit.category + '</div>' +
               '<div class="wizard__spirit-brand">' + spirit.defaultBrand + '</div>' +
-              '<div class="wizard__spirit-tag">Included</div>' +
+              '<div class="wizard__spirit-tag">' + tag + '</div>' +
             '</div>' +
             '<div class="wizard__spirit-arrow">&rarr;</div>' +
             '<select class="wizard__spirit-select" data-category="' + spirit.category + '">' + options + '</select>' +

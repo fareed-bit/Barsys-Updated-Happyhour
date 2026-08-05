@@ -3422,6 +3422,26 @@
   .wizard__actions .btn { flex: 1 1 100%; }
 }
 
+
+/* ---- Menu-derived spirits: extra states ---- */
+.wizard__spirit-empty {
+  padding: 18px;
+  border: 1px dashed var(--color-border);
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+}
+.wizard__spirit-top {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-gold);
+  align-self: center;
+}
+.wizard__spirit-row--fixed {
+  opacity: 0.85;}
+
 /* Trim hint on stepped (block) add-ons */
 .wizard__addon-hint {
   margin-top: 6px;
