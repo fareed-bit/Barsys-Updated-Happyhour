@@ -848,9 +848,12 @@
         Reserve:   ['branded-items', 'photographer', 'extra-hour']
       };
 
+
       /* A block add-on's price depends on headcount, so its label has to say what
          THIS event costs — otherwise it reads as "+$1,200/person". The figure
          comes from the engine so the label can never drift from the quote. */
+      var GLASS_TRIM_MAX = 15;   /* only advise a trim this small */
+
       function blockAddOnLabel(a) {
         var glasses = (parseInt(formData.guestCount, 10) || 0) * (a.glassesPerGuest || 1);
         var cost = window.BarsysPricing.addOnCost(a, formData.guestCount);
@@ -870,8 +873,28 @@
         grid.querySelectorAll('.wizard__addon').forEach(function(el) {
           var a = window.BarsysPricing.findAddOn(el.dataset.addonId);
           if (!a || a.type !== 'block') return;
+
           var lbl = el.querySelector('.wizard__addon-price');
           if (lbl) lbl.textContent = blockAddOnLabel(a);
+
+          /* The trim hint is headcount-dependent too, so it has to appear and
+             disappear with the boundary — not just get written once at render. */
+          var info = el.querySelector('.wizard__addon-info');
+          var hintEl = el.querySelector('.wizard__addon-hint');
+          var hint = window.BarsysPricing.blockTrimHint(a, formData.guestCount, GLASS_TRIM_MAX);
+          if (!hint) {
+            if (hintEl) hintEl.remove();
+            return;
+          }
+          if (!hintEl && info) {
+            hintEl = document.createElement('div');
+            hintEl.className = 'wizard__addon-hint';
+            info.appendChild(hintEl);
+          }
+          if (hintEl) {
+            hintEl.textContent = hint.toGuests + ' guests fits one fewer service — trimming ' +
+              hint.trim + ' saves $' + hint.saving.toLocaleString();
+          }
         });
       }
 
@@ -891,8 +914,15 @@
 
         grid.innerHTML = eligible.map(function(a) {
           var priceLabel;
+          var blockHint = '';
           if (a.type === 'block') {
             priceLabel = blockAddOnLabel(a);
+            var hint = window.BarsysPricing.blockTrimHint(a, formData.guestCount, GLASS_TRIM_MAX);
+            if (hint) {
+              blockHint = '<div class="wizard__addon-hint">' + hint.toGuests +
+                ' guests fits one fewer service — trimming ' + hint.trim +
+                ' saves $' + hint.saving.toLocaleString() + '</div>';
+            }
           } else if (a.type === 'flat') {
             priceLabel = '+$' + a.price.toLocaleString() + ' flat';
           } else {
@@ -903,7 +933,7 @@
             '<div class="wizard__addon-info">' +
               recBadge +
               '<div class="wizard__addon-name">' + a.name + '</div>' +
-              '<div class="wizard__addon-desc">' + a.desc + '</div>' +
+              '<div class="wizard__addon-desc">' + a.desc + '</div>' + blockHint +
             '</div>' +
             '<div class="wizard__addon-price">' + priceLabel + '</div>' +
             '<div class="wizard__addon-toggle"><button class="wizard__addon-check" type="button" aria-pressed="false"><span class="wizard__addon-check-icon"></span></button></div>' +

@@ -66,6 +66,30 @@
     return addon.price * guests;
   }
 
+  /* How many guests to trim to drop a whole service. At 200 guests you need 400
+     glasses = 2 services; 192 fits 384 into one, so losing 8 guests saves a full
+     $1,200. Returns null unless the trim is realistic (<= maxTrim), because at
+     250 guests the boundary is 58 back and the advice would be noise. */
+  function blockTrimHint(addon, guests, maxTrim) {
+    if (!addon || addon.type !== 'block') return null;
+    guests = parseInt(guests, 10) || 0;
+    maxTrim = maxTrim || 15;
+
+    var gpg = addon.glassesPerGuest || 1;
+    var gpb = addon.glassesPerBlock || 1;
+    var total = Math.ceil(guests * gpg / gpb);
+    if (total < 2) return null;
+
+    var toGuests = Math.floor((total - 1) * gpb / gpg);
+    var trim = guests - toGuests;
+    if (trim < 1 || trim > maxTrim) return null;
+
+    var free = addon.freeBlocks || 0;
+    var saving = (Math.max(0, total - free) - Math.max(0, total - 1 - free)) * addon.price;
+    if (saving <= 0) return null;
+    return { trim: trim, toGuests: toGuests, saving: saving };
+  }
+
   /* Add-ons a tier is allowed to select. No `tiers` field means "any tier". */
   function addOnsForTier(tier) {
     return ADD_ONS.filter(function (a) {
@@ -124,6 +148,7 @@
     findAddOn: findAddOn,
     addOnCost: addOnCost,
     addOnsForTier: addOnsForTier,
+    blockTrimHint: blockTrimHint,
     ADD_ONS: ADD_ONS,
     TIER_BASE: TIER_BASE,
     TIER_MEMBER: TIER_MEMBER,
