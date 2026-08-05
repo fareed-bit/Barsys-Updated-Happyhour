@@ -738,10 +738,12 @@
          THIS event costs — otherwise it reads as "+$1,200/person". The figure
          comes from the engine so the label can never drift from the quote. */
       function blockAddOnLabel(a) {
+        var glasses = (parseInt(formData.guestCount, 10) || 0) * (a.glassesPerGuest || 1);
         var cost = window.BarsysPricing.addOnCost(a, formData.guestCount);
-        if (cost === 0) return 'Included at this size';
-        return '+$' + cost.toLocaleString() +
-          ' (' + (cost / a.price) + ' × ' + (a.guestsPerBlock || 1) + ' guests)';
+        if (cost === 0) return glasses + ' glasses — included';
+        var services = cost / a.price;
+        return '+$' + cost.toLocaleString() + ' · ' + glasses +
+          ' glasses (' + services + ' service' + (services > 1 ? 's' : '') + ')';
       }
 
       /* Zone A (guests) and Zone B (add-ons) are visible at the same time, so a

@@ -30,8 +30,9 @@
        under-quotes every event under 385 glasses (50 guests would charge ~$117
        against a $900 invoice).
 
-       Hence type 'block':
-           cost = max(0, ceil(guests / guestsPerBlock) - freeBlocks) x price
+       Hence type 'block', counted in GLASSES:
+           glasses = guests x glassesPerGuest
+           cost    = max(0, ceil(glasses / glassesPerBlock) - freeBlocks) x price
 
        `freeBlocks: 1` expresses "the first service is already included in this
        tier", so one formula serves both the Classic add-on and the
@@ -41,8 +42,8 @@
        Classic booking could select the Signature/Reserve overage and be charged
        $900+ for topping up a service it never included. */
     { id: 'plastic-cups',     name: 'Premium Plastic Tumblers',          price: 2,    type: 'per-person', tiers: ['Classic'], desc: 'Heavyweight clear tumblers — no rental minimum, scales to any headcount' },
-    { id: 'glassware',        name: 'Real Glassware Rental',             price: 1200, type: 'block', guestsPerBlock: 200, freeBlocks: 0, tiers: ['Classic'], desc: 'Real glass, rented per service covering up to 200 guests' },
-    { id: 'glassware-extra',  name: 'Additional Glassware Service',      price: 900,  type: 'block', guestsPerBlock: 200, freeBlocks: 1, tiers: ['Signature', 'Reserve'], desc: 'Only applies above 200 guests — your tier already includes the first service' }
+    { id: 'glassware',        name: 'Real Glassware Rental',             price: 1200, type: 'block', glassesPerGuest: 2, glassesPerBlock: 385, freeBlocks: 0, tiers: ['Classic'], desc: 'Real glass at 2 per guest, rented in services of 385 glasses' },
+    { id: 'glassware-extra',  name: 'Additional Glassware Service',      price: 900,  type: 'block', glassesPerGuest: 2, glassesPerBlock: 385, freeBlocks: 1, tiers: ['Signature', 'Reserve'], desc: 'Only applies above 192 guests — your tier already includes the first 385-glass service' }
   ];
 
   /* Cost of one add-on at a given headcount. Exported because the wizard needs
@@ -52,8 +53,13 @@
     if (!addon) return 0;
     guests = parseInt(guests, 10) || 0;
     if (addon.type === 'block') {
-      var perBlock = addon.guestsPerBlock || 1;
-      var blocks = Math.max(0, Math.ceil(guests / perBlock) - (addon.freeBlocks || 0));
+      /* Counted in glasses, not guests. An event uses 2 glasses per guest, so a
+         385-glass service covers floor(385/2) = 192 guests — not 200. Counting
+         guests at 200-per-service under-charged $900 across 193-200 and
+         386-400 guests. */
+      var glasses = guests * (addon.glassesPerGuest || 1);
+      var perBlock = addon.glassesPerBlock || 1;
+      var blocks = Math.max(0, Math.ceil(glasses / perBlock) - (addon.freeBlocks || 0));
       return blocks * addon.price;
     }
     if (addon.type === 'flat') return addon.price;
