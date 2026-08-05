@@ -229,7 +229,8 @@
         Classic: {
           title: 'Classic Experience',
           desc: 'A clean, turnkey cocktail experience for your office. Curated menu with premium spirits, AI cocktail machines, and professional bartenders.',
-          features: ['AI cocktail machines + professional bartenders', 'Curated cocktail menu with premium spirits', 'Full bar setup with glassware, ice, and garnishes', 'Complete setup, service, and cleanup', 'Non-alcoholic cocktail options included']
+          /* Classic does not include glassware — do not re-add it here. */
+          features: ['AI cocktail machines + professional bartenders', 'Curated cocktail menu with premium spirits', 'Full bar setup with ice and garnishes', 'Complete setup, service, and cleanup', 'Non-alcoholic cocktail options included']
         },
         Signature: {
           title: 'Signature Experience',
