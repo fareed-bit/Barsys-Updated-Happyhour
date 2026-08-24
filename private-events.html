@@ -98,14 +98,14 @@
     .pe-stat__desc { font-size:13px; color:var(--color-text-secondary, #A69882); line-height:1.5; }
     @media (max-width:640px) { .pe-stats { grid-template-columns:1fr; } }
     /* ── Real Event Photo Gallery ── */
-    .pe-gallery { display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:auto auto; gap:12px; }
+    .pe-gallery { display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:360px 360px; gap:12px; }
     .pe-gallery__item { position:relative; overflow:hidden; border-radius:14px; background:#1a1612; }
     .pe-gallery__item--tall { grid-row:span 2; }
-    .pe-gallery__item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; min-height:220px; filter:brightness(1.1) contrast(1.08) saturate(1.05); }
+    .pe-gallery__item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; filter:brightness(1.1) contrast(1.08) saturate(1.05); }
     .pe-gallery__item:hover img { transform:scale(1.03); }
     .pe-gallery__caption { position:absolute; bottom:0; left:0; right:0; padding:10px 14px; font-size:11px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:rgba(255,255,255,0.75); background:linear-gradient(transparent,rgba(0,0,0,0.55)); }
-    @media (max-width:720px) { .pe-gallery { grid-template-columns:1fr 1fr; } .pe-gallery__item--tall { grid-row:span 1; } }
-    @media (max-width:480px) { .pe-gallery { grid-template-columns:1fr; } }
+    @media (max-width:720px) { .pe-gallery { grid-template-columns:1fr 1fr; grid-template-rows:repeat(3,280px); } .pe-gallery__item--tall { grid-row:span 1; } }
+    @media (max-width:480px) { .pe-gallery { grid-template-columns:1fr; grid-template-rows:repeat(5,240px); } }
     /* ── Social proof trust bar — thinner override ── */
     .pe-proof-trust .trust-bar__item { padding:20px 24px !important; }
     /* ── Testimonials ── */
@@ -1363,7 +1363,7 @@
         <div style="display:inline-flex; align-items:center; gap:14px; background:rgba(255,255,255,0.05); border:1px solid rgba(200,169,126,0.2); border-radius:14px; padding:14px 20px; margin-bottom:32px; text-align:left; max-width:420px; width:100%;">
           <div style="width:46px; height:46px; border-radius:50%; background:linear-gradient(135deg,#C8A97E 0%,#8B6A3A 100%); display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:700; color:#0A0A0A; flex-shrink:0; letter-spacing:-0.03em;">F</div>
           <div>
-            <div style="font-size:14px; font-weight:600; color:rgba(255,255,255,0.9); margin-bottom:3px;">Fareed — Founder, Barsys</div>
+            <div style="font-size:14px; font-weight:600; color:rgba(255,255,255,0.9); margin-bottom:3px;">Fareed — Head of Events</div>
             <div style="font-size:13px; color:rgba(255,255,255,0.45); line-height:1.5;">"I personally review every quote we send. Your event is in good hands."</div>
           </div>
         </div>

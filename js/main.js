@@ -1546,6 +1546,7 @@
       };
 
       var modal = document.getElementById('mixlist-modal');
+      if (!modal) return;
       var modalTitle = modal.querySelector('.mixlist-modal__title');
       var modalDesc = modal.querySelector('.mixlist-modal__desc');
       var modalGrid = document.getElementById('mixlist-modal-grid');
