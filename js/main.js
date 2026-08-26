@@ -244,7 +244,7 @@
       };
 
       /* ---- Show/hide steps ---- */
-      var stepNames = { start: 'Start', 1: 'Event Type', 2: 'Guest Count', 3: 'Package', 4: 'Mixlists', 5: 'Spirit Upgrades', 6: 'Add-Ons', 7: 'Frequency', 8: 'Company Info', 9: 'Review', 10: 'Contact Info', success: 'Success' };
+      var stepNames = { start: 'Start', 1: 'Event Type', 2: 'Guest Count', 3: 'Package', 4: 'Mixlists', 6: 'Add-Ons', 7: 'Frequency', 8: 'Company Info', 9: 'Review', 10: 'Contact Info', success: 'Success' };
 
       function showStep(n) {
         steps.forEach(function(s) { s.classList.remove('active'); });
@@ -293,7 +293,7 @@
       }
 
       /* ---- Step sequencing ---- */
-      var stepOrder = ['start', 1, 3, 2, 4, 5, 6, 7, 8, 9, 10, 'success'];
+      var stepOrder = ['start', 1, 3, 2, 4, 6, 7, 8, 9, 10, 'success'];
 
       /* ---- Step Validation ---- */
       function validateStep(step) {
