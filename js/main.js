@@ -186,13 +186,19 @@
       var tierMixlistLimits = { Classic: 2, Signature: 3, Reserve: 5 };
 
       var addOnsData = [
-        { id: 'extra-hour',       name: 'Extra Hour of Service',            price: 500, type: 'flat',       desc: 'Extend your event by one additional hour' },
-        { id: 'extra-mixlist',    name: 'Additional Mixlist',               price: 5,   type: 'per-person', desc: 'Add one more cocktail menu beyond your package limit' },
-        { id: 'premium-garnish',  name: 'Premium Garnish Upgrade',          price: 8,   type: 'per-person', desc: 'Fresh fruit, edible flowers, and artisan garnishes' },
-        { id: 'branded-items',    name: 'Custom Branded Napkins & Stirrers',price: 350, type: 'flat',       desc: 'Your logo on cocktail napkins and stirrers' },
-        { id: 'mocktail-station', name: 'Non-Alcoholic Cocktail Station',   price: 12,  type: 'per-person', desc: 'Dedicated zero-proof craft cocktail menu' },
-        { id: 'beer-wine',        name: 'Beer & Wine Supplement',           price: 15,  type: 'per-person', desc: 'Curated craft beer and wine alongside cocktails' },
-        { id: 'photographer',     name: 'Event Photographer (2 hrs)',       price: 800, type: 'flat',       desc: 'Professional photographer for candid and posed shots' }
+        { id: 'extra-hour',         name: 'Extra Hour of Service',              price: 500,  type: 'flat',       desc: 'Extend your event by one additional hour' },
+        { id: 'extra-mixlist',      name: 'Additional Mixlist',                 price: 8,    type: 'per-person', desc: 'Add one more cocktail menu beyond your package limit' },
+        { id: 'premium-garnish',    name: 'Artisan Garnish Bar',                price: 8,    type: 'per-person', desc: 'Fresh fruit, edible flowers, and artisan garnishes' },
+        { id: 'branded-items',      name: 'Custom Branded Bar Kit',             price: 550,  type: 'flat',       desc: 'Your logo on napkins, stirrers, cups, and coasters' },
+        { id: 'mocktail-station',   name: 'Non-Alcoholic Cocktail Station',     price: 12,   type: 'per-person', desc: 'Dedicated zero-proof craft cocktail menu' },
+        { id: 'beer-wine',          name: 'Beer & Wine Supplement',             price: 15,   type: 'per-person', desc: 'Curated craft beer and wine alongside cocktails' },
+        { id: 'photographer',       name: 'Event Photographer (2 hrs)',         price: 800,  type: 'flat',       desc: 'Professional photographer for candid and posed shots' },
+        { id: 'content-package',    name: 'Content Package',                    price: 1200, type: 'flat',       desc: 'Photos + short-form video reels for social media use' },
+        { id: 'signature-cocktail', name: 'Signature Cocktail Creation',        price: 250,  type: 'flat',       desc: 'Name a custom cocktail after your team, created by our mixologists' },
+        { id: 'recipe-cards',       name: 'Cocktail Recipe Cards',              price: 3,    type: 'per-person', desc: "Branded take-home cards with the night's cocktail recipes" },
+        { id: 'photo-booth',        name: 'Photo Booth',                        price: 600,  type: 'flat',       desc: 'Self-serve booth with instant prints — no photographer needed' },
+        { id: 'mixology-class',     name: 'Cocktail Competition & Mini-Class',  price: 10,   type: 'per-person', desc: 'Bartender-led 15-min make-your-own cocktail moment' },
+        { id: 'digital-menu',       name: 'Custom Digital Menu Display',        price: 150,  type: 'flat',       desc: "Branded screen showing the night's cocktail menu at the bar" }
       ];
 
       var tierDefaultSpirits = {
@@ -903,9 +909,9 @@
       /* ========== ADD-ONS (Step 6) ========== */
       /* Tier-specific recommended add-ons */
       var tierRecommendedAddOns = {
-        Classic:   ['extra-mixlist', 'mocktail-station'],
-        Signature: ['premium-garnish', 'beer-wine', 'extra-hour'],
-        Reserve:   ['branded-items', 'photographer', 'extra-hour']
+        Classic:   ['extra-mixlist', 'mocktail-station', 'recipe-cards', 'digital-menu'],
+        Signature: ['premium-garnish', 'beer-wine', 'extra-hour', 'signature-cocktail', 'photo-booth', 'mixology-class'],
+        Reserve:   ['branded-items', 'content-package', 'photographer', 'extra-hour', 'signature-cocktail']
       };
 
       function renderAddOns() {
