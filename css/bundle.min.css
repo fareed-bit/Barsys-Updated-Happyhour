@@ -91,7 +91,7 @@
   --container-max: 1192px;
   --container-padding: clamp(20px, 5vw, 128px);
   --nav-height: 72px;
-  --section-padding: clamp(80px, 12vw, 178px);
+  --section-padding: clamp(60px, 7vw, 110px);
 }
 @media (min-width: 1600px) {
   :root {
