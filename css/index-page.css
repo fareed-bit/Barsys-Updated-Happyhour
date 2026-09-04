@@ -3476,3 +3476,62 @@
 
     /* Hide star — now using chapter number labels */
     .eyebrow__star { display: none; }
+
+    /* =========================================================================
+       SEXY WIZARD SECTION
+       ========================================================================= */
+
+    /* Gold spotlight — stage light effect behind the cards */
+    .wizard-section { position: relative; overflow: hidden; }
+    .wizard-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 65% at 50% 42%, rgba(218,185,106,0.16) 0%, rgba(218,185,106,0.04) 45%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .wizard-layout, .wizard-section .section-header { position: relative; z-index: 1; }
+
+    /* Wizard card — glassmorphism */
+    .wizard {
+      background: rgba(255,255,255,0.055);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(218,185,106,0.22);
+      border-top: 2px solid rgba(218,185,106,0.55);
+      box-shadow: 0 0 0 1px rgba(218,185,106,0.06), 0 32px 96px rgba(0,0,0,0.45), 0 0 120px rgba(218,185,106,0.10);
+    }
+
+    /* Summary panel — glass */
+    .wizard__summary-panel {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(218,185,106,0.18);
+      border-top: 2px solid rgba(218,185,106,0.42);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+    }
+
+    /* Progress bars — gold gradient */
+    .wizard__progress-bar { background: rgba(255,255,255,0.08); }
+    .wizard__progress-bar.active { background: linear-gradient(to right, var(--color-gold), var(--color-gold-light)); }
+
+    /* Larger wizard start title */
+    .wizard__start-title { font-size: clamp(32px, 3.5vw, 48px); font-weight: 300; }
+
+    /* Urgency banner */
+    .urgency-banner span { background: rgba(218,185,106,0.14); border: 1px solid rgba(218,185,106,0.35); color: var(--color-gold-light); }
+
+    /* Fields */
+    .wizard__field input, .wizard__field select, .wizard__field textarea {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(218,185,106,0.18);
+    }
+    .wizard__field input:focus, .wizard__field select:focus, .wizard__field textarea:focus {
+      border-color: rgba(218,185,106,0.55);
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* Step label */
+    .wizard__step-label { color: var(--color-gold); opacity: 0.75; }
