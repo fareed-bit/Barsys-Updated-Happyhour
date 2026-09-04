@@ -569,9 +569,9 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--color-text-tertiary);
       margin-bottom: 24px;
@@ -928,7 +928,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       min-height: 600px;
-      padding-left: 48px;
     }
 
     .why-barsys__visual {
@@ -3357,3 +3356,92 @@
       border-top: 1px solid rgba(218,185,106,0.15);
     }
 
+
+    /* =========================================================================
+       ROLEX-STYLE SHOWCASE PANEL
+       ========================================================================= */
+    .showcase-panel {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .showcase-panel__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .showcase-panel__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7,8,14,0.94) 0%, rgba(7,8,14,0.40) 55%, rgba(7,8,14,0.08) 100%);
+    }
+    .showcase-panel__content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      text-align: center;
+      padding: 0 24px 88px;
+    }
+    .showcase-panel__eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 24px;
+      opacity: 0.90;
+    }
+    .showcase-panel__headline {
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 100;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 44px;
+    }
+    .showcase-panel__cta {
+      display: inline-block;
+      padding: 14px 44px;
+      border: 1px solid rgba(255,255,255,0.55);
+      border-radius: 100px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
+    }
+    .showcase-panel__cta:hover {
+      border-color: var(--color-gold);
+      background: rgba(218,185,106,0.10);
+      color: var(--color-gold);
+    }
+
+    /* =========================================================================
+       PILL OUTLINE BUTTON (Rolex-style secondary CTA)
+       ========================================================================= */
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      border: 1px solid rgba(255,255,255,0.45);
+      border-radius: 100px;
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+    }
+    .btn-pill:hover {
+      border-color: var(--color-gold);
+      color: var(--color-gold);
+      background: rgba(218,185,106,0.06);
+    }
