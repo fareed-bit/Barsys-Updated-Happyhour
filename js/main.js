@@ -167,7 +167,7 @@
 
       var steps = wizard.querySelectorAll('.wizard__step[data-step]');
       var bars = wizard.querySelectorAll('.wizard__progress-bar');
-      var totalSteps = 10;
+      var totalSteps = 7;
       var currentStep = 'start';
 
       /* ---- Form data store ---- */
@@ -181,8 +181,8 @@
 
       /* ---- Pricing data ---- */
       var TAX_RATE = 0.08875;
-      var tierBasePrice = { Classic: 50, Signature: 70, Reserve: 200 };
-      var tierMemberPrice = { Classic: 45, Signature: 65, Reserve: 190 };
+      var tierBasePrice = { Classic: 55, Signature: 85, Reserve: 225 };
+      var tierMemberPrice = { Classic: 50, Signature: 78, Reserve: 210 };
       var tierMixlistLimits = { Classic: 2, Signature: 3, Reserve: 5 };
 
       var addOnsData = [
@@ -250,7 +250,7 @@
       };
 
       /* ---- Show/hide steps ---- */
-      var stepNames = { start: 'Start', 1: 'Event Type', 2: 'Guest Count', 3: 'Package', 4: 'Mixlists', 5: 'Spirit Upgrades', 6: 'Add-Ons', 7: 'Frequency', 8: 'Company Info', 9: 'Review', 10: 'Contact Info', success: 'Success' };
+      var stepNames = { start: 'Start', 1: 'Event Type', 2: 'Guest Count', 3: 'Package', 4: 'Mixlists', 6: 'Add-Ons', 7: 'Frequency', 10: 'Contact Info', success: 'Success' };
 
       function showStep(n) {
         steps.forEach(function(s) { s.classList.remove('active'); });
@@ -285,13 +285,7 @@
           formData.guestCount = clampGuests(initVal);
           guestInput.value = formData.guestCount;
         }
-        if (n === 5) renderSpiritSubstitutions();
         if (n === 6) revealAddOns();
-        if (n === 9) buildRecommendation();
-        if (n === 10) {
-          var compConfirm = document.getElementById('wiz-company-confirm');
-          if (compConfirm) compConfirm.value = formData.company;
-        }
 
         if (n !== 'start') {
           wizard.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -299,7 +293,7 @@
       }
 
       /* ---- Step sequencing ---- */
-      var stepOrder = ['start', 1, 3, 2, 4, 5, 6, 7, 8, 9, 10, 'success'];
+      var stepOrder = ['start', 1, 3, 2, 4, 6, 7, 10, 'success'];
 
       /* ---- Step Validation ---- */
       function validateStep(step) {
@@ -334,7 +328,6 @@
               return false;
             }
             return true;
-          case 5: return true; // Spirit upgrades are optional
           case 6: return true; // Add-ons are optional
           case 7:
             if (!formData.frequency) {
@@ -347,17 +340,6 @@
               return false;
             }
             return true;
-          case 8:
-            var comp = document.getElementById('wiz-company');
-            var city = document.getElementById('wiz-city');
-            var state = document.getElementById('wiz-state');
-            var valid = true;
-            if (!comp || !comp.value.trim()) { markFieldError(comp); valid = false; }
-            if (!city || !city.value.trim()) { markFieldError(city); valid = false; }
-            if (!state || !state.value.trim()) { markFieldError(state); valid = false; }
-            if (!valid) showStepError(step, 'Please fill in Company, City, and State.');
-            return valid;
-          case 9: return true; // Review step — always pass
           case 10:
             return validateContactForm();
           default: return true;
@@ -367,7 +349,9 @@
       function validateContactForm() {
         var nameEl = document.getElementById('wiz-name');
         var emailEl = document.getElementById('wiz-email');
-        var phoneEl = document.getElementById('wiz-phone');
+        var compEl = document.getElementById('wiz-company');
+        var cityEl = document.getElementById('wiz-city');
+        var stateEl = document.getElementById('wiz-state');
         var valid = true;
 
         if (!nameEl || !nameEl.value.trim()) { markFieldError(nameEl); valid = false; }
@@ -375,9 +359,11 @@
           markFieldError(emailEl);
           valid = false;
         }
-        if (!phoneEl || !phoneEl.value.trim()) { markFieldError(phoneEl); valid = false; }
+        if (!compEl || !compEl.value.trim()) { markFieldError(compEl); valid = false; }
+        if (!cityEl || !cityEl.value.trim()) { markFieldError(cityEl); valid = false; }
+        if (!stateEl || !stateEl.value.trim()) { markFieldError(stateEl); valid = false; }
 
-        if (!valid) showStepError(10, 'Please fill in all contact fields with a valid email.');
+        if (!valid) showStepError(10, 'Please fill in all required fields with a valid email.');
         return valid;
       }
 
@@ -1205,10 +1191,16 @@
           var emailEl = document.getElementById('wiz-email');
           var phoneEl = document.getElementById('wiz-phone');
           var dateEl = document.getElementById('wiz-date');
+          var compEl = document.getElementById('wiz-company');
+          var cityEl = document.getElementById('wiz-city');
+          var stateEl = document.getElementById('wiz-state');
           formData.name = nameEl ? nameEl.value.trim() : '';
           formData.email = emailEl ? emailEl.value.trim() : '';
           formData.phone = phoneEl ? phoneEl.value.trim() : '';
           formData.eventDate = dateEl ? dateEl.value : '';
+          formData.company = compEl ? compEl.value.trim() : '';
+          formData.city = cityEl ? cityEl.value.trim() : '';
+          formData.state = stateEl ? stateEl.value.trim() : '';
 
           /* Disable button to prevent double-submit */
           submitBtn.disabled = true;
