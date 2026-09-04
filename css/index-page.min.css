@@ -9,10 +9,10 @@
 .section-light{background-color:#FAF7F2;}
 
 /* Exciting section treatments */
-.why-barsys__row{background:linear-gradient(135deg,#12100c 0%,#0c0e18 60%,#07080e 100%);}
+.why-barsys__row{background:linear-gradient(135deg,#1a1612 0%,#161315 60%,#131315 100%);}
 .why-barsys__visual img{filter:brightness(1.05);}
-.wizard-section{background:linear-gradient(180deg,#080a18 0%,#07080e 100%);}
-.testimonials-section{background:linear-gradient(180deg,#0e0f1a 0%,#0a0b16 100%);}
+.wizard-section{background:linear-gradient(180deg,#1a1a1c 0%,#131315 100%);}
+.testimonials-section{background:linear-gradient(180deg,#1e1e20 0%,#161618 100%);}
 .section-light+.section:not(.section-light),.section:not(.section-light)+.section-light{border-top:1px solid rgba(218,185,106,0.15);}
 
 /* ── Rolex-style showcase panel ── */
