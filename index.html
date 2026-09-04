@@ -1059,11 +1059,8 @@
         <!-- ============ MAIN WIZARD PANEL ============ -->
         <div class="wizard" id="booking-wizard">
 
-          <!-- Progress bars (10 steps) -->
-          <div class="wizard__progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="10">
-            <div class="wizard__progress-bar"></div>
-            <div class="wizard__progress-bar"></div>
-            <div class="wizard__progress-bar"></div>
+          <!-- Progress bars (7 steps) -->
+          <div class="wizard__progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="7">
             <div class="wizard__progress-bar"></div>
             <div class="wizard__progress-bar"></div>
             <div class="wizard__progress-bar"></div>
@@ -1091,7 +1088,7 @@
 
           <!-- ===== STEP 1 — EVENT TYPE ===== -->
           <div class="wizard__step" data-step="1">
-            <div class="wizard__step-label">Step 1 of 10</div>
+            <div class="wizard__step-label">Step 1 of 7</div>
             <div class="wizard__step-title">What type of event are you planning?</div>
             <p class="wizard__step-subtitle">Select the option that best describes your event. Barsys supports everything from casual team gatherings to executive-level hospitality.</p>
             <div class="wizard__option-grid wizard__option-grid--2col" data-field="eventType">
@@ -1114,7 +1111,7 @@
 
           <!-- ===== STEP 2 — GUEST COUNT ===== -->
           <div class="wizard__step" data-step="2">
-            <div class="wizard__step-label">Step 3 of 10</div>
+            <div class="wizard__step-label">Step 3 of 7</div>
             <div class="wizard__step-title">How many guests are you expecting?</div>
             <p class="wizard__step-subtitle">Enter your expected headcount. This determines staffing, machines, and supplies.</p>
             <div class="wizard__guest-input">
@@ -1131,7 +1128,7 @@
 
           <!-- ===== STEP 3 — EXPERIENCE LEVEL ===== -->
           <div class="wizard__step" data-step="3">
-            <div class="wizard__step-label">Step 2 of 10</div>
+            <div class="wizard__step-label">Step 2 of 7</div>
             <div class="wizard__step-title">Choose your Barsys experience.</div>
             <p class="wizard__step-subtitle">Everything included — spirits, ice, machines, bartenders, setup, service, and cleanup.</p>
 
@@ -1150,7 +1147,7 @@
               <div class="package-card package-card--selectable" data-value="Classic" tabindex="0" role="button">
                 <div class="package-card__tier">Classic Tier</div>
                 <div class="package-card__name">Classic</div>
-                <div class="package-card__price" data-price-standard="$50" data-price-member="$45">$50<span style="font-size:16px; font-weight:400; color:var(--color-text-tertiary);">/person</span></div>
+                <div class="package-card__price" data-price-standard="$55" data-price-member="$50">$55<span style="font-size:16px; font-weight:400; color:var(--color-text-tertiary);">/person</span></div>
                 <div class="package-card__price-note" data-note-standard="One-time event" data-note-member="Starting at · Billed monthly">One-time event</div>
                 <p class="package-card__desc">Clean, effortless office happy hour.</p>
                 <div class="package-card__divider"></div>
@@ -1180,7 +1177,7 @@
                 <span class="badge badge--popular">Most Popular</span>
                 <div class="package-card__tier">Signature Tier</div>
                 <div class="package-card__name">Signature</div>
-                <div class="package-card__price" data-price-standard="$70" data-price-member="$65">$70<span style="font-size:16px; font-weight:400; color:var(--color-text-tertiary);">/person</span></div>
+                <div class="package-card__price" data-price-standard="$85" data-price-member="$78">$85<span style="font-size:16px; font-weight:400; color:var(--color-text-tertiary);">/person</span></div>
                 <div class="package-card__price-note" data-note-standard="One-time event" data-note-member="Starting at · Billed monthly">One-time event</div>
                 <p class="package-card__desc">Premium cocktail experience designed for memorable team events.</p>
                 <div class="package-card__value-anchor">Includes $15+ in premium upgrades</div>
@@ -1208,7 +1205,7 @@
               <div class="package-card package-card--selectable" data-value="Reserve" tabindex="0" role="button">
                 <div class="package-card__tier">Reserve Tier</div>
                 <div class="package-card__name">Reserve</div>
-                <div class="package-card__price" data-price-standard="$200" data-price-member="$190">$200<span style="font-size:16px; font-weight:400; color:var(--color-text-tertiary);">/person</span></div>
+                <div class="package-card__price" data-price-standard="$225" data-price-member="$210">$225<span style="font-size:16px; font-weight:400; color:var(--color-text-tertiary);">/person</span></div>
                 <div class="package-card__price-note" data-note-standard="One-time event" data-note-member="Starting at · Billed monthly">One-time event</div>
                 <p class="package-card__desc">Executive hospitality experience for client hosting and premium events.</p>
                 <div class="package-card__value-anchor">Includes $75+ in premium upgrades</div>
@@ -1244,7 +1241,7 @@
 
           <!-- ===== STEP 4 — CHOOSE A MIXLIST ===== -->
           <div class="wizard__step" data-step="4">
-            <div class="wizard__step-label">Step 4 of 10</div>
+            <div class="wizard__step-label">Step 4 of 7</div>
             <div class="wizard__step-title">Choose your cocktail menus.</div>
             <p class="wizard__step-subtitle">Select up to <strong id="mixlist-limit-display">3</strong> curated mixlists for your event, or skip to let our team recommend.</p>
             <div class="wizard__mixlist-counter" id="mixlist-counter">
@@ -1363,23 +1360,10 @@
           </div>
 
           <!-- ===== STEP 5 — LIQUOR SUBSTITUTIONS ===== -->
-          <div class="wizard__step" data-step="5">
-            <div class="wizard__step-label">Step 5 of 10</div>
-            <div class="wizard__step-title">Upgrade your spirits.</div>
-            <p class="wizard__step-subtitle">Your <strong id="sub-tier-name">Signature</strong> package includes these spirits. Swap any for a premium upgrade at an additional per-person cost.</p>
-            <div class="wizard__spirits-grid" id="spirits-grid">
-              <!-- Populated by JS based on selected tier -->
-            </div>
-            <div class="wizard__spirit-total" id="spirit-total-display">No upgrades selected</div>
-            <div class="wizard__nav">
-              <button class="wizard__nav-back" data-wizard-prev>&larr; Back</button>
-              <button class="btn btn-primary btn--sm" data-wizard-next>Continue</button>
-            </div>
-          </div>
 
           <!-- ===== STEP 6 — ADD-ONS ===== -->
           <div class="wizard__step" data-step="6">
-            <div class="wizard__step-label">Step 6 of 10</div>
+            <div class="wizard__step-label">Step 5 of 7</div>
             <div class="wizard__step-title" id="addon-step-title">Customize your experience.</div>
             <p class="wizard__step-subtitle" id="addon-step-subtitle">You've selected a great package. These optional upgrades take it to the next level.</p>
             <div class="wizard__addon-grid" id="addon-grid">
@@ -1393,7 +1377,7 @@
 
           <!-- ===== STEP 7 — FREQUENCY ===== -->
           <div class="wizard__step" data-step="7">
-            <div class="wizard__step-label">Step 7 of 10</div>
+            <div class="wizard__step-label">Step 6 of 7</div>
             <div class="wizard__step-title">One-time event or recurring program?</div>
             <p class="wizard__step-subtitle">Recurring programs include preferred pricing, a dedicated account manager, and priority scheduling.</p>
             <div class="wizard__option-grid wizard__option-grid--2col" data-field="frequency">
@@ -1414,18 +1398,22 @@
             </div>
           </div>
 
-          <!-- ===== STEP 8 — LOCATION ===== -->
-          <div class="wizard__step" data-step="8">
-            <div class="wizard__step-label">Step 8 of 10</div>
-            <div class="wizard__step-title">Where will the event take place?</div>
-            <p class="wizard__step-subtitle">Barsys brings the full experience directly to your office. We handle delivery, setup, and building coordination.</p>
+          <!-- ===== STEP 10 — CONTACT + COMPANY (combined) ===== -->
+          <div class="wizard__step" data-step="10">
+            <div class="wizard__step-label">Step 7 of 7</div>
+            <div class="wizard__step-title">Check availability for your event.</div>
+            <p class="wizard__step-subtitle">Share your details and our team will confirm availability within one business day.</p>
             <div class="wizard__field">
-              <label for="wiz-company">Company Name</label>
-              <input type="text" id="wiz-company" placeholder="Your company name" />
+              <label for="wiz-name">Full Name</label>
+              <input type="text" id="wiz-name" placeholder="Your full name" />
             </div>
             <div class="wizard__field">
-              <label for="wiz-address">Office Address</label>
-              <input type="text" id="wiz-address" placeholder="123 Main St, Suite 400" />
+              <label for="wiz-email">Work Email</label>
+              <input type="email" id="wiz-email" placeholder="you@company.com" />
+            </div>
+            <div class="wizard__field">
+              <label for="wiz-company">Company</label>
+              <input type="text" id="wiz-company" placeholder="Your company name" />
             </div>
             <div class="wizard__field-row">
               <div class="wizard__field">
@@ -1436,60 +1424,6 @@
                 <label for="wiz-state">State</label>
                 <input type="text" id="wiz-state" placeholder="NY" />
               </div>
-            </div>
-            <div class="wizard__nav">
-              <button class="wizard__nav-back" data-wizard-prev>← Back</button>
-              <button class="btn btn-primary btn--sm" data-wizard-next>Continue</button>
-            </div>
-          </div>
-
-          <!-- ===== STEP 9 — PERSONALIZED RECOMMENDATION ===== -->
-          <div class="wizard__step" data-step="9">
-            <div class="wizard__step-label">Step 9 of 10</div>
-            <div class="wizard__step-title">Your personalized recommendation.</div>
-            <p class="wizard__step-subtitle">Based on your selections, here's the Barsys experience we'd recommend for your team.</p>
-
-            <div class="wizard__rec" id="wizard-rec-card">
-              <div class="wizard__rec-eyebrow">Recommended for you</div>
-              <div class="wizard__rec-title" id="rec-title">Signature Experience</div>
-              <p class="wizard__rec-desc" id="rec-desc">An elevated cocktail experience for your team with premium spirits, rotating seasonal menus, and custom drink options. Full setup, service, and cleanup included.</p>
-              <ul class="wizard__rec-features" id="rec-features">
-                <li>AI cocktail machines + professional bartenders</li>
-                <li>Premium spirits and rotating seasonal menu</li>
-                <li>Custom cocktail options for your event</li>
-                <li>Complete setup, service, and cleanup</li>
-                <li>All glassware, ice, mixers, and garnishes</li>
-              </ul>
-              <div class="wizard__rec-price" id="rec-price">Estimated: $70/person for 50–100 guests</div>
-            </div>
-
-            <div class="wizard__rec-actions">
-              <button class="btn btn-primary" data-wizard-next>Check Availability</button>
-              <a href="https://calendar.app.google/YtNSkfVXfdMCqpHX8" target="_blank" rel="noopener" class="btn btn-outline">Book a Planning Call</a>
-            </div>
-
-            <div class="wizard__nav" style="border-top:none; margin-top:16px; padding-top:0;">
-              <button class="wizard__nav-back" data-wizard-prev>← Back</button>
-              <span></span>
-            </div>
-          </div>
-
-          <!-- ===== STEP 10 — CONTACT INFORMATION ===== -->
-          <div class="wizard__step" data-step="10">
-            <div class="wizard__step-label">Step 10 of 10</div>
-            <div class="wizard__step-title">Check availability for your event.</div>
-            <p class="wizard__step-subtitle">Share your contact details and our team will confirm availability, finalize your event plan, and walk you through next steps.</p>
-            <div class="wizard__field">
-              <label for="wiz-name">Full Name</label>
-              <input type="text" id="wiz-name" placeholder="Your full name" />
-            </div>
-            <div class="wizard__field">
-              <label for="wiz-email">Work Email</label>
-              <input type="email" id="wiz-email" placeholder="you@company.com" />
-            </div>
-            <div class="wizard__field">
-              <label for="wiz-company-confirm">Company</label>
-              <input type="text" id="wiz-company-confirm" placeholder="Your company name" readonly style="color:var(--color-text-tertiary);" />
             </div>
             <div class="wizard__field">
               <label for="wiz-date">Event Date <span style="font-weight:400; color:var(--color-text-ghost);">(optional)</span></label>
