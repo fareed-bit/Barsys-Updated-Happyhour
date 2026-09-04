@@ -3445,3 +3445,34 @@
       color: var(--color-gold);
       background: rgba(218,185,106,0.06);
     }
+
+    /* =========================================================================
+       360-STYLE STICKY PILL CTA
+       ========================================================================= */
+    .sticky-pill {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 400;
+      display: none;
+      align-items: center;
+      gap: 16px;
+      background: rgba(7,8,14,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(218,185,106,0.35);
+      border-radius: 100px;
+      padding: 12px 16px 12px 22px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.3s;
+    }
+    .sticky-pill.is-visible { opacity: 1; transform: translateY(0); }
+    .sticky-pill:hover { border-color: rgba(218,185,106,0.60); }
+    .sticky-pill__label { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.72); letter-spacing: 0.02em; white-space: nowrap; }
+    .sticky-pill__cta { font-size: 13px; font-weight: 700; color: var(--color-gold); text-decoration: none; letter-spacing: 0.04em; white-space: nowrap; padding: 8px 16px; background: rgba(218,185,106,0.12); border-radius: 100px; border: 1px solid rgba(218,185,106,0.30); transition: background 0.2s; }
+    .sticky-pill__cta:hover { background: rgba(218,185,106,0.22); }
+    @media (min-width: 769px) { .sticky-pill { display: flex; } }
+
+    /* Hide star — now using chapter number labels */
+    .eyebrow__star { display: none; }
