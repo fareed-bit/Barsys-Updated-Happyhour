@@ -40,3 +40,32 @@
 
 /* ── Hide eyebrow star animation now using chapter labels ── */
 .eyebrow__star{display:none;}
+
+/* ── FLASHY UX UPGRADES ── */
+
+/* 1. Gold scroll progress bar */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;z-index:9999;background:linear-gradient(to right,var(--color-gold),#e8cc82,#FFDDBE);box-shadow:0 0 10px rgba(218,185,106,0.65);pointer-events:none;}
+
+/* 2. CTA button pulse */
+@keyframes btn-pulse{0%,100%{box-shadow:0 2px 16px var(--color-gold-glow),0 0 40px rgba(218,185,106,0.18);}50%{box-shadow:0 2px 28px rgba(218,185,106,0.55),0 0 70px rgba(218,185,106,0.28);}}
+.btn-primary{animation:btn-pulse 3.5s ease-in-out infinite;}
+
+/* 3. Featured package card glow pulse */
+@keyframes card-glow{0%,100%{box-shadow:0 0 0 1px rgba(218,185,106,0.32),0 12px 40px rgba(13,13,15,0.6),0 0 60px rgba(218,185,106,0.10);}50%{box-shadow:0 0 0 2px rgba(232,204,130,0.65),0 16px 48px rgba(13,13,15,0.6),0 0 100px rgba(218,185,106,0.28);}}
+.package-card--featured{animation:card-glow 3s ease-in-out infinite;}
+
+/* 4. Package card 3D tilt on hover */
+.package-card--selectable{transform-style:preserve-3d;transition:transform 0.4s cubic-bezier(0.23,1,0.32,1),border-color 0.3s,box-shadow 0.3s;}
+.package-card--selectable:hover{transform:translateY(-8px) perspective(800px) rotateX(2deg);}
+.package-card--selectable.selected{transform:translateY(-4px);}
+
+/* 5. Toast notification */
+.toast-notif{position:fixed;bottom:112px;left:32px;background:rgba(19,19,21,0.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(218,185,106,0.30);border-radius:16px;padding:14px 16px 14px 18px;display:flex;align-items:center;gap:12px;z-index:450;transform:translateX(-140%);transition:transform 0.55s cubic-bezier(0.34,1.56,0.64,1);max-width:290px;box-shadow:0 8px 32px rgba(0,0,0,0.4);}
+.toast-notif.is-visible{transform:translateX(0);}
+.toast-notif__dot{width:8px;height:8px;border-radius:50%;background:#4caf7d;flex-shrink:0;box-shadow:0 0 8px rgba(76,175,125,0.8);animation:dot-pulse 2s ease-in-out infinite;}
+@keyframes dot-pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.toast-notif__text{font-size:13px;color:rgba(255,255,255,0.78);line-height:1.4;}
+.toast-notif__text strong{color:var(--color-gold);}
+.toast-notif__close{background:none;border:none;color:rgba(255,255,255,0.35);font-size:18px;cursor:pointer;line-height:1;padding:0 0 0 4px;flex-shrink:0;transition:color 0.2s;}
+.toast-notif__close:hover{color:rgba(255,255,255,0.70);}
+@media(max-width:768px){.toast-notif{bottom:80px;left:12px;right:12px;max-width:none;transform:translateY(140%);}.toast-notif.is-visible{transform:translateY(0);}}
