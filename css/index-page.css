@@ -611,7 +611,16 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.65) 45%, rgba(10,10,10,0.20) 100%);
+        linear-gradient(to top, rgba(7,8,14,0.96) 0%, rgba(7,8,14,0.70) 45%, rgba(7,8,14,0.22) 100%);
+    }
+
+    /* Ambient gold glow — luxury light source behind headline */
+    .hero__overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 40% at 50% 36%, rgba(218,185,106,0.14) 0%, transparent 68%);
+      pointer-events: none;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -666,7 +675,7 @@
 
     .hero__subheadline {
       font-size: clamp(16px, 1.8vw, 20px);
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.82);
       line-height: 1.7;
       max-width: 560px;
       margin-bottom: 44px;
@@ -3292,5 +3301,42 @@
       .why-barsys__item p       { font-size: 18px; }
       .why-barsys__check        { width: 30px; height: 30px; min-width: 30px; font-size: 14px; }
       .why-barsys__content .btn { padding: 20px 32px; font-size: 18px; }
+    }
+
+    /* =========================================================================
+       LUXURY / FUTURISTIC UPGRADES
+       ========================================================================= */
+
+    /* Subtle dot-grid texture on dark sections for depth and tech feel */
+    .hero,
+    .why-barsys__row,
+    .testimonials-section,
+    .wizard-section,
+    .section:not(.section-light) {
+      background-image: radial-gradient(rgba(218,185,106,0.035) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* Trust bar — gold gradient top accent */
+    .trust-bar {
+      background: linear-gradient(to bottom, rgba(218,185,106,0.05) 0%, transparent 100%);
+    }
+
+    /* Trust bar numbers — subtle glow */
+    .trust-bar__number {
+      text-shadow: 0 0 24px rgba(218,185,106,0.45);
+    }
+
+    /* Package cards — glass refine */
+    .package-card {
+      box-shadow: 0 0 0 1px rgba(218,185,106,0.08), 0 8px 32px rgba(7,8,14,0.5);
+    }
+    .package-card--featured {
+      box-shadow: 0 0 0 1px rgba(218,185,106,0.32), 0 12px 40px rgba(7,8,14,0.6), 0 0 60px rgba(218,185,106,0.08);
+    }
+
+    /* Section-light: crisper white for contrast against navy-black */
+    .section-light {
+      background-color: #F9F6F0;
     }
 
