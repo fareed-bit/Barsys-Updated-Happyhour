@@ -99,3 +99,23 @@
 
 /* Step label gold */
 .wizard__step-label{color:var(--color-gold);opacity:0.75;}
+
+/* ── WB2 — Editorial Ruled-Row Section ── */
+.wb2-section{background:linear-gradient(180deg,#181614 0%,#131315 100%);position:relative;overflow:hidden;}
+.wb2-section::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 20% 50%,rgba(218,185,106,0.08) 0%,transparent 60%);}
+.wb2-inner{max-width:1100px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(24px,5vw,80px);position:relative;z-index:1;}
+.wb2-header{margin-bottom:56px;}
+.wb2-headline{font-size:clamp(36px,5.5vw,72px);font-weight:200;letter-spacing:-0.03em;color:#fff;line-height:1.06;margin-top:16px;}
+.wb2-headline em{font-style:italic;background:linear-gradient(96deg,#FFDDBE 0%,#E0B392 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.wb2-rows{border-top:1px solid rgba(218,185,106,0.28);margin-bottom:56px;}
+.wb2-row{display:grid;grid-template-columns:44px 1fr 1.4fr auto;gap:20px 32px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,0.07);align-items:center;transition:background 0.2s;}
+.wb2-row:hover{background:rgba(218,185,106,0.04);border-radius:4px;margin:0 -12px;padding-left:12px;padding-right:12px;}
+.wb2-num{font-size:10px;font-weight:600;letter-spacing:0.14em;color:var(--color-gold);opacity:0.70;}
+.wb2-name{font-size:16px;font-weight:600;color:#fff;letter-spacing:-0.01em;}
+.wb2-detail{font-size:14px;color:#aaaeb6;line-height:1.55;}
+.wb2-link{color:var(--color-gold);text-decoration:none;font-weight:500;}
+.wb2-link:hover{text-decoration:underline;}
+.wb2-tag{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(218,185,106,0.55);white-space:nowrap;text-align:right;}
+.wb2-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+@media(max-width:900px){.wb2-row{grid-template-columns:36px 1fr;gap:10px 16px;}.wb2-detail{grid-column:2;}.wb2-tag{display:none;}}
+@media(max-width:560px){.wb2-row{grid-template-columns:1fr;}.wb2-num{display:none;}.wb2-ctas{flex-direction:column;}}
