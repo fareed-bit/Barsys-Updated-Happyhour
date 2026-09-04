@@ -1,8 +1,8 @@
 :root {
-  --color-bg: #07080e;
-  --color-surface-1: #0f1018;
-  --color-surface-2: #171824;
-  --color-surface-3: #1f2032;
+  --color-bg: #131315;
+  --color-surface-1: #1c1e22;
+  --color-surface-2: #222428;
+  --color-surface-3: #2a2d32;
   --color-gold: #dab96a;
   --color-gold-light: #e8cc82;
   --color-gold-dark: #b8934a;
@@ -10,10 +10,10 @@
   --color-gold-glow: rgba(218, 185, 106, 0.32);
   --color-gold-border: rgba(218, 185, 106, 0.42);
   --color-text-primary: #ffffff;
-  --color-text-secondary: rgba(255, 255, 255, 0.72);
-  --color-text-tertiary: rgba(255, 255, 255, 0.50);
-  --color-text-ghost: rgba(255, 255, 255, 0.28);
-  --color-text-inverse: #07080e;
+  --color-text-secondary: #c7c9ce;
+  --color-text-tertiary: #aaaeb6;
+  --color-text-ghost: #8e939e;
+  --color-text-inverse: #131315;
   --color-border: rgba(255, 255, 255, 0.10);
   --color-border-strong: rgba(255, 255, 255, 0.20);
   --color-glass: rgba(255, 255, 255, 0.06);
@@ -24,9 +24,9 @@
   --color-white: #ffffff;
   --color-black: #000000;
   --font-family-base:
-    "Plus Jakarta Sans", "SF Pro Display", system-ui, -apple-system, sans-serif;
+    "Switzer", "Plus Jakarta Sans", "SF Pro Display", system-ui, -apple-system, sans-serif;
   --font-family-display:
-    "Plus Jakarta Sans", "SF Pro Display", system-ui, sans-serif;
+    "Switzer", "Plus Jakarta Sans", "SF Pro Display", system-ui, sans-serif;
   --font-size-display: clamp(52px, 8vw, 96px);
   --font-size-h1: clamp(40px, 6vw, 64px);
   --font-size-h2: clamp(28px, 4vw, 48px);

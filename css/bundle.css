@@ -9,10 +9,10 @@
   /* --------------------------------------------------------------------------
      Colors — Backgrounds
      -------------------------------------------------------------------------- */
-  --color-bg:        #07080E;
-  --color-surface-1: #0F1018;
-  --color-surface-2: #171824;
-  --color-surface-3: #1F2032;
+  --color-bg:        #131315;
+  --color-surface-1: #1C1E22;
+  --color-surface-2: #222428;
+  --color-surface-3: #2A2D32;
 
   /* --------------------------------------------------------------------------
      Colors — Brand Gold
@@ -28,10 +28,10 @@
      Colors — Text Hierarchy
      -------------------------------------------------------------------------- */
   --color-text-primary:   #FFFFFF;
-  --color-text-secondary: rgba(255, 255, 255, 0.72);
-  --color-text-tertiary:  rgba(255, 255, 255, 0.50);
-  --color-text-ghost:     rgba(255, 255, 255, 0.28);
-  --color-text-inverse:   #07080E;
+  --color-text-secondary: #C7C9CE;
+  --color-text-tertiary:  #AAAEB6;
+  --color-text-ghost:     #8E939E;
+  --color-text-inverse:   #131315;
 
   /* --------------------------------------------------------------------------
      Colors — Borders & Glass
