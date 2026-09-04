@@ -751,6 +751,9 @@
 
 </head>
 <body>
+  <!-- Gold scroll progress bar -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-59D59MWD" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
 
@@ -2474,6 +2477,13 @@
 
   </main>
 
+  <!-- Toast notification — social proof FOMO -->
+  <div class="toast-notif" id="toast-notif" role="status" aria-live="polite">
+    <span class="toast-notif__dot"></span>
+    <div class="toast-notif__text"><strong>8 NYC teams</strong> booked their happy hour this week</div>
+    <button class="toast-notif__close" aria-label="Dismiss">×</button>
+  </div>
+
   <!-- ========================================================================
        FOOTER
        ======================================================================== -->
@@ -2618,6 +2628,54 @@
     })();
   </script>
   <script>
+    /* ── Scroll progress bar ── */
+    (function() {
+      var bar = document.getElementById('scroll-progress');
+      if (!bar) return;
+      window.addEventListener('scroll', function() {
+        var d = document.documentElement;
+        bar.style.width = Math.min((d.scrollTop / (d.scrollHeight - d.clientHeight)) * 100, 100) + '%';
+      }, { passive: true });
+    })();
+
+    /* ── Animated number counters on trust bar ── */
+    (function() {
+      var trustBar = document.querySelector('.trust-bar');
+      if (!trustBar) return;
+      var fired = false;
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+      function countUp(el, end, suffix, isDecimal, ms) {
+        var start = performance.now();
+        (function step(now) {
+          var p = easeOut(Math.min((now - start) / ms, 1));
+          el.textContent = (isDecimal ? (p * end).toFixed(1) : Math.floor(p * end)) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        })(start);
+      }
+      new IntersectionObserver(function(e) {
+        if (!e[0].isIntersecting || fired) return;
+        fired = true;
+        var n = trustBar.querySelectorAll('.trust-bar__number');
+        if (n[0]) countUp(n[0], 200, '+', false, 1800);
+        if (n[1]) countUp(n[1], 50, 'K+', false, 2000);
+        if (n[3]) countUp(n[3], 4.7, '\u2605', true, 1500);
+      }, { threshold: 0.6 }).observe(trustBar);
+    })();
+
+    /* ── Toast notification ── */
+    (function() {
+      var t = document.getElementById('toast-notif');
+      if (!t) return;
+      var timer = setTimeout(function() {
+        t.classList.add('is-visible');
+        setTimeout(function() { t.classList.remove('is-visible'); }, 7000);
+      }, 5000);
+      t.querySelector('.toast-notif__close').addEventListener('click', function() {
+        t.classList.remove('is-visible');
+        clearTimeout(timer);
+      });
+    })();
+
     /* Sticky pill — show after hero scrolls away, hide when wizard is visible */
     (function() {
       var pill = document.getElementById('sticky-pill');
