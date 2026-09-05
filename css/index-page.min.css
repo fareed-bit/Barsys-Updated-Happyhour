@@ -273,3 +273,33 @@
 .wizard-section-light .booking-overview__label{color:#1a1612!important;}
 .wizard-section-light .booking-overview__desc{color:#6b5f52!important;}
 .wizard-section-light .booking-overview__connector{background:rgba(200,169,126,0.25)!important;}
+
+/* ══ PACKAGE CARDS in white wizard ══ */
+.wizard-section-light .package-card{background:#fff!important;border-color:rgba(0,0,0,0.09)!important;}
+.wizard-section-light .package-card:hover{border-color:rgba(180,130,60,0.55)!important;}
+.wizard-section-light .package-card--featured{border-color:rgba(200,169,126,0.50)!important;background:linear-gradient(175deg,rgba(200,169,126,0.10) 0%,#fff 40%)!important;}
+.wizard-section-light .package-card.selected{border-color:#b8934a!important;background:rgba(200,169,126,0.10)!important;box-shadow:0 0 0 2px rgba(180,130,60,0.20),0 8px 32px rgba(0,0,0,0.08)!important;}
+
+/* Text inside cards */
+.wizard-section-light .package-card__tier{color:#b8934a!important;}
+.wizard-section-light .package-card__name{color:#1a1612!important;}
+.wizard-section-light .package-card__price{color:#9a7030!important;-webkit-text-fill-color:#9a7030!important;}
+.wizard-section-light .package-card__price-note{color:rgba(26,22,18,0.45)!important;}
+.wizard-section-light .package-card__desc{color:rgba(26,22,18,0.62)!important;}
+.wizard-section-light .package-card__value-anchor{color:#9a7030!important;background:rgba(200,169,126,0.12)!important;}
+.wizard-section-light .package-card__divider{background:rgba(0,0,0,0.08)!important;}
+.wizard-section-light .package-card__section-label{color:rgba(26,22,18,0.45)!important;}
+.wizard-section-light .package-card__list li{color:rgba(26,22,18,0.72)!important;}
+.wizard-section-light .package-card__list li .check{color:#b8934a!important;}
+.wizard-section-light .package-card__details-toggle{color:#b8934a!important;}
+.wizard-section-light .package-card__details-collapse .package-card__list li{color:rgba(26,22,18,0.65)!important;}
+
+/* Badge */
+.wizard-section-light .badge{border-color:rgba(200,169,126,0.50)!important;background:rgba(200,169,126,0.12)!important;color:#9a7030!important;}
+
+/* Pricing toggle */
+.wizard-section-light .pricing-toggle__label{color:rgba(26,22,18,0.45)!important;}
+.wizard-section-light .pricing-toggle__label--active{color:#1a1612!important;}
+.wizard-section-light .pricing-toggle__switch{background:rgba(26,22,18,0.10)!important;border-color:rgba(26,22,18,0.15)!important;}
+.wizard-section-light .pricing-toggle__switch::after{background:#1a1612!important;}
+.wizard-section-light .pricing-toggle__save{color:#9a7030!important;border-color:rgba(200,169,126,0.35)!important;background:rgba(200,169,126,0.10)!important;}
