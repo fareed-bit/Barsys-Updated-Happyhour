@@ -229,3 +229,47 @@
 .sec-experience .sec-feature a{color:var(--color-gold-dark,#b8934a);}
 .sec-experience .btn-pill{border-color:rgba(26,22,18,0.28);color:#1a1612;}
 .sec-experience .btn-pill:hover{border-color:var(--color-gold-dark,#b8934a);color:var(--color-gold-dark,#b8934a);}
+
+/* ══ WHITE WIZARD SECTION ══ */
+.wizard-section-light{background:#FAF7F2!important;}
+.wizard-section-light::before{background:radial-gradient(ellipse 80% 65% at 50% 42%,rgba(200,169,126,0.10) 0%,transparent 70%)!important;}
+.wizard-section-light #wizard-headline{color:#1a1612;}
+.wizard-section-light .eyebrow{color:rgba(26,22,18,0.45)!important;}
+.wizard-section-light .type-body{color:#6b5f52!important;}
+
+/* Wizard card — white */
+.wizard-section-light .wizard{background:#fff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:1px solid rgba(200,169,126,0.22)!important;border-top:2px solid rgba(200,169,126,0.55)!important;box-shadow:0 4px 40px rgba(0,0,0,0.08),0 0 0 1px rgba(200,169,126,0.06)!important;}
+.wizard-section-light .wizard__start-title{color:#1a1612!important;}
+.wizard-section-light .wizard__start-body{color:#6b5f52!important;}
+.wizard-section-light .wizard__step-title{color:#1a1612!important;}
+.wizard-section-light .wizard__step-subtitle{color:#6b5f52!important;}
+.wizard-section-light .wizard__step-label{color:var(--color-gold-dark,#b8934a)!important;opacity:1!important;}
+.wizard-section-light .wizard__nav-back{color:#6b5f52!important;}
+.wizard-section-light .wizard__nav-back:hover{color:#1a1612!important;}
+.wizard-section-light .wizard__micro{color:rgba(26,22,18,0.40)!important;}
+.wizard-section-light .wizard__progress-bar{background:rgba(0,0,0,0.08)!important;}
+.wizard-section-light .wizard__option{background:rgba(0,0,0,0.03)!important;border-color:rgba(0,0,0,0.10)!important;color:#1a1612!important;}
+.wizard-section-light .wizard__option:hover{border-color:var(--color-gold-dark,#b8934a)!important;}
+.wizard-section-light .wizard__option.selected{border-color:var(--color-gold-dark,#b8934a)!important;background:rgba(200,169,126,0.10)!important;color:#1a1612!important;}
+.wizard-section-light .wizard__field label{color:#6b5f52!important;}
+.wizard-section-light .wizard__field input,.wizard-section-light .wizard__field select,.wizard-section-light .wizard__field textarea{background:#F5F0EA!important;border-color:rgba(0,0,0,0.12)!important;color:#1a1612!important;}
+.wizard-section-light .wizard__field input:focus,.wizard-section-light .wizard__field select:focus{border-color:var(--color-gold-dark,#b8934a)!important;background:#fff!important;}
+.wizard-section-light .wizard__nav{border-top-color:rgba(0,0,0,0.08)!important;}
+
+/* Summary panel — white */
+.wizard-section-light .wizard__summary-panel{background:#fff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:1px solid rgba(200,169,126,0.20)!important;border-top:2px solid rgba(200,169,126,0.45)!important;box-shadow:0 4px 24px rgba(0,0,0,0.06)!important;}
+.wizard-section-light .wizard__summary-panel-title{color:var(--color-gold-dark,#b8934a)!important;}
+.wizard-section-light .wizard__summary-row{border-color:rgba(0,0,0,0.07)!important;}
+.wizard-section-light .wizard__summary-label{color:#8b7d6b!important;}
+.wizard-section-light .wizard__summary-value{color:#1a1612!important;}
+.wizard-section-light .wizard__summary-value--empty{color:rgba(26,22,18,0.35)!important;}
+
+/* Urgency banner */
+.wizard-section-light .urgency-banner{color:var(--color-gold-dark,#b8934a)!important;}
+.wizard-section-light .urgency-banner span{background:rgba(200,169,126,0.10)!important;border-color:rgba(200,169,126,0.30)!important;color:#9a7030!important;}
+
+/* Booking overview icons */
+.wizard-section-light .booking-overview__icon{background:rgba(200,169,126,0.12)!important;border-color:rgba(200,169,126,0.35)!important;}
+.wizard-section-light .booking-overview__label{color:#1a1612!important;}
+.wizard-section-light .booking-overview__desc{color:#6b5f52!important;}
+.wizard-section-light .booking-overview__connector{background:rgba(200,169,126,0.25)!important;}
