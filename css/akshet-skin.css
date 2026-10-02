@@ -1,0 +1,138 @@
+/* Akshet's Barsys Events look (2026-10), layered over the existing components. Visual only: no content or behaviour changes. */
+@font-face{font-family:"Plus Jakarta Sans";src:url(../assets/fonts/plus-jakarta-sans-400-latin.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Schibsted Grotesk";src:url(../assets/fonts/schibsted-grotesk-latin.woff2) format("woff2");font-weight:400 600;font-style:normal;font-display:swap}
+:root{
+ --ak-display:"Plus Jakarta Sans","Schibsted Grotesk",Arial,sans-serif;--ak-sans:"Schibsted Grotesk",Arial,sans-serif;
+ --color-bg:#090c0b;--color-surface-1:#111714;--color-surface-2:#1c241e;--color-surface-3:#26302a;
+ --color-gold:#ddcfab;--color-gold-light:#e9dfc2;--color-gold-dark:#bfae84;--color-gold-tint:rgba(221,207,171,.12);--color-gold-glow:rgba(221,207,171,.28);--color-gold-border:rgba(221,207,171,.4);
+ --color-text-primary:#f2f0e9;--color-text-secondary:#c9cfc8;--color-text-tertiary:#b9c0b9;--color-text-ghost:#8f988f;--color-text-inverse:#17211b;
+ --color-border:rgba(255,255,255,.11);--color-border-strong:rgba(255,255,255,.2);
+ --font-family-base:var(--ak-sans);--font-family-display:var(--ak-display);--font-display:var(--ak-display);--font-heading:var(--ak-display)}
+html,body{background:#090c0b}
+/* Phones: body{overflow-x:hidden} alone does not stop the page widening; clip at the root */
+html{overflow-x:hidden;overflow-x:clip}
+body{font-family:var(--ak-sans);color:#f2f0e9}
+
+/* Headings: Plus Jakarta, regular weight, tight tracking, no gradients */
+h1,h2,h3,.hero__headline,.section-header__title{font-family:var(--ak-display);font-weight:400;letter-spacing:-.045em;text-transform:none}
+h1 em,h2 em,.hero__headline em{font-style:normal;background:none!important;-webkit-text-fill-color:currentColor!important;color:#d0ded2!important}
+.eyebrow,.trust-bar__label,.video-grid__label{font-family:var(--ak-sans);font-weight:500;letter-spacing:.09em;color:#d5d8d0}
+
+/* Header: Akshet's floating rounded bar */
+.nav{top:12px;left:12px;right:12px;width:auto;border-radius:18px;background:transparent;border:0;transition:background 300ms,box-shadow 300ms,backdrop-filter 300ms}
+.nav.nav--open{background:rgba(11,16,13,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.nav.nav--scrolled{background:rgba(11,16,13,.93);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 4px 20px rgba(0,0,0,.18);border:0}
+.nav .nav__logo{padding-top:0!important}
+.nav .nav__logo-mark.ak-mark,.ak-mark{width:35px!important;height:35px!important;max-width:none!important;object-fit:contain!important;filter:brightness(0) invert(.95)}
+.nav__link{font-family:var(--ak-sans);font-size:14px;font-weight:300;letter-spacing:0;text-transform:none;color:#f2f0e9}
+.nav__link:hover,.nav__link--active{color:#fff}
+.nav__phone{font-family:var(--ak-sans);text-transform:none;letter-spacing:0;border-radius:12px}
+
+/* Buttons: cream primary, glass secondary, 12px radius, sentence case */
+.btn{font-family:var(--ak-sans);font-weight:500;letter-spacing:0;text-transform:none;border-radius:12px}
+.btn-primary{background:#f0ebda;color:#20261e;border-color:transparent;box-shadow:none}
+.btn-primary:hover,.btn-primary:focus-visible{background:#fff;color:#20261e;transform:scale(1.02)}
+.btn-pill,.btn-outline,.btn-ghost{border-radius:12px;border:1px solid rgba(255,255,255,.26);background:rgba(255,255,255,.075);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#f1f1e5;text-transform:none;letter-spacing:0}
+.btn-pill:hover,.btn-outline:hover,.btn-ghost:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.5);color:#fff}
+
+/* Cards & panels: deep green surfaces, softer radius */
+.card-feature,.card-pricing,.card-stat,.card-testimonial,.accordion__item{border-radius:20px}
+.card-pricing--featured{border-color:rgba(221,207,171,.45)}
+
+/* Footer logo */
+.footer .footer__logo-mark.ak-mark,.ak-mark.ak-mark--lg{width:56px!important;height:56px!important}
+
+/* Home hero → Akshet's cinema layout (same copy, video and CTAs) */
+.hero{text-align:left}
+.hero__overlay{background:linear-gradient(90deg,rgba(7,16,11,.86) 0%,rgba(7,16,11,.46) 48%,rgba(7,16,11,.07) 78%),linear-gradient(0deg,rgba(7,16,11,.6),transparent 35%)!important}
+.hero__spark{display:none}
+.hero .hero__content{display:flex;justify-content:flex-start!important;align-items:flex-start!important;text-align:left!important}
+.hero .hero__text-block{max-width:760px!important;margin:0!important;padding:0!important;text-align:left!important;align-items:flex-start!important;background:none!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important}
+.hero .hero__headline{font-size:clamp(52px,6.2vw,100px);line-height:1.02;letter-spacing:-.055em;word-spacing:.12em;margin-top:56px;color:#fbf9f3;text-align:left;text-shadow:0 5px 45px rgba(0,0,0,.13)}
+.hero__headline span{color:rgba(251,249,243,.62)!important}
+.hero__subheadline{max-width:470px;margin-left:0;margin-right:0;font-size:18px;line-height:1.65;color:#eeeae0;text-align:left;text-shadow:0 2px 15px #000}
+.hero__ctas{justify-content:flex-start}
+.hero__text-block>p[style]{text-align:left}
+@media (max-width:700px){.hero__headline{font-size:52px}.hero__subheadline{font-size:16px}.nav{top:6px;left:6px;right:6px;border-radius:16px}.nav .nav__logo-mark.ak-mark,.ak-mark{width:30px!important;height:30px!important}}
+/* Blog: the breadcrumb sat underneath the fixed header; start it below the header */
+nav[aria-label="Breadcrumb"]{margin-top:84px!important}
+@media (max-width:700px){nav[aria-label="Breadcrumb"]{margin-top:72px!important}}
+
+/* Reference composition adapted to the existing landing-page content. */
+:root{--nav-height:88px;--container-max:1440px;--container-padding:6vw;color-scheme:dark}
+body .nav{top:0;left:0;right:0;border-radius:0;height:88px}
+body .nav__inner{max-width:none;padding-inline:6vw}
+body .nav__links{gap:24px}
+body .nav__link{font-size:14px}
+body .nav__phone{border:0;background:transparent;padding:10px}
+body .nav .btn{box-shadow:none!important;font-size:14px}
+body .hero{min-height:760px;height:100svh;max-height:1100px;padding:130px 0 90px;align-items:center}
+body .hero .hero__content{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(300px,.85fr);align-items:center!important;gap:8vw;width:100%;max-width:none;padding-inline:6vw}
+body .hero .hero__text-block{width:100%;max-width:none!important}
+body .hero .hero__headline{font-size:clamp(54px,6.4vw,96px);font-weight:400;line-height:1.06;letter-spacing:-.065em;word-spacing:normal;margin:0}
+body .hero .hero__headline em{font-style:normal!important;color:#f7f7ef!important}
+body .hero .hero__headline span{color:#d3dcd4!important}
+.hero__plan-card{padding:36px 30px;background:#efefe8;color:#17211b;border-radius:22px;align-self:center;box-shadow:0 16px 60px #00000014}
+body .hero__plan-card .hero__subheadline{font:400 20px/1.6 var(--ak-sans);text-shadow:none;color:#243229;margin:0 0 28px;max-width:none}
+body .hero__plan-card .hero__ctas{display:grid;gap:12px;margin:0}
+body .hero__plan-card .btn-primary{background:#19291f;color:#fff;box-shadow:none!important;border-radius:12px;min-height:54px;font-size:16px;padding:16px 20px}
+body .hero__plan-card .btn-pill{color:#243229;border-color:#24322940;background:transparent;box-shadow:none;min-height:52px;justify-content:center;font-size:15px}
+body .hero__plan-card>p[style]{color:#566157!important;font-size:13px!important;line-height:1.7;letter-spacing:0!important;text-transform:none!important}
+body .hero__overlay{background:linear-gradient(90deg,#07100be0,#07100b65 58%,#07100b30),linear-gradient(0deg,#07100b66,transparent 40%)!important}
+body .btn,body .btn-pill{box-shadow:none!important}
+body :is(.sec-headline,.premise-headline,.type-h2,.section-header__title,.showcase-panel__headline){font-family:var(--ak-display);font-weight:400;letter-spacing:-.055em;line-height:1.12}
+body :is(.sec-headline,.premise-headline,.type-h2,.showcase-panel__headline) em{font-style:normal!important}
+body .trust-bar{background:var(--color-bg);border-color:var(--color-border);padding-block:30px}
+body .trust-bar__number{font-family:var(--ak-display);font-weight:400;color:var(--color-text-primary);text-shadow:none;letter-spacing:-.05em}
+body .trust-bar__label{font-size:12px;color:var(--color-text-secondary);letter-spacing:.04em}
+body .sec-premise{padding:110px 6vw;background:var(--color-bg);text-align:center}
+body .premise-headline{font-size:clamp(40px,5vw,72px);color:var(--color-text-primary)}
+body :is(.premise-dim,.premise-sub,.premise-kicker,.sec-dim,.sec-kick,.sec-feat-num){color:var(--color-text-secondary)}
+body .sec-split{margin:0 6vw 100px;border-radius:20px;overflow:hidden;background:var(--color-surface-1);border:1px solid var(--color-border)}
+body .sec-split__content{padding:clamp(28px,4vw,66px)}
+body .sec-headline{font-size:clamp(36px,3.6vw,54px);color:var(--color-text-primary)}
+body .sec-feature{border-color:var(--color-border)}
+body .sec-feature strong{color:var(--color-text-primary);font-weight:500}
+body .sec-feature p{color:var(--color-text-secondary);font-size:16px}
+body .showcase-panel{margin:0 12px 100px;border-radius:20px;min-height:75svh}
+body .client-logos{background:var(--color-bg);border-color:var(--color-border)}
+body :is(.card-feature,.card-testimonial,.package-card,.mixlist-card,.accordion__item){box-shadow:none;border-radius:16px}
+body .footer{background:var(--color-bg);border-color:var(--color-border)}
+body .section-light,body .wizard-section-light{background:#f6f5f0}
+body .section-light .eyebrow{color:#566157}
+body :is(.section-light,.wizard-section-light) .btn-primary{background:#1d3025;color:#fff}
+body :is(.section-light,.wizard-section-light) .btn-outline{color:#1d3025;border-color:#1d302540;background:transparent}
+body .section-light :is(h2 em,h3 em),body .wizard-section-light h2 em{color:#526342!important;background:none!important;-webkit-text-fill-color:currentColor!important}
+body .sticky-pill{border-radius:14px;background:#19291f;color:#fff;border-color:#ffffff30}
+body .sticky-pill__cta{background:#efefe8;color:#19291f}
+@media(prefers-color-scheme:light){
+:root{color-scheme:light;--color-bg:#f6f5f0;--color-surface-1:#eaece4;--color-surface-2:#e2e7dd;--color-surface-3:#dbe3d5;--color-text-primary:#17211b;--color-text-secondary:#566157;--color-text-tertiary:#566157;--color-text-ghost:#657165;--color-gold:#526342;--color-gold-light:#526342;--color-gold-dark:#354731;--color-border:#17211b29;--color-border-strong:#17211b40}
+html,body{background:#f6f5f0;color:#17211b}
+body .nav.nav--scrolled,body .nav.nav--open{background:#f6f5f0f2;color:#17211b}
+body .nav:is(.nav--scrolled,.nav--open) :is(.nav__link,.nav__phone){color:#17211b}
+body .nav:is(.nav--scrolled,.nav--open) .ak-mark,body .footer .ak-mark{filter:none}
+body .nav:is(.nav--scrolled,.nav--open) .nav__hamburger-line{background:#17211b}
+body .nav.nav--open .nav__links{background:#f6f5f0}
+body :is(.section:not(.wizard-section),.footer) :is(h2,h3,p,li,strong,.eyebrow,[style*="color:"]){color:var(--color-text-primary)!important}
+body :is(.section:not(.wizard-section)) em{-webkit-text-fill-color:currentColor!important}
+body .btn-primary{background:#1d3025;color:#fff}
+body :is(.sec-split,.section:not(.wizard-section)) .btn-pill{background:transparent;color:#17211b;border-color:#17211b40}
+body .client-logos img{filter:brightness(0);opacity:.7}
+body .client-logos__item--text{color:#17211b}
+body .testimonials-section{background:#eaece4}
+}
+@media(max-width:1100px){body .nav__links{gap:15px}body .nav__phone{display:none}body .hero .hero__content{gap:5vw;grid-template-columns:1.2fr .9fr}body .hero .hero__headline{font-size:clamp(52px,6.4vw,74px)}}
+@media(max-width:800px){body .nav{height:76px}body .nav__inner{padding-inline:6vw}body .hero{height:auto;max-height:none;min-height:100svh;padding:140px 0 60px}body .hero .hero__content{grid-template-columns:1fr;gap:38px}body .hero .hero__headline{font-size:clamp(44px,8.5vw,66px);letter-spacing:-.055em}body .hero__plan-card{padding:26px 24px;max-width:540px}body .hero__plan-card .hero__subheadline{font-size:17px;line-height:1.6}body .sec-split{margin:0 5vw 64px}body .sec-premise{padding:72px 6vw}body .showcase-panel{margin-bottom:64px}body .trust-bar__label{font-size:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body .hero__video{display:none}body .hero{background:#111c15 url('https://360.barsys.com/assets/hero-hd.jpg') center/cover}body .anim-fade-up,body .anim-fade-in{opacity:1;transform:none;animation:none}}
+body .hero .hero__headline span{display:block;color:#d3dcd4!important}
+body .nav:not(.nav--scrolled):not(.nav--open) .nav__phone{color:#f7f7ef}
+body .nav:not(.nav--scrolled):not(.nav--open) .nav__hamburger-line{background:#f7f7ef}
+body .nav .btn-primary{background:#efefe8;color:#17211b}
+@media(max-width:900px){body .nav__links{top:76px!important;background:#111714!important}body .nav.nav--open .nav__link{color:#f2f0e9!important}}
+@media(max-width:900px) and (prefers-color-scheme:light){body .nav.nav--open .nav__links{background:#f6f5f0!important}body .nav.nav--open .nav__link{color:#17211b!important;border-color:#17211b29!important}}
+@media(max-width:700px){body section[aria-labelledby="how-it-works-headline"] .container>div[style*="grid"]{grid-template-columns:1fr!important;gap:32px}body section[aria-labelledby="how-it-works-headline"] .container>div[style*="grid"]>div{padding:0!important;border:0!important}}
+body .mixlist-modal__panel{background:var(--color-bg);color:var(--color-text-primary)}
+body .mixlist-modal__close{background:var(--color-surface-1);color:var(--color-text-primary);border-color:var(--color-border)}
+body .recipe-card{background:var(--color-surface-1);border-color:var(--color-border)}
+body .recipe-card__ingredients{font-size:14px}
+@media(prefers-color-scheme:light){body .section:not(.wizard-section){background:#f6f5f0!important}body .card-feature{background:#eaece4;border-color:#17211b29}body .social-proof-toast{background:#f6f5f0;color:#17211b}}
