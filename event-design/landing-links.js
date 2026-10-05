@@ -1,0 +1,1 @@
+(()=>{const routes={book:'plan.html',mixlists:'mixlists.html',faq:'faq.html','video-showcase':'experiences.html','why-barsys-headline':'experiences.html#office'};function route(){const dest=routes[location.hash.slice(1)];if(dest)location.replace(dest+(!dest.includes('#')?location.search:''))}route();addEventListener('hashchange',route)})();

@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/jakarta-0.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/jakarta-1.ttf) format('truetype');
+}
+
+.nav.brand-header,.planner-redesign .nav.brand-header{position:fixed!important;top:12px!important;left:12px!important;right:12px!important;transform:none!important;width:calc(100% - 24px)!important;max-width:none;margin:0;height:74px!important;padding:0 5%!important;display:flex;justify-content:space-between;gap:35px;border:1px solid transparent;border-radius:0!important;box-shadow:none;background:#0b100dee!important;backdrop-filter:blur(18px);z-index:60;font-family:'Plus Jakarta Sans',Arial,sans-serif;font-weight:300}
+body[data-page=index] .nav.brand-header:not(.scrolled):not(:has(.is-open)){background:transparent!important;backdrop-filter:none;border-color:transparent}
+.nav.brand-header .wordmark{flex:0 0 160px}.nav.brand-header .wordmark img{width:35px;height:35px;max-height:none;object-fit:contain;filter:invert(1)}
+.nav.brand-header nav{position:static;display:flex;gap:28px;padding:0;background:none;border:0;flex-direction:row}.nav.brand-header nav a{font-family:inherit;font-size:14px;font-weight:300;line-height:21px;padding:14px 0;color:#f0f0e9}.nav.brand-header nav a:after{display:none}.nav.brand-header nav a:hover{opacity:.65}.nav.brand-header .header-tools{display:flex;align-items:center;gap:14px;flex:0 0 160px;justify-content:end}.nav.brand-header .nav-cta{font-family:inherit;background:none!important;border:0;padding:10px 0!important;font-size:12px!important;font-weight:300;color:#f0f0e9;white-space:nowrap}.nav-cta span{margin-left:7px}.nav.brand-header .menu-toggle{display:grid;place-items:center;width:44px;height:44px;padding:0;margin:0;border:0;background:#ffffff04;border-radius:50%;color:#f0f0e9}.nav.brand-header .menu-toggle:hover{background:#ffffff0c}.nav.brand-header .drawer-only{display:none}.nav.brand-header:has(.is-open){background:#0c110ff5!important;backdrop-filter:blur(24px)}
+.nav.brand-header nav.is-open{position:absolute;top:73px;left:-1px;right:-1px;display:flex;flex-direction:column;gap:0;align-items:start;padding:35px 5% 45px;background:#0c110ff5;border-bottom:1px solid #ffffff18}.nav.brand-header nav.is-open a{font-size:clamp(24px,3vw,40px);line-height:1.3;padding:12px 0;display:block}.nav.brand-header .menu-toggle[aria-expanded=true] svg{transform:rotate(90deg);transition:transform 240ms}
+body:not([data-page=index]){padding-top:86px}.planner-redesign #proposal{padding-top:65px!important}
+@media(max-width:800px){.nav.brand-header,.planner-redesign .nav.brand-header{top:6px!important;left:6px!important;right:6px!important;width:calc(100% - 12px)!important;height:64px!important;padding:0 5%!important;gap:15px}.nav.brand-header .wordmark{flex:1}.nav.brand-header .wordmark img{width:30px;height:30px}.nav.brand-header nav{display:none}.nav.brand-header .header-tools{flex:0 0 auto;gap:14px}.nav.brand-header nav.is-open{top:63px;padding:24px 5% 35px}.nav.brand-header nav.is-open a{font-size:28px}.nav.brand-header .nav-cta{font-size:11px!important}.nav.brand-header .menu-toggle{width:40px;height:40px}body:not([data-page=index]){padding-top:70px}.planner-redesign #proposal{padding-top:35px!important}}
+/* Experience mode: calm surfaces, soft edges, consistent proportions. */
+:root{--radius-control:12px;--radius-surface:20px;--radius-header:18px}
+.nav.brand-header,.planner-redesign .nav.brand-header{border-radius:var(--radius-header)!important;border:0;transition:background 280ms ease,box-shadow 280ms ease}
+.nav.brand-header.scrolled{box-shadow:0 8px 28px #0002}
+.nav.brand-header:has(.is-open){border-radius:var(--radius-header) var(--radius-header) 0 0!important}
+.nav.brand-header nav.is-open{border:0;left:0;right:0;top:74px;border-radius:0 0 var(--radius-header) var(--radius-header);padding-bottom:36px;box-shadow:0 18px 30px #0002}
+.button,.close-dialog,.planner-redesign #proposal .button,.planner-redesign #next-card,.planner-redesign #proposal .customize-link{border-radius:var(--radius-control)!important}
+.scene-selector,.scene-selector button,.motion-pill,.guest-control,.stepper,.collection-tools,.filters button,.search-label input{border-radius:var(--radius-control)}
+.scene-selector{padding:5px;border:0;background:#111814bb}.scene-selector button{border-radius:9px}.motion-pill{border:0}
+.split-feature,.immersive-chapter,.wide-photo,.heading-orbit,.editorial-card img,.gallery-grid img,.film-tile,.price-card,.own-bar,.closing,.faq-layout details,.faq-layout>div:first-child,dialog,dialog video,.collection-detail-grid>img{border-radius:var(--radius-surface)}
+.price-card{border:0!important}.price-card.featured{background:#20291f}.faq-layout details{border:0}.wide-photo .caption,.feature-foot{border-radius:var(--radius-control)}
+.planner-redesign #flashcard,.planner-redesign dialog,.planner-redesign #proposal .choice,.planner-redesign #proposal .addon-card,.planner-redesign #proposal .addon-option{border-radius:var(--radius-surface)!important}
+.planner-redesign #step-nav,.planner-redesign #proposal .stepper,.planner-redesign #proposal input:not([type=checkbox]):not([type=radio]),.planner-redesign #proposal select,.planner-redesign #proposal textarea,.planner-redesign #proposal .presets button{border-radius:var(--radius-control)!important}
+@media(max-width:800px){:root{--radius-surface:16px;--radius-header:16px}.nav.brand-header nav.is-open{top:64px}.scene-selector button{border-radius:9px}}
+@media(prefers-reduced-motion:reduce){.nav.brand-header{transition:none}}
