@@ -11,6 +11,7 @@
     if (toggle.getAttribute('aria-expanded') === 'true') toggle.click();
   }));
   const film = document.getElementById('film');
+  if (!film) return;
   const movie = film.querySelector('video');
   document.querySelectorAll('[data-film]').forEach(button => button.addEventListener('click', () => {
     movie.src = button.dataset.film;
@@ -20,7 +21,9 @@
   film.querySelector('.close-dialog').addEventListener('click', () => film.close());
   film.addEventListener('click', event => { if (event.target === film) film.close(); });
   film.addEventListener('close', () => { movie.pause(); movie.removeAttribute('src'); movie.load(); });
-  document.querySelector('.event-starter').addEventListener('submit', event => {
+  const starter = document.querySelector('.event-starter');
+  if (!starter) return;
+  starter.addEventListener('submit', event => {
     event.preventDefault();
     const count = document.getElementById('wiz-guest-count');
     count.value = document.getElementById('quick-guests').value;

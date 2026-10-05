@@ -1,0 +1,33 @@
+/* Phone fixes for the original-design pages (neighborhoods, shop, private events, blog). 2026-10-05 */
+
+/* Decorative glows and the off-canvas menu must not widen the page. */
+html,body{overflow-x:hidden;overflow-x:clip}
+
+/* Header: solid bar so content doesn't scroll through it, and a logo that keeps its shape. */
+/* No backdrop-filter here: it would trap the fixed mobile menu inside the header. */
+.nav{background:rgba(10,10,10,.97)}
+.nav__logo-wrap,.nav__logo{flex-shrink:0}
+.nav__logo-wrap img,.nav__logo-mark{max-width:none!important;object-fit:contain}
+
+@media (max-width:480px){
+  .nav__logo-wrap img,.nav__logo-mark{height:28px!important;width:auto!important}
+  .nav__phone,.nav__inner a[href="/private-events"]{display:none!important}
+  .nav__actions .btn--sm{padding-inline:14px}
+}
+
+/* Blog: breadcrumb sat underneath the fixed header. */
+nav[aria-label="Breadcrumb"]:not(.breadcrumb){padding-top:calc(var(--nav-height,72px) + 16px)!important}
+
+/* Private events: the 3-step "how it works" grid squeezed into 87px columns. */
+@media (max-width:700px){
+  [style*="grid-template-columns:repeat(3,1fr); gap:64px"]{grid-template-columns:1fr!important;gap:36px!important}
+}
+
+/* Private events: faint labels on light cards and dark review cards. */
+.pe-mixcard__label,.pe-mixcard__cta,.pe-wiz__pkg-badge{color:#80632a!important}
+.pe-wiz__progress-label{color:rgba(10,10,10,.62)!important}
+.client-logos__label{color:rgba(10,10,10,.62)!important}
+[style*="color:rgba(255,255,255,0.30)"],[style*="color:rgba(255,255,255,0.28)"]{color:rgba(255,255,255,.62)!important}
+
+/* Shop: its script toggles .nav__links--open, but the page CSS only opened the menu for .nav--open. */
+.nav__links.nav__links--open{transform:translateY(0)!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
