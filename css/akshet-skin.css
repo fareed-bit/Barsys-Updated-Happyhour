@@ -136,3 +136,31 @@ body .mixlist-modal__close{background:var(--color-surface-1);color:var(--color-t
 body .recipe-card{background:var(--color-surface-1);border-color:var(--color-border)}
 body .recipe-card__ingredients{font-size:14px}
 @media(prefers-color-scheme:light){body .section:not(.wizard-section){background:#f6f5f0!important}body .card-feature{background:#eaece4;border-color:#17211b29}body .social-proof-toast{background:#f6f5f0;color:#17211b}}
+
+/* Planner wizard sits on light cards: give it light-theme tokens so text stays readable (2026-10-05). */
+body .wizard-section-light{--color-text-primary:#17211b;--color-text-secondary:#4a544b;--color-text-tertiary:#566157;--color-text-ghost:#5c665d;--color-gold:#7d5f24;--color-gold-light:#7d5f24;--color-gold-dark:#6a501d;--color-gold-border:#7d5f2466;--color-border:#17211b24;--color-border-strong:#17211b40;color:#17211b}
+body .wizard-section-light :is(.eyebrow,.wizard__micro,.package-card__price-note,.package-card__section-label,.pricing-toggle__label,.wizard__summary-micro){color:#566157!important}
+body .wizard-section-light .wizard__summary-value--empty{color:#8a918a!important}
+body .wizard-section-light :is(.wizard__step-label,.wizard__summary-panel-title,.package-card__tier,.package-card__details-toggle,.check){color:#7d5f24!important;opacity:1!important}
+body .wizard-section-light .wizard__start-list span{color:#4a544b!important}
+body .wizard-section-light .wizard__start-list span::before{color:#7d5f24}
+body .wizard-section-light .wizard a[href^="mailto"]{color:#7d5f24!important}
+body .wizard-section-light .package-card__price span{color:#566157!important}
+body .wizard-section-light .wizard__summary-label{color:#566157!important}
+body .wizard-section-light .wizard__guest-btn{border-color:#17211b2e;background:#fff;color:#17211b}
+body .wizard-section-light .wizard__guest-btn:hover{border-color:#7d5f24;background:#7d5f2412}
+body .wizard-section-light .wizard__guest-number{color:#17211b;border-color:#17211b33!important}
+body .wizard-section-light .wizard__guest-hint{color:#566157!important}
+body .wizard-section-light .wizard__mixlist-option{border-color:#17211b24;background:#fff}
+body .wizard-section-light .wizard__mixlist-option.selected{border-color:#7d5f24;background:#7d5f2410}
+body .wizard-section-light .wizard__mixlist-drink{border-bottom-color:#17211b14}
+body .wizard-section-light .wizard__mixlist-counter{color:#7d5f24;border-color:#7d5f2440}
+body .wizard-section-light .wizard__mixlist-counter :is(strong,span){color:inherit!important}
+body .wizard-section-light .wizard__addon{border-color:#17211b24;background:#fff}
+body .wizard-section-light .wizard__addon.selected{border-color:#7d5f24;background:#7d5f2410}
+body .wizard-section-light .wizard__addon-name{color:#17211b}
+body .wizard-section-light .wizard__addon-desc{color:#566157}
+body .wizard-section-light :is(.wizard__success-icon,.wizard__success-title){color:#17211b}
+body .wizard-section-light .wizard__success-body{color:#4a544b}
+body .wizard-section-light .package-card__list li .check{color:#7d5f24!important}
+body .wizard-section-light .urgency-banner,body .wizard-section-light .urgency-banner *{color:#6a501d!important}
