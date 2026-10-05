@@ -1,0 +1,1 @@
+(()=>{const root=document.documentElement,system=matchMedia('(prefers-color-scheme: dark)');function apply(){root.dataset.theme=system.matches?'dark':'light';root.style.colorScheme=root.dataset.theme}try{localStorage.removeItem('barsys-appearance')}catch{}apply();system.addEventListener('change',apply)})();

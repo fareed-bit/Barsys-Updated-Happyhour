@@ -1,0 +1,74 @@
+/* Keep the imported design isolated from the existing booking components. */
+.reference-ui{font-family:"Schibsted Grotesk",Arial,sans-serif;font-size:16px;line-height:1.6;color:var(--text)}
+.reference-ui .hero.cinema-hero{padding:0;display:flex;width:100%;border:0;overflow:hidden}
+.reference-ui .hero.cinema-hero h1{color:#f7f7ef;text-transform:none}
+.reference-ui .hero.cinema-hero .hero-description{color:#efefe8}
+.reference-ui .hero.cinema-hero .hero-copy{margin:0;text-align:left}
+.reference-ui .hero.cinema-hero .eyebrow{display:flex;align-items:center}
+.reference-ui .hero.cinema-hero .hero-copy .eyebrow{font-size:12px}
+.reference-ui .hero.cinema-hero .quick-plan .eyebrow{display:block}
+.reference-ui .hero.cinema-hero .quick-plan{font-size:16px}
+.reference-ui .hero.cinema-hero .quick-plan h2{color:#17211b}
+.reference-ui .hero.cinema-hero .quick-plan .quick-heading>p{font-size:15px}
+.reference-ui .hero.cinema-hero .quick-plan .quick-note{font-size:12px}
+.reference-ui .brand-header .nav-cta{color:#f7f7ef}
+.reference-ui .brand-header .menu-toggle{cursor:pointer}
+.reference-ui .cinema-intro{margin-top:0}
+.reference-ui .cinema-intro h2{max-width:760px}
+.reference-ui .home-feature .feature-copy{padding:54px 8%}
+.reference-ui .home-feature .feature-copy h2{font-size:clamp(34px,3.7vw,54px)}
+.reference-ui .sec-features{margin:22px 0}
+.reference-ui .sec-feature{display:flex;gap:16px;padding:15px 0;border-bottom:1px solid var(--line)}
+.reference-ui .sec-feature strong{font:500 16px var(--sans);color:var(--text)}
+.reference-ui .sec-feature p{font:400 15px/1.65 var(--sans);color:var(--muted);margin:8px 0 0}
+.reference-ui .sec-feat-num{font:12px var(--sans);color:var(--muted);padding-top:3px}
+.reference-ui .hero.cinema-hero .hero-description{max-width:450px;font-size:17px}
+.reference-ui .hero.cinema-hero h1{font-size:clamp(64px,6.5vw,96px)}
+.reference-ui #film{position:fixed;inset:0;margin:auto;width:min(900px,92vw);max-height:90svh;overflow:auto;color:var(--text);background:var(--panel);border:1px solid var(--line);padding:24px;z-index:9999}
+.reference-ui #film:not([open]){display:none}
+.reference-ui #film video{width:100%;max-height:70svh}
+.reference-ui #film::backdrop{background:#000b;backdrop-filter:blur(8px)}
+.reference-ui #film .close-dialog{margin-bottom:15px}
+.reference-ui :focus-visible{outline:2px solid currentColor;outline-offset:5px}
+body #book{scroll-margin-top:100px}
+@media(max-width:800px){
+.reference-ui .hero.cinema-hero{height:auto;min-height:0;max-height:none;padding-bottom:26px}
+.reference-ui .hero.cinema-hero .hero-copy{padding-top:122px}
+.reference-ui .hero.cinema-hero h1{font-size:clamp(48px,10vw,68px)}
+.reference-ui .hero.cinema-hero .hero-description{font-size:16px;max-width:450px}
+.reference-ui .hero.cinema-hero .cinema-bottom{position:relative;left:auto;right:auto;bottom:auto;padding:24px 7% 0;gap:16px;flex-wrap:wrap}
+.reference-ui .hero.cinema-hero .motion-pill{position:static}
+.reference-ui .hero.cinema-hero .scene-selector{display:flex;flex-wrap:wrap;justify-content:flex-start}
+.reference-ui .hero.cinema-hero .scene-selector button{font-size:12px}
+.reference-ui .home-feature .feature-copy{padding:38px 7%}
+}
+@media(prefers-reduced-motion:reduce){.reference-ui .hero.cinema-hero{background:#111c15}.reference-ui .scene-center video{display:block}}
+/* Carry the reference's editorial spacing through the retained sections. */
+body .client-reference{padding:72px 6%;overflow:visible}
+body .client-reference .client-logos__label{font:400 38px/1.2 var(--ak-display);letter-spacing:-.04em;text-transform:none;text-align:left;margin-bottom:36px;color:var(--color-text-primary)}
+body .client-reference .client-logos__track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%;gap:0;animation:none;transform:none;white-space:normal}
+body .client-reference .client-logos__track>div{height:100px;min-width:0;width:auto;display:flex;align-items:center;justify-content:center;padding:20px;border-bottom:1px solid var(--color-border)}
+body .client-reference .client-logos__track img{max-width:130px;max-height:38px;object-fit:contain}
+body .client-reference::before,body .client-reference::after{display:none}
+body .mixlist-card{border:0;background:transparent!important}
+body .mixlist-card__name{font-family:var(--ak-display);font-size:26px;font-weight:400;letter-spacing:-.04em}
+body .mixlist-card__desc{font-size:16px;line-height:1.6}
+body .mixlist-card img{border-radius:20px}
+body .video-grid__item{border-radius:20px;overflow:hidden}
+body .accordion__item{border-radius:16px;margin-bottom:10px;padding-inline:20px;border:0;background:var(--color-surface-1)}
+body .accordion__question{font-weight:400;font-size:17px}
+body .footer{padding-top:72px}
+@media(max-width:800px){body .client-reference .client-logos__track{grid-template-columns:repeat(3,minmax(0,1fr))}body .client-reference .client-logos__track>div{padding:14px;height:90px;font-size:12px!important}body .client-reference .client-logos__track img{max-width:100%;max-height:32px}body .mixlist-card__name{font-size:23px}}
+@media(max-width:800px){
+.reference-ui .hero.cinema-hero{display:block!important}
+.reference-ui .hero.cinema-hero .hero-copy{position:relative;width:auto;max-width:none;margin:0;padding:130px 7% 32px}
+.reference-ui .hero.cinema-hero .quick-plan{position:relative;top:auto;right:auto;left:auto;bottom:auto;width:auto;max-width:none;transform:none;margin:0 7%;padding:28px 24px}
+.reference-ui .hero.cinema-hero .quick-heading{display:block}
+.reference-ui .hero.cinema-hero .quick-heading h2{font-size:28px}
+.reference-ui .hero.cinema-hero .cinema-bottom{display:flex;width:100%;justify-content:flex-start;align-items:center;padding:24px 7% 0}
+.reference-ui .hero.cinema-hero .scene-selector{width:auto;max-width:100%;gap:0}
+.reference-ui .hero.cinema-hero .scene-selector button{padding:12px 10px}
+.reference-ui .hero.cinema-hero .motion-pill{margin:0}
+}
+/* The reference uses its persistent header for navigation and planning. */
+body .toast-notif,body .sticky-pill,body .sticky-mobile-cta{display:none!important}

@@ -710,7 +710,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" /></noscript>
 
-<link rel="stylesheet" href="css/akshet-skin.css?v=20261002" />
+<link rel="stylesheet" href="css/akshet-skin.css?v=20261005" />
+<link rel="stylesheet" href="event-design/reference.css?v=20261005" />
+<link rel="stylesheet" href="event-design/integration.css?v=20261005" />
+<script src="event-design/appearance.js"></script>
 </head>
 <body>
   <!-- Gold scroll progress bar -->
@@ -722,168 +725,25 @@
   <!-- ========================================================================
        NAV
        ======================================================================== -->
-  <nav class="nav" role="navigation" aria-label="Main navigation">
-    <div class="nav__inner">
-
-      <a href="#home" class="nav__logo" aria-label="Barsys Happy Hour home">
-        <img src="assets/barsys-mark.png" alt="HappyHour by Barsys" class="nav__logo-mark ak-mark" />
-      </a>
-
-      <ul class="nav__links" role="list">
-        <li><a href="#video-showcase" class="nav__link">Experience</a></li>
-        <li><a href="#mixlists" class="nav__link">Mixlists</a></li>
-        <li><a href="shop.html" class="nav__link">Shop</a></li>
-        <li><a href="https://events.barsys.com/#proposal" class="nav__link">Packages</a></li>
-        <li><a href="blog/" class="nav__link">Blog</a></li>
-        <li><a href="/private-events" class="nav__link">Private Events</a></li>
-      </ul>
-
-      <div class="nav__actions">
-        <a href="mailto:fareed@barsys.com" class="nav__phone" aria-label="Contact us">Contact Us</a>
-        <a href="https://events.barsys.com/#proposal" class="btn btn-primary btn--sm">Get a Quote</a>
-        <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
-          <span class="nav__hamburger-line"></span>
-          <span class="nav__hamburger-line"></span>
-          <span class="nav__hamburger-line"></span>
-        </button>
-      </div>
-
-      <!-- <span class="nav__tagline">NYC's #1 managed cocktail experience for teams of 50–250.</span> -->
-
-    </div>
-  </nav>
+  <div class="reference-ui" data-page="index"><header class="nav brand-header"><a class="wordmark" href="https://barsys.com/" aria-label="Barsys main website"><img src="event-design/assets/barsys-header-mark.png" alt="Barsys"></a><nav id="main-nav" aria-label="Main navigation"><a href="#home">Happy Hours</a><a href="#video-showcase" >Experiences</a><a href="https://events.barsys.com/#proposal" >Packages</a><a href="#mixlists" >Mixlists</a><a href="shop.html" >The bar</a><a class="drawer-only" href="blog/">Blog</a><a class="drawer-only" href="/private-events">Private Events</a><a class="drawer-only" href="#faq">FAQs & contact</a><a class="drawer-only" href="#book">Plan an event</a></nav><div class="header-tools"><a class="nav-cta" href="#book">Plan an event <span aria-hidden="true">↗</span></a><button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-nav"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h16"/></svg></button></div></header></div>
 
   <main id="main-content" role="main">
 
   <!-- ========================================================================
        HERO
        ======================================================================== -->
-  <section class="hero" id="home" aria-label="Hero">
-
-    <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="https://360.barsys.com/assets/hero-hd.jpg" aria-hidden="true">
-      <source src="https://360.barsys.com/assets/hero-720.mp4" type="video/mp4">
-      <source src="0312.mp4" type="video/mp4">
-    </video>
-    <div class="hero__overlay" aria-hidden="true"></div>
-
-    <svg class="hero__spark" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M36 4L39.5 28.5L64 32L39.5 35.5L36 60L32.5 35.5L8 32L32.5 28.5L36 4Z" fill="#C8A97E" fill-opacity="0.9"/>
-      <path d="M62 8L63.5 17.5L73 19L63.5 20.5L62 30L60.5 20.5L51 19L60.5 17.5L62 8Z" fill="#C8A97E" fill-opacity="0.50"/>
-    </svg>
-
-    <div class="container hero__content">
-
-      <div class="hero__text-block">
-
-        <h1 class="hero__headline">
-          AI-Powered Corporate<br><em style="font-style:italic; background:linear-gradient(96deg,#FFDDBE 0%,#E0B392 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">Happy Hours</em> <span style="color:rgba(255,255,255,0.50);">in NYC</span>
-        </h1>
-        </div><div class="hero__plan-card"><p class="hero__subheadline">A fully-managed open bar for your NYC office &mdash; unlimited cocktails, professional bartenders, AI machines, and everything from setup to cleanup. From $55 per person.</p>
-
-        <div class="hero__ctas">
-          <a href="https://events.barsys.com/#proposal" class="btn btn-primary btn--lg">Plan Your Happy Hour</a>
-          <a href="https://events.barsys.com/#proposal" class="btn-pill" data-wizard-open="3">View Packages</a>
-        </div>
-        <p style="font-size:12px; color:rgba(255,255,255,0.45); letter-spacing:0.09em; text-transform:uppercase; margin-top:20px;">Open bar &nbsp;&middot;&nbsp; 2 hours &nbsp;&middot;&nbsp; Tip &amp; delivery included</p>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ========================================================================
-       TRUST BAR
-       ======================================================================== -->
-  <div class="trust-bar" role="region" aria-label="Key facts about Barsys">
-    <div class="trust-bar__item anim-fade-up anim-stagger-1">
-      <div class="trust-bar__number">200+</div>
-      <div class="trust-bar__label">NYC Corporate Clients Served</div>
-    </div>
-    <div class="trust-bar__item anim-fade-up anim-stagger-2">
-      <div class="trust-bar__number">50K+</div>
-      <div class="trust-bar__label">Cocktails Served</div>
-    </div>
-    <div class="trust-bar__item anim-fade-up anim-stagger-3">
-      <div class="trust-bar__number">20–250</div>
-      <div class="trust-bar__label">Guests Per Event</div>
-    </div>
-    <div class="trust-bar__item anim-fade-up anim-stagger-4">
-      <div class="trust-bar__number">4.7★</div>
-      <div class="trust-bar__label">Based on 144 Reviews</div>
-    </div>
-  </div>
-
-
-  <!-- ========================================================================
-       CLIENT LOGOS
-       ======================================================================== -->
-  <div class="client-logos anim-fade-up">
-    <div class="client-logos__label">Trusted By</div>
-    <!-- Track: logos duplicated for seamless infinite scroll -->
-    <div class="client-logos__track" aria-hidden="true">
-      <!-- Set 1 -->
-      <div class="client-logos__item--text" style="font-size:21px; letter-spacing:0.06em; font-weight:700;">NETFLIX</div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-2.png" alt="CBS News" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item--text" style="font-weight:300; letter-spacing:0.2em; font-size:15px;">WILHELMINA</div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-12.png" alt="Robb Report" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item--text" style="font-weight:800; letter-spacing:0.04em; font-size:18px;">FLYHOUSE</div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-8.png" alt="Gear Patrol" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item--text" style="font-weight:400; letter-spacing:0.16em; font-size:13px;">GIRLS GIRLS CLUB</div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-9.png" alt="HiConsumption" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item--text" style="font-weight:300; letter-spacing:0.22em; font-size:14px;">SUN MOUNTAIN</div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-1.png" alt="BuzzFeed" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-10.png" alt="Inside Hook" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-11.png" alt="Men's Gear" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-6.png" alt="Food Beast" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item--text" style="font-weight:700; letter-spacing:0.08em; font-size:13px;">DATADOME</div>
-      <div class="client-logos__item--text" style="font-weight:800; letter-spacing:0.01em; font-size:18px;">MongoDB</div>
-      <!-- Set 2 (duplicate for seamless loop) -->
-      <div class="client-logos__item--text" style="font-size:21px; letter-spacing:0.06em; font-weight:700;">NETFLIX</div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-2.png" alt="CBS News" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item--text" style="font-weight:300; letter-spacing:0.2em; font-size:15px;">WILHELMINA</div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-12.png" alt="Robb Report" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item--text" style="font-weight:800; letter-spacing:0.04em; font-size:18px;">FLYHOUSE</div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-8.png" alt="Gear Patrol" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item--text" style="font-weight:400; letter-spacing:0.16em; font-size:13px;">GIRLS GIRLS CLUB</div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-9.png" alt="HiConsumption" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item--text" style="font-weight:300; letter-spacing:0.22em; font-size:14px;">SUN MOUNTAIN</div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-1.png" alt="BuzzFeed" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-10.png" alt="Inside Hook" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-11.png" alt="Men's Gear" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-6.png" alt="Food Beast" loading="lazy" width="120" height="40" /></div>
-      <div class="client-logos__item--text" style="font-weight:700; letter-spacing:0.08em; font-size:13px;">DATADOME</div>
-      <div class="client-logos__item--text" style="font-weight:800; letter-spacing:0.01em; font-size:18px;">MongoDB</div>
-    </div>
-  </div>
+  <div class="reference-ui" data-page="index"><section class="hero cinema-hero" id="home" aria-label="The Barsys evening"><div class="cinema-scenes" aria-hidden="true"><div class="scene-center"><video id="scene-video" muted loop playsinline preload="auto" poster="event-design/assets/curated/posters/nyc-event.jpg" data-ambient="event-design/assets/curated/loops/nyc-event.mp4"></video></div></div><div class="cinema-vignette"></div><div class="hero-copy"><p class="eyebrow"><span class="little-line"></span> AI-POWERED CORPORATE <span class="little-line"></span></p><h1>Happy Hours<br>in NYC.</h1><p class="hero-description">A fully-managed open bar for your NYC office — unlimited cocktails, professional bartenders, AI machines, and everything from setup to cleanup. From $55 per person.</p><div class="actions"><a class="button" href="#book">Build your event</a><button class="text-button" data-film="event-design/assets/curated/films/nyc-event.mp4"><span class="play">▷</span> See it happen</button></div></div><section class="quick-plan wrap" aria-labelledby="quick-title"><div class="quick-heading"><div><p class="eyebrow">FROM AN IDEA TO A PLAN</p><h2 id="quick-title">Plan your happy hour.</h2></div><p>A starting price. A few simple choices.</p></div><form action="#book" method="get" class="event-starter"><label><span>Your guest count</span><select name="guests" id="quick-guests"><option value="25">25 guests</option><option value="50" selected>50 guests</option><option value="75">75 guests</option><option value="100">100 guests</option><option value="150">150 guests</option><option value="250">250 guests</option></select></label><label><span>Your starting package</span><select name="tier" id="quick-tier"><option value="classic">Classic · $55 / guest</option><option value="signature">Signature · $85 / guest</option><option value="reserve">Reserve · $225 / guest</option></select></label><div class="quick-estimate"><span>Package estimate</span><output id="quick-total" aria-live="polite">$2,750</output></div><button class="button" type="submit">Make a plan <span aria-hidden="true">↗</span></button></form><p class="quick-note">Open bar · 2 hours · Tip &amp; delivery included. Final pricing confirmed after consultation.</p></section><div class="cinema-bottom"><div class="scene-selector" role="group" aria-label="Explore event scenes"><button data-scene="nyc" aria-pressed="true"><span>01</span> In good company</button><button data-scene="rooftop" aria-pressed="false"><span>02</span> Above the city</button><button data-scene="office" aria-pressed="false"><span>03</span> After hours</button></div><button id="motion-control" class="motion-pill" aria-pressed="false" aria-label="Pause ambient films">Ⅱ <span>Pause motion</span></button></div><span class="hero-location">NEW YORK CITY · COCKTAIL & MOCKTAIL EXPERIENCES</span></section><div class="wrap occasion-strip"><div class="occasion-links"><a href="#why-barsys-headline">Bring the team together <span>↗</span></a><a href="#video-showcase">Make a celebration yours <span>↗</span></a><a href="shop.html">See how the bar works <span>↗</span></a></div></div></div>
 
 
   <!-- ========================================================================
        PREMISE — Big statement (360-style "bottleneck" section)
        ======================================================================== -->
-  <section class="sec-premise anim-fade-up">
-    <p class="premise-kicker">NYC'S CORPORATE BAR SERVICE</p>
-    <h2 class="premise-headline">
-      The work event<br>your team will actually<br>
-      <span class="premise-dim">look forward to.</span>
-    </h2>
-    <p class="premise-sub">Every cocktail. Every detail. <em>Handled.</em></p>
-  </section>
+  <div class="reference-ui" data-page="index"><section class="intro wrap cinema-intro"><p class="eyebrow">NYC'S CORPORATE BAR SERVICE</p><div><h2>The work event your team will actually<br><em>look forward to.</em></h2><p>Every cocktail. Every detail. Handled.</p><a class="underlink" href="#video-showcase">Discover the experience</a></div></section></div>
 
   <!-- ========================================================================
        01 — THE EXPERIENCE (360-style split: photo left / features right)
        ======================================================================== -->
-  <section class="sec-split sec-experience" aria-labelledby="why-barsys-headline">
-    <div class="sec-split__media anim-fade-in">
-      <img src="photos/experience-event.jpg" alt="Barsys corporate happy hour — guests at the bar with AI machine" loading="lazy" />
-    </div>
-    <div class="sec-split__content">
-      <p class="sec-kick"><span class="sec-no">01 —</span>The Experience</p>
-      <h2 class="sec-headline" id="why-barsys-headline">
-        NYC's All-Inclusive<br>Corporate <em>Happy Hour</em><br>
-        <span class="sec-dim">Service.</span>
-      </h2>
-      <div class="sec-features">
+  <div class="reference-ui" data-page="index"><section class="split-feature home-feature" id="why-barsys-headline"><div class="feature-image"><img class="" src="event-design/assets/curated/photos/officeReaction.webp" alt="Guests reacting around an illuminated Barsys machine at the BuzzFeed office happy hour." loading="lazy"></div><div class="feature-copy"><p class="eyebrow">01 — THE EXPERIENCE</p><h2>NYC’s all-inclusive<br><em>corporate happy hour.</em></h2><div class="sec-features">
         <div class="sec-feature">
           <span class="sec-feat-num">01</span>
           <div>
@@ -906,25 +766,12 @@
           </div>
         </div>
       </div>
-      <div class="sec-ctas">
-        <a href="https://events.barsys.com/#proposal" class="btn btn-primary">Get a Custom Quote</a>
-        <a href="https://events.barsys.com/#proposal" class="btn-pill" data-wizard-open="3">Explore Packages</a>
-      </div>
-    </div>
-  </section>
+      <a class="underlink" href="#book">Plan Your Happy Hour</a><div class="feature-foot"><span>Two hours of service</span><span>From $55 per guest</span></div></div></section></div>
 
   <!-- ========================================================================
        ROLEX-STYLE FULL-BLEED SHOWCASE PANEL
        ======================================================================== -->
-  <section class="showcase-panel" aria-label="The Barsys cocktail experience">
-    <div class="showcase-panel__bg" style="background-image: url('photos/showcase-event.jpg'); background-position: center 30%;"></div>
-    <div class="showcase-panel__overlay"></div>
-    <div class="showcase-panel__content anim-fade-up">
-      <div class="showcase-panel__eyebrow">02 &mdash; THE BARSYS EXPERIENCE</div>
-      <h2 class="showcase-panel__headline">Every great event<br>starts with the<br><em style="font-style:italic; color:rgba(255,255,255,0.48);">right pour.</em></h2>
-      <a href="https://events.barsys.com/#proposal" class="showcase-panel__cta">Plan Your Event</a>
-    </div>
-  </section>
+  <div class="reference-ui" data-page="index"><section class="immersive-chapter"><div class="chapter-video"><video aria-hidden="true" muted loop playsinline preload="none" poster="event-design/assets/curated/posters/rooftop-pour.jpg" data-ambient="event-design/assets/curated/loops/rooftop-pour.mp4"></video></div><div class="chapter-copy"><p class="eyebrow">THE BARSYS EXPERIENCE</p><h2>Every great event<br>starts with the<br><em>right pour.</em></h2><a href="https://events.barsys.com/#proposal" class="button glass-button">Plan Your Event</a></div><span class="chapter-caption">A BARSYS ROOFTOP EVENING · NEW YORK CITY</span></section></div>
 
   <!-- ========================================================================
        HOW IT WORKS — 3-Step Process
@@ -971,10 +818,10 @@
   <!-- ========================================================================
        03 — THE MACHINE (360-style split: content left / photo right)
        ======================================================================== -->
-  <section class="sec-split sec-split--reverse sec-machine">
-    <div class="sec-split__content">
-      <p class="sec-kick"><span class="sec-no">03 —</span>The Machine</p>
-      <h2 class="sec-headline">
+  <div class="reference-ui" data-page="index"><section class="split-feature home-feature machine-feature">
+    <div class="feature-copy">
+      <p class="eyebrow"><span class="sec-no">03 —</span>The Machine</p>
+      <h2 >
         It pours in <em>seconds.</em><br>
         <span class="sec-dim">Your guests interact, discover, remember.</span>
       </h2>
@@ -1003,10 +850,10 @@
       </div>
       <a href="shop.html" class="btn-pill">Explore the Barsys 360 →</a>
     </div>
-    <div class="sec-split__media anim-fade-in">
+    <div class="feature-image">
       <img src="photos/machine-rooftop.jpg" alt="Barsys 360 AI cocktail machine on NYC rooftop at dusk" loading="lazy" />
     </div>
-  </section>
+  </section></div>
 
     <!-- ========================================================================
        PLAN YOUR BARSYS EVENT — Wizard with integrated packages
@@ -2010,6 +1857,58 @@
 
 
   <!-- ========================================================================
+       TRUST BAR
+       ======================================================================== -->
+  <div class="trust-bar" role="region" aria-label="Key facts about Barsys">
+    <div class="trust-bar__item anim-fade-up anim-stagger-1">
+      <div class="trust-bar__number">200+</div>
+      <div class="trust-bar__label">NYC Corporate Clients Served</div>
+    </div>
+    <div class="trust-bar__item anim-fade-up anim-stagger-2">
+      <div class="trust-bar__number">50K+</div>
+      <div class="trust-bar__label">Cocktails Served</div>
+    </div>
+    <div class="trust-bar__item anim-fade-up anim-stagger-3">
+      <div class="trust-bar__number">20–250</div>
+      <div class="trust-bar__label">Guests Per Event</div>
+    </div>
+    <div class="trust-bar__item anim-fade-up anim-stagger-4">
+      <div class="trust-bar__number">4.7★</div>
+      <div class="trust-bar__label">Based on 144 Reviews</div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================
+       CLIENT LOGOS
+       ======================================================================== -->
+  <div class="client-logos client-reference anim-fade-up">
+    <div class="client-logos__label">Trusted By</div>
+    <!-- Track: logos duplicated for seamless infinite scroll -->
+    <div class="client-logos__track" aria-hidden="true">
+      <!-- Set 1 -->
+      <div class="client-logos__item--text" style="font-size:21px; letter-spacing:0.06em; font-weight:700;">NETFLIX</div>
+      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-2.png" alt="CBS News" loading="lazy" width="120" height="40" /></div>
+      <div class="client-logos__item--text" style="font-weight:300; letter-spacing:0.2em; font-size:15px;">WILHELMINA</div>
+      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-12.png" alt="Robb Report" loading="lazy" width="120" height="40" /></div>
+      <div class="client-logos__item--text" style="font-weight:800; letter-spacing:0.04em; font-size:18px;">FLYHOUSE</div>
+      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-8.png" alt="Gear Patrol" loading="lazy" width="120" height="40" /></div>
+      <div class="client-logos__item--text" style="font-weight:400; letter-spacing:0.16em; font-size:13px;">GIRLS GIRLS CLUB</div>
+      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-9.png" alt="HiConsumption" loading="lazy" width="120" height="40" /></div>
+      <div class="client-logos__item--text" style="font-weight:300; letter-spacing:0.22em; font-size:14px;">SUN MOUNTAIN</div>
+      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-1.png" alt="BuzzFeed" loading="lazy" width="120" height="40" /></div>
+      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-10.png" alt="Inside Hook" loading="lazy" width="120" height="40" /></div>
+      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-11.png" alt="Men's Gear" loading="lazy" width="120" height="40" /></div>
+      <div class="client-logos__item"><img src="https://media.barsys.com/assets/partners/home-scroll-icon-6.png" alt="Food Beast" loading="lazy" width="120" height="40" /></div>
+      <div class="client-logos__item--text" style="font-weight:700; letter-spacing:0.08em; font-size:13px;">DATADOME</div>
+      <div class="client-logos__item--text" style="font-weight:800; letter-spacing:0.01em; font-size:18px;">MongoDB</div>
+
+    </div>
+  </div>
+
+
+
+  <!-- ========================================================================
        FAQ — 2-column layout (template style)
        ======================================================================== -->
   <section class="section" id="faq" style="padding-block: var(--section-padding); background:var(--color-bg);" aria-labelledby="faq-headline">
@@ -2489,5 +2388,10 @@
       if (wizard) new IntersectionObserver(function(e) { wizardVisible = e[0].isIntersecting; update(); }, { threshold: 0.1 }).observe(wizard);
     })();
   </script>
+<div class="reference-ui"><dialog id="film"><button class="close-dialog" aria-label="Close film">Close</button><video controls playsinline></video><p>From a real Barsys event.</p></dialog></div>
+<script defer src="event-design/interactions.js"></script>
+<script defer src="event-design/cinema.js"></script>
+<script defer src="event-design/brand-header.js"></script>
+<script defer src="event-design/event-utility.js"></script>
 </body>
 </html>
