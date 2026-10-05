@@ -164,3 +164,10 @@ body .wizard-section-light :is(.wizard__success-icon,.wizard__success-title){col
 body .wizard-section-light .wizard__success-body{color:#4a544b}
 body .wizard-section-light .package-card__list li .check{color:#7d5f24!important}
 body .wizard-section-light .urgency-banner,body .wizard-section-light .urgency-banner *{color:#6a501d!important}
+body .wizard-section-light .pricing-toggle__label--active{color:#17211b!important}
+body .wizard-section-light .pricing-toggle__save:not(.visible){display:none}
+body .wizard-section-light .wizard__addon-check{border-color:#17211b4d}
+body .wizard-section-light .wizard__addon.selected .wizard__addon-check-icon::after{color:#fff}
+/* Mobile drawer: fully opaque so page text does not bleed through the menu */
+.reference-ui .nav.brand-header nav.is-open{background:#0c110f!important}
+html[data-theme=light] .reference-ui .nav.brand-header nav.is-open{background:#f6f5f0!important}
